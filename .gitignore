@@ -1,0 +1,17 @@
+.DS_Store
+.idea
+*.log
+tmp/
+
+/target
+/classes
+/checkouts
+/log
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/.nrepl-port
+/.prepl-port
+/.cpcache
+/secrets.edn
