@@ -1,0 +1,33 @@
+{"50_50" {:title "the back yard"
+          :description
+          "As you stand in the back yard, you feel the cool grass beneath your feet and the warmth of the sun on your skin. You notice the sound of birds chirping in the distance, and the gentle rustling of leaves from the trees that surround the yard.
+
+In the center of the yard, there is a firepit made of stacked stones, with blackened wood ashes scattered around it. The firepit seems to have been recently used, as the scent of wood smoke still lingers in the air.
+
+To the east, you can see a wooden porch. To the north, you see a beautifully tended garden. To the west is a glistening pond; you can see a pair of ducks paddling along peacefully.
+
+The back yard is a tranquil and serene space, offering a peaceful escape from the hustle and bustle of everyday life."}
+ "50_51" {:title "the garden"
+          :description
+          "As you step into the garden, you are greeted by a vibrant array of colors and scents. The garden is well-tended and meticulously landscaped, with rows of blooming flowers and bushes. There are benches scattered throughout the garden, inviting you to sit and enjoy the peaceful surroundings.
+
+To the north is the greenhouse, with its glass walls and roof allowing you to see the plants growing inside. It looks as though someone is currently tending to the plants inside.
+
+To the east is a small shed, which appears to be used for storing gardening tools and equipment. You can see some rakes, shovels, and buckets through the small window on the door.
+
+To the south you can see the garden back yard with its firepit.
+
+To the west is a vegetable patch, where rows of lettuce, tomatoes, and other vegetables are growing. You can see some fruits and vegetables that are ready to be harvested.
+
+The garden is a peaceful and tranquil space, filled with the beauty of nature."}
+ "51_50" {:title "the porch"
+          :description "On the porch, the smooth wooden planks creak gently under your weight, welcoming you to this cozy space. Looking west from the porch, you can see the beautiful backyard in all its glory. The porch is elevated just enough to give you a perfect view of the yard, allowing you to observe the vibrant flowers and hear the gentle sounds of nature.
+
+There is a small wooden table in the center of the porch, adorned with a vase of freshly cut flowers that adds a touch of natural beauty to the space. A bench faces the table; it looks inviting.
+
+A door on the east side of the porch opens into the kitchen."}
+ "49_50" {:title "the pond"}
+ "52_50" {:title "the kitchen"}
+ "50_52" {:title "the greenhouse"}
+ "51_51" {:title "the shed"}
+ "49_51" {:title "the vegetable patch"}}

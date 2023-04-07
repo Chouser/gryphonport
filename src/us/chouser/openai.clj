@@ -12,12 +12,27 @@
 (def get-secret
   (partial get (read (PushbackReader. (io/reader "secrets.edn")))))
 
+(defonce *world
+  (atom (read (PushbackReader. (io/reader (io/resource "us/chouser/world.edn"))))))
+
 (defn log-filename [time]
   (io/file "log"
            (-> time
                (.truncatedTo ChronoUnit/SECONDS)
                (.format DateTimeFormatter/ISO_DATE_TIME)
                (str ".edn"))))
+
+(defn format-msgs [msgs]
+  (map (fn [[role & content]]
+         {:role (name role)
+          :content (apply str (flatten content))})
+       msgs))
+
+(defn pprint-msgs [msgs]
+  (run! (fn [[role & content]]
+          (println "==" role)
+          (println (apply str (flatten content))))
+        msgs))
 
 (defn chat [{:keys [body-map msgs] :as request}]
   (let [req (->> (dissoc request :msgs :body-map)
@@ -28,10 +43,7 @@
                              "Authorization" (str "Bearer " (get-secret :openai-key))}
                    :body (json/write-str
                           (merge {:model "gpt-3.5-turbo",
-                                  :messages (map (fn [[role & content]]
-                                                   {:role (name role)
-                                                    :content (apply str content)})
-                                                 msgs)
+                                  :messages (format-msgs msgs)
                                   :temperature 0.7}
                                  body-map))}))
         response (http/request req)]
@@ -40,51 +52,71 @@
         (pprint {:request req
                  :response response})))
     (assoc response
-           :body-map (try (json/read-str (:body response))
+           :body-map (try (json/read-str (:body response) :key-fn keyword)
                           (catch Exception ex nil)))))
 
+(def dirs
+  {:north [0 1]
+   :south [0 -1]
+   :east  [1 0]
+   :west  [-1 0]})
+
+(defn parse-id [id]
+  (->> id (re-matches #"(\d+)_(\d+)") rest (map #(Long/parseLong %))))
+
+(defn apply-id-delta [[x y] [dx dy]]
+  (str (+ x dx) "_" (+ y dy)))
+
+(defn neighbors [id]
+  (let [xy (parse-id id)]
+    (for [[dir dxdy] dirs]
+      [dir (apply-id-delta xy dxdy)])))
+
+(defn format-loc [world id mode]
+  (->> ["location id " id ", " (get-in world [id :title]) ":\n"
+        (for [[dir nid] (neighbors id)]
+          ["  to the " (name dir) ": id " nid ", "
+           (let [title (get-in world [nid :title])]
+             (case mode
+               :user-example (if (zero? (rand-int 2)) "UNKNOWN" title)
+               :assistant (or title "BLOCKED")
+               :user-final (or title "UNKNOWN")))
+           "\n"])]))
+
+(def user-suffix
+  "Invent names for neighbornig UNDEFINED locations and describe this location.")
+
+(defn full-prompt [world id]
+  (concat
+   [[:system "You are an interactive fiction game author, "
+     "describing the scenes and objects of a game."]]
+   (->> (concat (map second (neighbors id))
+                (shuffle (keys world)))
+        (mapcat #(when-let [desc (get-in world [% :description])]
+                   [[:user (format-loc world % :user-example) user-suffix]
+                    [:assistant [(format-loc world % :assistant)
+                                 desc]]]))
+        (take 6)) ;; must be even, at least double the possible neighbors
+   [[:user (format-loc world id :user-final) user-suffix]]))
+
 (comment
-  (chat {:msgs [[:system "You are an interactive fiction game author, "
-                 "describing the scenes and objects of a game."]
-                [:user
-                 "location id 234, the back yard:\n"
-                 "  north: id 254, the garden\n"
-                 "  east: id 864, the porch\n"
-                 "  south: BLOCKED\n"
-                 "  west: id 123, UNDEFINED\n"
-                 "Provide values for UNDEFINED fields and describe the location."]
-                [:assistant
-                 "location id 234, the back yard:\n"
-                 "  west: id 123, the pond\n"
-                 "As you stand in the back yard, you feel the cool grass beneath your feet and the warmth of the sun on your skin. You notice the sound of birds chirping in the distance, and the gentle rustling of leaves from the trees that surround the yard.
+  (pprint-msgs (full-prompt @*world "50_52"))
 
-In the center of the yard, there is a firepit made of stacked stones, with blackened wood ashes scattered around it. The firepit seems to have been recently used, as the scent of wood smoke still lingers in the air.
+  (def resp (chat {:msgs (full-prompt @*world "50_52")}))
 
-To the east, you can see a wooden porch. To the north, you see a beautifully tended garden. To the west is a glistening pond; you can see a pair of ducks paddling along peacefully.
+  (println (-> resp :body-map :choices first :message :content println))
 
-The back yard is a tranquil and serene space, offering a peaceful escape from the hustle and bustle of everyday life."]
-                [:user
-                 "location id 864, the porch:\n"
-                 "  north: id 416, UNDEFINED\n"
-                 "  east: id 589, UNDEFINED\n"
-                 "  south: id 676, UNDEFINED\n"
-                 "  west: id 234, the back yard\n"
-                 "Provide values for UNDEFINED fields and describe the location."]
-                [:assistant
-                 "location id 864, the porch:\n"
-                 "  north: id 416, BLOCKED\n"
-                 "  east: id 589, the kitchen\n"
-                 "  south: id 676, BLOCKED\n"
-                 "On the porch, the smooth wooden planks creak gently under your weight, welcoming you to this cozy space. Looking west from the porch, you can see the beautiful backyard in all its glory. The porch is elevated just enough to give you a perfect view of the yard, allowing you to observe the vibrant flowers and hear the gentle sounds of nature.
-
-There is a small wooden table in the center of the porch, adorned with a vase of freshly cut flowers that adds a touch of natural beauty to the space. A bench faces the table; it looks inviting.
-
-A door on the east side of the porch opens into the kitchen."]
-                [:user
-                 "location id 254, the garden\n"
-                 "  north: id 918, UNDEFINED\n"
-                 "  east: id 198, UNDEFINED\n"
-                 "  south: id 234, the back yard\n"
-                 "  west: id 333, UNDEFINED\n"
-                 "Provide values for UNDEFINED fields and describe the location."]]})
+  {:body-map
+   {:id "chatcmpl-72Yx7TltAdJrm3wFVLApSimonSVAE",
+    :object "chat.completion",
+    :created 1680845369,
+    :model "gpt-3.5-turbo-0301",
+    :usage {:prompt_tokens 1113, :completion_tokens 310, :total_tokens 1423},
+    :choices
+    [{:message
+      {:role "assistant",
+       :content
+       "location id 50_52, the greenhouse:\n  to the north: id 50_53, the propagation room\n  to the south: id 50_51, the garden\n  to the east: id 51_52, the potting station\n  to the west: id 49_52, the storage room\n\nAs you step into the greenhouse, you are surrounded by the lush greenery of various plants, most of which appear to be thriving in the warm and humid environment. The greenhouse is spacious and airy, with glass walls and roof that let in plenty of sunlight.\n\nTo the north is a smaller room that you can see through a glass door. It looks like a propagation room, where young seedlings are nurtured and brought to maturity before being transplanted into the main greenhouse.\n\nTo the east is an area with a large potting station, where plants are potted and repotted as needed. You can see a variety of pots, soil, and gardening tools in this area.\n\nTo the west is a storage room, where gardening supplies are kept. From the glimpse you get through the partially open door, you can see shelves lined with pots, fertilizer, and other gardening essentials.\n\nTo the south is the garden, visible through the glass walls of the greenhouse. The garden's beauty is amplified through the glass walls of the greenhouse, and you can see the flowers and plants swaying gently in the breeze.\n\nThe greenhouse is a peaceful and serene space, filled with the beauty and magic of nature."},
+      :finish_reason "stop",
+      :index 0}]}}
   )
