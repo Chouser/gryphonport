@@ -1,5 +1,6 @@
 (["49_50" {:title "the pond"}]
  ["49_51" {:title "the vegetable patch"}]
+ ["49_52" {:title "the storage room"}]
  ["50_50"
   {:title "the back yard",
    :adjacent
@@ -12,7 +13,11 @@
    {:north "50_52", :east "51_51", :south "50_50", :west "49_51"},
    :description
    "As you step into the garden, you are greeted by a vibrant array of colors and scents. The garden is well-tended and meticulously landscaped, with rows of blooming flowers and bushes. There are benches scattered throughout the garden, inviting you to sit and enjoy the peaceful surroundings.\n\nTo the north is the greenhouse, with its glass walls and roof allowing you to see the plants growing inside. It looks as though someone is currently tending to the plants inside.\n\nTo the east is a small shed, which appears to be used for storing gardening tools and equipment. You can see some rakes, shovels, and buckets through the small window on the door.\n\nTo the south you can see the garden back yard with its firepit.\n\nTo the west is a vegetable patch, where rows of lettuce, tomatoes, and other vegetables are growing. You can see some fruits and vegetables that are ready to be harvested.\n\nThe garden is a peaceful and tranquil space, filled with the beauty of nature."}]
- ["50_52" {:title "the greenhouse"}]
+ ["50_52"
+  {:title "the greenhouse",
+   :description
+   "As you step into the greenhouse, you are surrounded by the lush greenery of various plants, most of which appear to be thriving in the warm and humid environment. The greenhouse is spacious and airy, with glass walls and roof that let in plenty of sunlight.\n\nTo the north is a smaller room that you can see through a glass door. It looks like a propagation room, where young seedlings are nurtured and brought to maturity before being transplanted into the main greenhouse.\n\nTo the east is an area with a large potting station, where plants are potted and repotted as needed. You can see a variety of pots, soil, and gardening tools in this area.\n\nTo the west is a storage room, where gardening supplies are kept. From the glimpse you get through the partially open door, you can see shelves lined with pots, fertilizer, and other gardening essentials.\n\nTo the south is the garden, visible through the glass walls of the greenhouse. The garden's beauty is amplified through the glass walls of the greenhouse, and you can see the flowers and plants swaying gently in the breeze.\n\nThe greenhouse is a peaceful and serene space, filled with the beauty and magic of nature."}]
+ ["50_53" {:title "the propagation room"}]
  ["51_50"
   {:title "the porch",
    :adjacent
@@ -20,4 +25,5 @@
    :description
    "On the porch, the smooth wooden planks creak gently under your weight, welcoming you to this cozy space. Looking west from the porch, you can see the beautiful backyard in all its glory. The porch is elevated just enough to give you a perfect view of the yard, allowing you to observe the vibrant flowers and hear the gentle sounds of nature.\n\nThere is a small wooden table in the center of the porch, adorned with a vase of freshly cut flowers that adds a touch of natural beauty to the space. A bench faces the table; it looks inviting.\n\nA door on the east side of the porch opens into the kitchen."}]
  ["51_51" {:title "the shed"}]
+ ["51_52" {:title "the potting station"}]
  ["52_50" {:title "the kitchen"}])

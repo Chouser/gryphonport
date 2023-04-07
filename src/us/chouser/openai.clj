@@ -105,10 +105,37 @@
         (take 6)) ;; must be even, at least double the possible neighbors
    [[:user (format-loc world id :user-final) user-suffix]]))
 
+(defn parse-content [resp]
+  (let [content (-> resp :body-map :choices first :message :content)
+        [_ id adj desc] (re-matches #"(?s)location id (\w+), [^\n]+:\n((?:  to the [^\n]+\n)+)\s*(.*)"
+                                    content)]
+    (when-not id
+      (throw (ex-info "Parse failed" {})))
+    {:id id
+     :adj (->> (re-seq #"(?m)^  to the (\w+): id (\w+), (.*)" adj)
+               (map (fn [[_ dir nid title]]
+                      {:dir dir :nid nid :title title})))
+     :desc desc}))
+
+(defn merge-world [world id new-loc]
+  (assert (= id (:id new-loc)))
+  (reduce (fn [world {:keys [dir nid title]}]
+            (if-let [old-loc (get world nid)]
+              (do
+                (when-not (= title (:title old-loc))
+                  (println "WARN: title change ignored:"
+                           nid "is" (:title old-loc) "not" title))
+                world)
+              (assoc world nid {:title title})))
+          (assoc-in world [id :description] (:desc new-loc))
+          (:adj new-loc)))
+
 (comment
   (pprint-msgs (full-prompt @*world "50_52"))
 
   (def resp (chat {:msgs (full-prompt @*world "50_52")}))
+
+  (merge-world @*world "50_52" (parse-content resp))
 
   (println (-> resp :body-map :choices first :message :content println))
 
