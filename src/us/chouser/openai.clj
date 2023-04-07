@@ -12,8 +12,14 @@
 (def get-secret
   (partial get (read (PushbackReader. (io/reader "secrets.edn")))))
 
-(defonce *world
-  (atom (read (PushbackReader. (io/reader (io/resource "us/chouser/world.edn"))))))
+(def *world
+  (atom (->> "us/chouser/world.edn" io/resource io/reader PushbackReader.
+             read (into {}))))
+
+(defn write-world []
+  (with-open [w (io/writer (io/resource "us/chouser/world.edn"))]
+    (binding [*out* w]
+      (pprint (sort @*world)))))
 
 (defn log-filename [time]
   (io/file "log"
