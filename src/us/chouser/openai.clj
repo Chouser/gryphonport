@@ -46,37 +46,45 @@
 (comment
   (chat {:msgs [[:system "You are an interactive fiction game author, "
                  "describing the scenes and objects of a game."]
-                [:user "CURRENT SCENE: the back yard\n"
-                 "EXIT NORTH: the garden\n"
-                 "EXIT EAST: the porch\n"
-                 "OBJECTS: firepit, fire poker\n"
-                 "DESCRIBE: the back yard"]
-                [:assistant "As you stand in the back yard, you feel the cool grass beneath your feet and the warmth of the sun on your skin. You notice the sound of birds chirping in the distance, and the gentle rustling of leaves from the trees that surround the yard.
+                [:user
+                 "location id 234, the back yard:\n"
+                 "  north: id 254, the garden\n"
+                 "  east: id 864, the porch\n"
+                 "  south: BLOCKED\n"
+                 "  west: id 123, UNDEFINED\n"
+                 "Provide values for UNDEFINED fields and describe the location."]
+                [:assistant
+                 "location id 234, the back yard:\n"
+                 "  west: id 123, the pond\n"
+                 "As you stand in the back yard, you feel the cool grass beneath your feet and the warmth of the sun on your skin. You notice the sound of birds chirping in the distance, and the gentle rustling of leaves from the trees that surround the yard.
 
-In the center of the yard, there is a firepit made of stacked stones, with blackened wood ashes scattered around it. You can see the glint of a fire poker leaning against the side of the pit, still warm from its previous use. The firepit seems to have been recently used, as the scent of wood smoke still lingers in the air.
+In the center of the yard, there is a firepit made of stacked stones, with blackened wood ashes scattered around it. The firepit seems to have been recently used, as the scent of wood smoke still lingers in the air.
 
-To the east, you can see a wooden porch. To the north, you see a beautifully tended garden.
+To the east, you can see a wooden porch. To the north, you see a beautifully tended garden. To the west is a glistening pond; you can see a pair of ducks paddling along peacefully.
 
 The back yard is a tranquil and serene space, offering a peaceful escape from the hustle and bustle of everyday life."]
-                [:user "CURRENT SCENE: the back yard\n"
-                 "EXIT NORTH: the garden\n"
-                 "EXIT EAST: the porch\n"
-                 "OBJECTS: firepit, fire poker\n"
-                 "DESCRIBE: fire poker"]
-                [:assistant "The fire poker is a three-foot-long metal rod with a slightly curved and tapered tip, used for stirring and rearranging logs in the fire pit. It has a polished surface and a comfortable, heat-resistant handle. The poker is durable, well-maintained, and radiates warmth from its recent use."]
-                [:user "CURRENT SCENE: the porch\n"
-                 "EXIT WEST: the back yard\n"
-                 "EXIT EAST: the house\n"
-                 "OBJECTS: bench, table\n"
-                 "DESCRIBE: the porch"]
-                [:assistant "On the porch, the smooth wooden planks creak gently under your weight, welcoming you to this cozy space. Looking west from the porch, you can see the beautiful backyard in all its glory. The porch is elevated just enough to give you a perfect view of the yard, allowing you to observe the vibrant flowers and hear the gentle sounds of nature.
+                [:user
+                 "location id 864, the porch:\n"
+                 "  north: id 416, UNDEFINED\n"
+                 "  east: id 589, UNDEFINED\n"
+                 "  south: id 676, UNDEFINED\n"
+                 "  west: id 234, the back yard\n"
+                 "Provide values for UNDEFINED fields and describe the location."]
+                [:assistant
+                 "location id 864, the porch:\n"
+                 "  north: id 416, BLOCKED\n"
+                 "  east: id 589, the kitchen\n"
+                 "  south: id 676, BLOCKED\n"
+                 "On the porch, the smooth wooden planks creak gently under your weight, welcoming you to this cozy space. Looking west from the porch, you can see the beautiful backyard in all its glory. The porch is elevated just enough to give you a perfect view of the yard, allowing you to observe the vibrant flowers and hear the gentle sounds of nature.
 
 There is a small wooden table in the center of the porch, adorned with a vase of freshly cut flowers that adds a touch of natural beauty to the space. A bench faces the table; it looks inviting.
 
-A door on the east side of the porch opens into the house."]
-                [:user "CURRENT SCENE: the garden\n"
-                 "EXIT SOUTH: the back yard\n"
-                 "EXIT NORTH: the sidewalk\n"
-                 "OBJECTS: iron bench\n"
-                 "DESCRIBE: the garden"]]})
+A door on the east side of the porch opens into the kitchen."]
+                [:user
+                 "location id 254, the garden\n"
+                 "  north: id 918, UNDEFINED\n"
+                 "  east: id 198, UNDEFINED\n"
+                 "  south: id 234, the back yard\n"
+                 "  west: id 333, UNDEFINED\n"
+                 "Provide values for UNDEFINED fields and describe the location."]]})
   )
