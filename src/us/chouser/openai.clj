@@ -12,7 +12,7 @@
 (def get-secret
   (partial get (read (PushbackReader. (io/reader "secrets.edn")))))
 
-(def *world
+(defonce *world
   (atom (->> "us/chouser/world.edn" io/resource io/reader PushbackReader.
              read (into {}))))
 
@@ -130,12 +130,37 @@
           (assoc-in world [id :description] (:desc new-loc))
           (:adj new-loc)))
 
+;;== interactive
+
+(defonce *my-loc-id (atom nil))
+
+(defn describe []
+  (let [id @*my-loc-id]
+    (if-let [d (get-in @*world [id :description])]
+      (println d)
+      (let [p (parse-content (chat {:msgs (full-prompt @*world id)}))]
+        (swap! *world merge-world id p)
+        (write-world)
+        (println (:desc p))))))
+
+(defn begin []
+  (reset! *my-loc-id (rand-nth (keys @*world)))
+  (describe))
+
+(defn go [dir]
+  (when-let [dxdy (get dirs dir)]
+    (swap! *my-loc-id #(apply-id-delta (parse-id %) dxdy))
+    (describe)))
+
 (comment
   (pprint-msgs (full-prompt @*world "50_52"))
 
   (def resp (chat {:msgs (full-prompt @*world "50_52")}))
 
   (merge-world @*world "50_52" (parse-content resp))
+
+  (swap! *world merge-world "50_52" (parse-content resp))
+  (write-world)
 
   (println (-> resp :body-map :choices first :message :content println))
 

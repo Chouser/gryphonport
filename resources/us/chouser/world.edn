@@ -24,6 +24,20 @@
    {:north "51_51", :east "52_50", :south "51_49", :west "50_50"},
    :description
    "On the porch, the smooth wooden planks creak gently under your weight, welcoming you to this cozy space. Looking west from the porch, you can see the beautiful backyard in all its glory. The porch is elevated just enough to give you a perfect view of the yard, allowing you to observe the vibrant flowers and hear the gentle sounds of nature.\n\nThere is a small wooden table in the center of the porch, adorned with a vase of freshly cut flowers that adds a touch of natural beauty to the space. A bench faces the table; it looks inviting.\n\nA door on the east side of the porch opens into the kitchen."}]
- ["51_51" {:title "the shed"}]
+ ["51_51"
+  {:title "the shed",
+   :description
+   "As you step into the shed, you are surrounded by the scent of freshly-cut wood and earthy soil. The shed is filled with various gardening tools and equipment, including shovels, rakes, and pots.\n\nTo the north is the potting station, a small area with a large table and a sink. You can see bags of soil and various plants waiting to be potted.\n\nTo the south is the porch, where you can see a wooden bench and a small table with a vase of flowers.\n\nTo the east is the dining room, which you can see through an open doorway. You can see the elegant table and chairs, and catch a whiff of delicious food being prepared in the nearby kitchen.\n\nTo the west is the garden, where rows of flowers and vegetables are growing. You can see someone tending to the plants through the open door of the shed.\n\nThe shed is a functional and practical space, which serves as the heart of the garden."}]
  ["51_52" {:title "the potting station"}]
- ["52_50" {:title "the kitchen"}])
+ ["52_49" {:title "the pantry"}]
+ ["52_50"
+  {:title "the kitchen",
+   :description
+   "As you step into the kitchen, you are greeted by the warm and comforting aroma of freshly baked bread. The kitchen is spacious and well-lit, with modern appliances and sleek countertops.\n\nTo the north is the dining room, with a large wooden table and comfortable chairs. You can see a few place settings on the table, as though someone is about to sit down for a meal.\n\nTo the south is the pantry, with shelves stocked with canned goods, boxes of cereal, and other non-perishable items. There is also a small refrigerator in the corner, filled with milk, eggs, and other perishable items.\n\nTo the east is the living room, which looks cozy and inviting. You can see a comfortable sofa and armchairs, a fireplace, and a large television.\n\nTo the west is the porch, which you can see through an open door. There is a small wooden table in the center of the porch, adorned with a vase of freshly cut flowers.\n\nThe kitchen is a warm and welcoming space, perfect for cooking and enjoying meals with friends and family."}]
+ ["52_51"
+  {:title "the dining room",
+   :description
+   "As you step into the dining room, you are greeted by the rich scent of wood and polished furniture. The dining room is elegantly furnished, with a large wooden table and matching chairs. A crystal chandelier hangs overhead, casting a warm glow over the room.\n\nTo the north is the study, a cozy room with bookshelves lining the walls and a comfortable armchair in the center of the room. You can see a small desk in the corner, with a lamp and a few papers scattered about.\n\nTo the south is the kitchen, which you can see through an open doorway. The kitchen is bustling with activity, with pots and pans clanging and the sound of sizzling food.\n\nTo the east is the hallway, which you can see through an open door. You can hear the sound of footsteps echoing down the hallway, and you catch a glimpse of a few closed doors.\n\nTo the west is the shed, a small wooden building that seems to be used for storage. You can see a few tools leaning against the wall, and a pile of gardening supplies in the corner.\n\nThe dining room exudes an air of sophistication and elegance, and is the perfect setting for a formal dinner party or a cozy family meal."}]
+ ["52_52" {:title "the study"}]
+ ["53_50" {:title "the living room"}]
+ ["53_51" {:title "the hallway"}])
