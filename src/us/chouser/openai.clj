@@ -152,7 +152,194 @@
     (swap! *my-loc-id #(apply-id-delta (parse-id %) dxdy))
     (describe)))
 
+;; If a box has sub-boxes, you must be in a specific sub-box
+;; For a building, each linked section is linked to some room in the building.
+;; Each room can be linked to zero or one section.
+#_
+(defn graph-errors [graph]
+  (concat
+   ;; no directed edges
+   (for [[id1 {:keys [adj]}] graph
+         id2 adj
+         :when (not (get-in graph [id2 :adj id1]))]
+     [:missing-adj id2 id1])
+   ;; no edges to self
+   (for [[id {:keys [adj]}] graph
+         :when (get-in graph [id :adj id])]
+     [:bad-adj id id])))
+
+#_
+(defn fix-errors [graph errors]
+  (reduce (fn [graph [err-type & args]]
+            (case err-type
+              :missing-adj (update-in
+                            graph [(first args) :adj] conj (second args))))
+          graph
+          errors))
+
+;; room 10 -> building/town section 11 -> town/district 12 -> region (area?) 13
+(def graph
+  {:nodes
+   {:a001 {:name "Gryphon"
+           :level 13
+           :parent nil
+           :children? true}
+    :d002 {:name "Gryphonport"
+           :level 12
+           :parent :a001
+           :children? true}
+    :d003 {:name "Tangled Forest"
+           :level 12
+           :parent :a001
+           :children? true}
+
+    :s003 {:name "Market Square"
+           :level 11
+           :parent :d002}
+    :s004 {:name "Town Hall"
+           :level 11
+           :parent :d002}
+    :s005 {:name "Blacksmith's Forge"
+           :level 11
+           :parent :d002}
+    :s006 {:name "Tavern"
+           :level 11
+           :parent :d002}
+    :s007 {:name "Temple of the Divine"
+           :level 11
+           :parent :d002}
+    :s008 {:name "Dockside"
+           :level 11
+           :parent :d002}
+    :s009 {:name "Keep"
+           :level 11
+           :parent :d002}
+    :s010 {:name "Alchemist's Shop"
+           :level 11
+           :parent :d002}
+    :s011 {:name "Farmstead"
+           :level 11
+           :parent :d002}
+    :s012 {:name "Graveyard"
+           :level 11
+           :parent :d002}
+
+    :r013 {:name "Entrance Hall"
+           :level 10
+           :parent :s004}
+    :r014 {:name "Council Chamber"
+           :level 10
+           :parent :s004}
+    :r015 {:name "Archives"
+           :level 10
+           :parent :s004}
+    :r016 {:name "Guard Room"
+           :level 10
+           :parent :s004}
+    :r017 {:name "Treasury"
+           :level 10
+           :parent :s004}
+    :r018 {:name "Jail"
+           :level 10
+           :parent :s004}}
+   :adj #{#{:r013 :r014}
+          #{:r013 :r015}
+          #{:r013 :r016}
+          #{:r013 :s003}
+          #{:r015 :r014}
+          #{:r017 :r016}
+          #{:r018 :r016}
+          #{:s003 :s004}
+          #{:s003 :s006}
+          #{:s003 :s007}
+          #{:s003 :s010}
+          #{:s005 :s003}
+          #{:s005 :s010}
+          #{:s006 :s004}
+          #{:s007 :s012}
+          #{:s008 :s006}
+          #{:s009 :r016}
+          #{:s009 :s004}
+          #{:s011 :s003}
+          #{:d002 :d003}
+          #{:s011 :d003}}})
+
+;; sections (including buildings)
+;; districts (including towns)
+(def level-names
+  {11 {:id-type "section", :part "room", :parts "rooms"}
+   12 {:id-type "district", :part "section", :parts "sections"}
+   13 {:id-type "region", :part "district", :parts "districts"}})
+
+;; Add a short description of each node? To help coherence during graph generation?
+(defn gen-user [graph id]
+  (let [m (get-in graph [:nodes id])
+        id-name (:name m)
+        parent (get-in graph [:nodes (:parent m) :name])
+        {:keys [id-type part parts]} (level-names (:level m))]
+    (str "1. List the "parts" of "id-name", a "id-type" in "parent".
+2. Then for each "part", choose one or more of the other "parts" to be adjacent to it.
+3. Finally, for each "id-type" that is adjacent to "id-name", choose a unique "part" to be the exit to that "id-type".")))
+
+
+
+(defn gen-assistant [graph id]
+  (let [m (get-in graph [:nodes id])
+        id-name (:name m)
+        {:keys [id-type part parts]} (level-names (:level m))
+        part-pairs (filter #(= id (:parent (val %))) (:nodes graph))
+        part-ids (set (keys part-pairs))
+        adj-pairs (filter #(some part-ids %) (:adj graph))
+        levels (->> (:adj graph)
+                    (filter #(some part-ids %)) ;; edges of our parts
+                    (map #(sort-by :level (map (:nodes graph) %)))
+                    (group-by #(mapv :level %)))]
+    (->>
+     ["=== " parts " of " id-name "\n"
+      (for [cm (vals part-pairs)]
+        [(:name cm) "\n"])
+      "\n=== adjacent " parts "\n"
+      (for [[a b] (get levels [(dec (:level m)) (dec (:level m))])]
+        [(:name a) " to " (:name b) "\n"])
+      "\n=== " parts " adjacent to another " id-type "\n"
+      (for [[a b] (get levels [(dec (:level m)) (:level m)])]
+        [(:name a) " to " (:name b) " of " (get-in graph [:nodes (:parent b) :name]) "\n"])]
+     flatten (apply str))))
+
+;; 1. List the sections (including buildings) of Gryphonport, a town in Gryphon, with a short description of each.
+;; 2. Then for each section, list the other sections adjacent to it.
+;; 3. For each district that is adjacent to Gryphonport, choose a unique section to be the exit to that district.
+
+;; 1. List the rooms of the Town Hall of Gryphonport, with a short description of each.
+;; 2. Then for each room, list the other rooms adjacent to it.
+;; 3. For each section that is adjacent to the Town Hall, choose a unique room to be the exit to that section.
+
+;;  Entrance Hall: The Market Square
+;;  Guard Room: The Keep
+;;  Jail: The Graveyard
+
+;;  Entrance Hall     Council Chamber, Archives, and Guard Room.
+;;  Council Chamber   Entrance Hall and Archives.
+;;  Archives          Entrance Hall, Council Chamber, Guard Room, Treasury, and Jail.
+;;  Guard Room        Entrance Hall, Archives, and Jail.
+;;  Treasury          Archives.
+;;  Jail              Guard Room and Archives.
+
+;;  Market Square: Town Hall, Blacksmith's Forge, Temple of the Divine, and Tavern.
+;;  Town Hall: Market Square, Tavern, and Keep.
+;;  Blacksmith's Forge: Market Square and Alchemist's Shop.
+;;  Tavern: Market Square, Town Hall, Dockside, and Farmstead.
+;;  Temple of the Divine: Market Square and Graveyard.
+;;  Dockside: Tavern and Boat Dock (leads to other locations by boat).
+;;  Keep: Town Hall and Battlements (leads to the town's defenses).
+;;  Alchemist's Shop: Blacksmith's Forge and Market Square.
+;;  Farmstead: Tavern and Fields (leads to a rural area).
+;;  Graveyard: Temple of the Divine and Catacombs (leads to a dungeon or underground area).
+
 (comment
+
+  (pprint (sort (fix-errors graph (graph-errors graph))))
+
   (pprint-msgs (full-prompt @*world "50_52"))
 
   (def resp (chat {:msgs (full-prompt @*world "50_52")}))
@@ -163,18 +350,4 @@
   (write-world)
 
   (println (-> resp :body-map :choices first :message :content println))
-
-  {:body-map
-   {:id "chatcmpl-72Yx7TltAdJrm3wFVLApSimonSVAE",
-    :object "chat.completion",
-    :created 1680845369,
-    :model "gpt-3.5-turbo-0301",
-    :usage {:prompt_tokens 1113, :completion_tokens 310, :total_tokens 1423},
-    :choices
-    [{:message
-      {:role "assistant",
-       :content
-       "location id 50_52, the greenhouse:\n  to the north: id 50_53, the propagation room\n  to the south: id 50_51, the garden\n  to the east: id 51_52, the potting station\n  to the west: id 49_52, the storage room\n\nAs you step into the greenhouse, you are surrounded by the lush greenery of various plants, most of which appear to be thriving in the warm and humid environment. The greenhouse is spacious and airy, with glass walls and roof that let in plenty of sunlight.\n\nTo the north is a smaller room that you can see through a glass door. It looks like a propagation room, where young seedlings are nurtured and brought to maturity before being transplanted into the main greenhouse.\n\nTo the east is an area with a large potting station, where plants are potted and repotted as needed. You can see a variety of pots, soil, and gardening tools in this area.\n\nTo the west is a storage room, where gardening supplies are kept. From the glimpse you get through the partially open door, you can see shelves lined with pots, fertilizer, and other gardening essentials.\n\nTo the south is the garden, visible through the glass walls of the greenhouse. The garden's beauty is amplified through the glass walls of the greenhouse, and you can see the flowers and plants swaying gently in the breeze.\n\nThe greenhouse is a peaceful and serene space, filled with the beauty and magic of nature."},
-      :finish_reason "stop",
-      :index 0}]}}
   )
