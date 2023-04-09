@@ -1,0 +1,24 @@
+graph world {
+  subgraph cluster_a001 {
+  label="Gryphon\nregion :a001";
+    subgraph cluster_d100 {
+    label="Blackwood Station\noutpost :d100";
+      s102[shape=ellipse, label="Stable Yard\nsection :s102"];
+      subgraph cluster_s103 {
+      label="Watchtower\nbuilding :s103";
+        r104[shape=ellipse, label="Kitchen\nroom :r104"];
+        r105[shape=ellipse, label="Bunkroom\nroom :r105"];
+        r106[shape=ellipse, label="Watchroom\nroom :r106"];
+      }
+    }
+    d101[shape=box, label="Blackwood Forest\nforest :d101"];
+    d102[shape=ellipse, label="Blackwood Trail\nroad :d102"];
+    d103[shape=box, label="Gryphonport\nlarge town :d103"];
+  }
+  d102 -- s102;
+  d102 -- d103;
+  r106 -- r104;
+  r104 -- s102;
+  d101 -- s102;
+  r105 -- r104;
+}

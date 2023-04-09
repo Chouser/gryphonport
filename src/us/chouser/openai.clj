@@ -9,35 +9,48 @@
            (java.time.temporal ChronoUnit)
            (java.time.format DateTimeFormatter)))
 
+(set! *warn-on-reflection* true)
+
 (def get-secret
   (partial get (read (PushbackReader. (io/reader "secrets.edn")))))
 
 (defonce *world
   (atom (->> "us/chouser/world.edn" io/resource io/reader PushbackReader.
-             read (into {}))))
+             read)))
 
 (defn write-world []
   (with-open [w (io/writer (io/resource "us/chouser/world.edn"))]
     (binding [*out* w]
-      (pprint (sort @*world)))))
+      (prn @*world))))
 
-(defn log-filename [time]
+(defn log-filename [^ZonedDateTime time]
   (io/file "log"
            (-> time
                (.truncatedTo ChronoUnit/SECONDS)
                (.format DateTimeFormatter/ISO_DATE_TIME)
                (str ".edn"))))
 
+(defn fstr [coll]
+  (let [sb (StringBuilder. "")]
+    (letfn [(walk [x]
+              (cond
+                (not (coll? x)) (.append sb (str x))
+                (sequential? x) (run! walk x)
+                :else (throw (ex-info (str "Bad fstr element: " (pr-str x))
+                                      {:bad x}))))]
+      (walk coll)
+      (str sb))))
+
 (defn format-msgs [msgs]
   (map (fn [[role & content]]
          {:role (name role)
-          :content (apply str (flatten content))})
+          :content (fstr content)})
        msgs))
 
 (defn pprint-msgs [msgs]
   (run! (fn [[role & content]]
           (println "==" role)
-          (println (apply str (flatten content))))
+          (println (fstr content)))
         msgs))
 
 (defn chat [{:keys [body-map msgs] :as request}]
@@ -60,97 +73,6 @@
     (assoc response
            :body-map (try (json/read-str (:body response) :key-fn keyword)
                           (catch Exception ex nil)))))
-
-(def dirs
-  {:north [0 1]
-   :south [0 -1]
-   :east  [1 0]
-   :west  [-1 0]})
-
-(defn parse-id [id]
-  (->> id (re-matches #"(\d+)_(\d+)") rest (map #(Long/parseLong %))))
-
-(defn apply-id-delta [[x y] [dx dy]]
-  (str (+ x dx) "_" (+ y dy)))
-
-(defn neighbors [id]
-  (let [xy (parse-id id)]
-    (for [[dir dxdy] dirs]
-      [dir (apply-id-delta xy dxdy)])))
-
-(defn format-loc [world id mode]
-  (->> ["location id " id ", " (get-in world [id :title]) ":\n"
-        (for [[dir nid] (neighbors id)]
-          ["  to the " (name dir) ": id " nid ", "
-           (let [title (get-in world [nid :title])]
-             (case mode
-               :user-example (if (zero? (rand-int 2)) "UNKNOWN" title)
-               :assistant (or title "BLOCKED")
-               :user-final (or title "UNKNOWN")))
-           "\n"])]))
-
-(def user-suffix
-  "Invent names for neighbornig UNDEFINED locations and describe this location.")
-
-(defn full-prompt [world id]
-  (concat
-   [[:system "You are an interactive fiction game author, "
-     "describing the scenes and objects of a game."]]
-   (->> (concat (map second (neighbors id))
-                (shuffle (keys world)))
-        (mapcat #(when-let [desc (get-in world [% :description])]
-                   [[:user (format-loc world % :user-example) user-suffix]
-                    [:assistant [(format-loc world % :assistant)
-                                 desc]]]))
-        (take 6)) ;; must be even, at least double the possible neighbors
-   [[:user (format-loc world id :user-final) user-suffix]]))
-
-(defn parse-content [resp]
-  (let [content (-> resp :body-map :choices first :message :content)
-        [_ id adj desc] (re-matches #"(?s)location id (\w+), [^\n]+:\n((?:  to the [^\n]+\n)+)\s*(.*)"
-                                    content)]
-    (when-not id
-      (throw (ex-info "Parse failed" {})))
-    {:id id
-     :adj (->> (re-seq #"(?m)^  to the (\w+): id (\w+), (.*)" adj)
-               (map (fn [[_ dir nid title]]
-                      {:dir dir :nid nid :title title})))
-     :desc desc}))
-
-(defn merge-world [world id new-loc]
-  (assert (= id (:id new-loc)))
-  (reduce (fn [world {:keys [dir nid title]}]
-            (if-let [old-loc (get world nid)]
-              (do
-                (when-not (= title (:title old-loc))
-                  (println "WARN: title change ignored:"
-                           nid "is" (:title old-loc) "not" title))
-                world)
-              (assoc world nid {:title title})))
-          (assoc-in world [id :description] (:desc new-loc))
-          (:adj new-loc)))
-
-;;== interactive
-
-(defonce *my-loc-id (atom nil))
-
-(defn describe []
-  (let [id @*my-loc-id]
-    (if-let [d (get-in @*world [id :description])]
-      (println d)
-      (let [p (parse-content (chat {:msgs (full-prompt @*world id)}))]
-        (swap! *world merge-world id p)
-        (write-world)
-        (println (:desc p))))))
-
-(defn begin []
-  (reset! *my-loc-id (rand-nth (keys @*world)))
-  (describe))
-
-(defn go [dir]
-  (when-let [dxdy (get dirs dir)]
-    (swap! *my-loc-id #(apply-id-delta (parse-id %) dxdy))
-    (describe)))
 
 ;; If a box has sub-boxes, you must be in a specific sub-box
 ;; For a building, each linked section is linked to some room in the building.
@@ -177,70 +99,78 @@
           graph
           errors))
 
-;; room 10 -> building/town section 11 -> town/district 12 -> region (area?) 13
+;; No parent means you're incomplete? You have a child, but some are missing
+#_
 (def graph
   {:nodes
    {:a001 {:name "Gryphon"
-           :level 13
+           :kind "region"
            :parent nil
            :children? true}
     :d002 {:name "Gryphonport"
-           :level 12
+           :kind "town"
            :parent :a001
            :children? true}
     :d003 {:name "Tangled Forest"
-           :level 12
+           :kind "district"
            :parent :a001
            :children? true}
-
     :s003 {:name "Market Square"
-           :level 11
+           :kind "section"
            :parent :d002}
     :s004 {:name "Town Hall"
-           :level 11
-           :parent :d002}
-    :s005 {:name "Blacksmith's Forge"
-           :level 11
-           :parent :d002}
-    :s006 {:name "Tavern"
-           :level 11
-           :parent :d002}
+           :kind "building"
+           :parent :d002
+           :children? true}
+    :s005 {:name "Wilhelm's Forge"
+           :kind "building"
+           :parent :d002
+           :children? true}
+    :s006 {:name "Odd Duck"
+           :kind "tavern"
+           :parent :d002
+           :children? true}
     :s007 {:name "Temple of the Divine"
-           :level 11
-           :parent :d002}
+           :kind "building"
+           :parent :d002
+           :children? true}
     :s008 {:name "Dockside"
-           :level 11
+           :kind "section"
            :parent :d002}
     :s009 {:name "Keep"
-           :level 11
-           :parent :d002}
+           :kind "building"
+           :parent :d002
+           :children? true}
     :s010 {:name "Alchemist's Shop"
-           :level 11
-           :parent :d002}
+           :kind "building"
+           :parent :d002
+           :children? true}
     :s011 {:name "Farmstead"
-           :level 11
-           :parent :d002}
+           :kind "section"
+           :parent :d002
+           :children? true}
     :s012 {:name "Graveyard"
-           :level 11
-           :parent :d002}
+           :kind "section"
+           :parent :d002
+           :children? true}
 
     :r013 {:name "Entrance Hall"
-           :level 10
+           :kind "room"
            :parent :s004}
     :r014 {:name "Council Chamber"
-           :level 10
+           :kind "room"
            :parent :s004}
     :r015 {:name "Archives"
-           :level 10
+           :kind "room"
            :parent :s004}
     :r016 {:name "Guard Room"
-           :level 10
+           :kind "room"
            :parent :s004}
     :r017 {:name "Treasury"
-           :level 10
+           :kind "room"
            :parent :s004}
     :r018 {:name "Jail"
-           :level 10
+           :kind "room"
            :parent :s004}}
    :adj #{#{:r013 :r014}
           #{:r013 :r015}
@@ -264,79 +194,260 @@
           #{:d002 :d003}
           #{:s011 :d003}}})
 
-;; sections (including buildings)
-;; districts (including towns)
-(def level-names
-  {11 {:id-type "section", :part "room", :parts "rooms"}
-   12 {:id-type "district", :part "section", :parts "sections"}
-   13 {:id-type "region", :part "district", :parts "districts"}})
+(def graph
+  {:nodes
+   {:a001 {:name "Gryphon"           :kind "region"   :parent nil   :children? true}
+    :d100 {:name "Blackwood Station" :kind "outpost"  :parent :a001 :children? true}
+    :d101 {:name "Blackwood Forest"  :kind "forest"   :parent :a001 :children? true}
+    :d102 {:name "Blackwood Trail"   :kind "road"     :parent :a001}
+    :d103 {:name "Gryphonport"       :kind "large town"     :parent :a001 :children? true}
+    :s102 {:name "Stable Yard"       :kind "section"  :parent :d100}
+    :s103 {:name "Watchtower"        :kind "building" :parent :d100 :children? true}
+    :r104 {:name "Kitchen"           :kind "room"     :parent :s103}
+    :r105 {:name "Bunkroom"          :kind "room"     :parent :s103}
+    :r106 {:name "Watchroom"         :kind "room"     :parent :s103}}
+   :adj #{
+          #{:d100 :d101}
+          #{:d101 :s102}
+          #{:s102 :s103}
+
+          #{:s102 :r104}
+          #{:r104 :r105}
+          #{:r104 :r106}
+
+          #{:d102 :s102}
+
+          #{:d100 :d102}
+          #{:d102 :d103}
+          }})
+
+
+#_
+(->> graph :nodes vals
+     (filter #(= :d100 (:parent %)))
+     (run! #(println (str (:name %) ", a " (:kind %)))))
+
+(defn node [graph id]
+  (get-in graph [:nodes id]))
+
+(defn adjacent-ids
+  "All the places you can get to from id"
+  [graph id]
+  (->> (:adj graph)
+       (filter #(get % id))
+       (map #(first (disj % id)))))
+
+(defn peer-adjacent-nodes
+  "All the places you can get to from id that share id's parent"
+  [graph id]
+  (let [parent-id (->> id (node graph) :parent)]
+    (->> (adjacent-ids graph id)
+         (map #(assoc (node graph %) :id %))
+         (filter #(= parent-id (:parent %))))))
+
+(defn get-parts
+  "All the parts (nodes) of id (with :id added)"
+  [graph id]
+  (->> (:nodes graph)
+       (filter #(= id (:parent (val %))))
+       (map #(assoc (val %) :id (key %)))))
+
+(defn get-parts-map
+  "A map of each node id to its part ids"
+  [graph]
+  (reduce (fn [m [id n]]
+            (update m (:parent n) (fnil conj #{}) id))
+          {}
+          (:nodes graph)))
+
+(defn content [resp]
+  (when (not= 200 (-> resp :status))
+    (println "WARNING unexpected status" (:status resp)))
+  (let [choices (-> resp :body-map :choices)]
+    (when (-> choices next)
+      (println "WARNING multiple choices"))
+    (let [choice (-> choices first)]
+      (when (not= "stop" (-> choice :finish_reason))
+        (println "WARNING unexpenced finish_reason:" (:finish_reason choice)))
+      (-> resp :body-map :choices first :message :content))))
 
 ;; Add a short description of each node? To help coherence during graph generation?
 (defn gen-user [graph id]
-  (let [m (get-in graph [:nodes id])
-        id-name (:name m)
-        parent (get-in graph [:nodes (:parent m) :name])
-        {:keys [id-type part parts]} (level-names (:level m))]
-    (str "1. List the "parts" of "id-name", a "id-type" in "parent".
-2. Then for each "part", choose one or more of the other "parts" to be adjacent to it.
-3. Finally, for each "id-type" that is adjacent to "id-name", choose a unique "part" to be the exit to that "id-type".")))
-
-
+  (let [m (node graph id)
+        peer-adj (peer-adjacent-nodes graph id)]
+    (fstr
+     ["List the parts of "(:name m)", a "(:kind m)" in " (->> m :parent (node graph) :name)". "
+      "For each, indicate if it contains sub-locations people can enter.\n"
+      (when (seq peer-adj)
+        [(:name m)" is adjacent to " (interpose ", " (map #(:name %) peer-adj))
+         "; so for each of these choose one appropriate part to be a gateway to it.\n"])
+      "Finally, for each part, list one or more adjacent parts (a commutative property), "
+      "primarily connecting parts that are related in purpose or physically near "
+      "each other. No two parts that each have sub-locations may be adjacent."])))
 
 (defn gen-assistant [graph id]
-  (let [m (get-in graph [:nodes id])
-        id-name (:name m)
-        {:keys [id-type part parts]} (level-names (:level m))
-        part-pairs (filter #(= id (:parent (val %))) (:nodes graph))
-        part-ids (set (keys part-pairs))
-        adj-pairs (filter #(some part-ids %) (:adj graph))
-        levels (->> (:adj graph)
-                    (filter #(some part-ids %)) ;; edges of our parts
-                    (map #(sort-by :level (map (:nodes graph) %)))
-                    (group-by #(mapv :level %)))]
-    (->>
-     ["=== " parts " of " id-name "\n"
-      (for [cm (vals part-pairs)]
-        [(:name cm) "\n"])
-      "\n=== adjacent " parts "\n"
-      (for [[a b] (get levels [(dec (:level m)) (dec (:level m))])]
-        [(:name a) " to " (:name b) "\n"])
-      "\n=== " parts " adjacent to another " id-type "\n"
-      (for [[a b] (get levels [(dec (:level m)) (:level m)])]
-        [(:name a) " to " (:name b) " of " (get-in graph [:nodes (:parent b) :name]) "\n"])]
-     flatten (apply str))))
+  (let [m (node graph id)
+        parts (get-parts graph id)
+        part-id-set (set (map :id parts))
+        peer-adj (peer-adjacent-nodes graph id)]
+    (fstr
+     ["=== parts of " (:name m)"\n"
+      (for [cm parts]
+        [(:name cm) ", a " (:kind cm) " (contains " (when-not (:children? cm) "no ")
+         "sub-locations)\n"])
+      (when (and (:children? m) peer-adj)
+        ["\n=== gateways out of " (:name m)"\n"
+         (->> peer-adj
+              (map (fn [peer]
+                     [(:name peer) " in " (->> peer :parent (node graph) :name) ": "
+                      ;; The part of id that is adjacent to peer; should be exactly 1
+                      (let [gws (filter part-id-set (adjacent-ids graph (:id peer)))]
+                        (if (not= 1 (count gws))
+                          (throw (ex-info "Bad gateway count"
+                                          {:id id :node m, :peer peer, :gateways gws}))
+                          (->> gws first (node graph) :name)))
+                      "\n"])))])
+      "\n=== adjacent parts of " (:name m)"\n"
+      (->> (:adj graph)
+           (filter #(every? part-id-set %))
+           (group-by first)
+           (map (fn [[a pairs]]
+                  [(:name (node graph a)) ": "
+                   (interpose ", " (map #(:name (node graph (second %))) pairs))
+                   "\n"])))])))
 
-;; 1. List the sections (including buildings) of Gryphonport, a town in Gryphon, with a short description of each.
-;; 2. Then for each section, list the other sections adjacent to it.
-;; 3. For each district that is adjacent to Gryphonport, choose a unique section to be the exit to that district.
+(defn parse-content [content-str]
+  (let [blocks (str/split content-str #"(?m)^=== ")
+        m (into {} (map #(when-let [k (re-find #"^\w+" %)] [k %]) blocks))]
+    {:parts (->> (get m "parts")
+                 (re-seq #"\n(.*), a\w* ([^(]*) \(contains (no )?")
+                 (map (fn [[_ node-name kind no-kids?]]
+                        {:name node-name
+                         :kind kind
+                         :children? (not no-kids?)})))
+     :gateways (some->> (get m "gateways")
+                        (re-seq #"\n(.*) in (.*): (.*)")
+                        (map (fn [[_ adj parent child]]
+                               {:adj adj :parent parent :child child})))
+     :adjacent (->> (get m "adjacent")
+                    (re-seq #"\n(.*): (.*)")
+                    (mapcat (fn [[_ x ys]]
+                              (->> (str/split ys #",\s+")
+                                   (map (fn [y] #{x y})))))
+                    set)}))
 
-;; 1. List the rooms of the Town Hall of Gryphonport, with a short description of each.
-;; 2. Then for each room, list the other rooms adjacent to it.
-;; 3. For each section that is adjacent to the Town Hall, choose a unique room to be the exit to that section.
+(defn rand-id []
+  (keyword (str (char (+ 97 (rand-int 26)))
+                (char (+ 97 (rand-int 26)))
+                (+ 100 (rand-int 900)))))
 
-;;  Entrance Hall: The Market Square
-;;  Guard Room: The Keep
-;;  Jail: The Graveyard
+(defn id-content [graph id parsed]
+  (let [self-node (node graph id)
+        new-nodes (->> (:parts parsed)
+                       (zipmap (repeatedly rand-id)))
+        new-name-ids (zipmap (map :name (vals new-nodes))
+                             (keys new-nodes))
+        peer-adj-ids (->> (peer-adjacent-nodes graph id)
+                          (map (fn [n] [(:name n) (:id n)]))
+                          (into {}))]
+    {:nodes new-nodes
+     :adj (set (concat
+                (->> (:gateways parsed)
+                     (map (fn [{:keys [adj parent child]}]
+                            (assert (= parent (->> self-node :parent (node graph) :name)))
+                            (let [upper-id (or (peer-adj-ids adj) (throw (ex-info "Bad peer-adj" {})))
+                                  lower-id (or (new-name-ids child) (throw (ex-info "Bad gateway" {})))]
+                              (assert (< (count
+                                          (filter true?
+                                                  [(:children? (new-nodes lower-id))
+                                                   (:children? (node graph upper-id))]))
+                                         2))
+                              #{upper-id lower-id}))))
+                (->> (:adjacent parsed)
+                     (map (fn [name-pair]
+                            (set (map new-name-ids name-pair))))
+                     set)))}))
 
-;;  Entrance Hall     Council Chamber, Archives, and Guard Room.
-;;  Council Chamber   Entrance Hall and Archives.
-;;  Archives          Entrance Hall, Council Chamber, Guard Room, Treasury, and Jail.
-;;  Guard Room        Entrance Hall, Archives, and Jail.
-;;  Treasury          Archives.
-;;  Jail              Guard Room and Archives.
+(defn merge-subgraph [graph m]
+  {:nodes (merge-with #(throw (ex-info "Id collision" {:nodes %&}))
+                      (:nodes graph) (:nodes m))
+   :adj (into (:adj graph) (:adj m))})
 
-;;  Market Square: Town Hall, Blacksmith's Forge, Temple of the Divine, and Tavern.
-;;  Town Hall: Market Square, Tavern, and Keep.
-;;  Blacksmith's Forge: Market Square and Alchemist's Shop.
-;;  Tavern: Market Square, Town Hall, Dockside, and Farmstead.
-;;  Temple of the Divine: Market Square and Graveyard.
-;;  Dockside: Tavern and Boat Dock (leads to other locations by boat).
-;;  Keep: Town Hall and Battlements (leads to the town's defenses).
-;;  Alchemist's Shop: Blacksmith's Forge and Market Square.
-;;  Farmstead: Tavern and Fields (leads to a rural area).
-;;  Graveyard: Temple of the Divine and Catacombs (leads to a dungeon or underground area).
+(defn dot [graph]
+  (let [parts-map (get-parts-map graph)
+        leaves (->> (:nodes graph)
+                    (filter (fn [[id n]]
+                              (when (or (not (:children? n))
+                                        (empty? (parts-map id)))
+                                [id n])))
+                    (into {}))
+        walk (fn walk [prefix id]
+               (let [n (node graph id)
+                     label-snip ["label=" (pr-str (str (:name n) "\n" (:kind n) " " id))]]
+                 (if (leaves id)
+                   [prefix (name id) "["
+                    "shape=" (if (:children? n) "box" "ellipse") ", "
+                    label-snip
+                    "];\n"]
+                   [prefix "subgraph cluster_" (name id) " {\n"
+                    prefix label-snip ";\n"
+                    (map (partial walk (str prefix "  ")) (sort (parts-map id)))
+                    prefix "}\n"]
+                   )))]
+    (fstr
+     ["graph world {\n"
+      (map (partial walk "  ") (parts-map nil))
+      (->> (:adj graph)
+           (map (fn [pair]
+                  (when (and (leaves (first pair))
+                             (leaves (second pair)))
+                    ["  " (name (first pair)) " -- " (name (second pair)) ";\n"]))))
+      "}\n"])))
+
+(defn prompt-msgs [graph id]
+  (let [parts-map (get-parts-map graph)
+        _ (assert (empty? (parts-map id)))
+        n (node graph id)
+        _ (assert (:children? n))
+        path (->> (iterate #(->> % (node graph) :parent) id)
+                  (take-while identity)
+                  next
+                  reverse)
+        path-set (set path)
+        example-ids (concat (->> path
+                                 (keep (fn [aid]
+                                         (->> (parts-map aid)
+                                              (remove path-set)
+                                              (filter parts-map)
+                                              shuffle
+                                              first))))
+                            path)]
+    (prn example-ids)
+    (concat
+     [[:system "You are building a world of connected locations."]]
+     (->> example-ids
+          (mapcat (fn [id]
+                    [[:user (gen-user graph id)]
+                     [:assistant (gen-assistant graph id)]])))
+     [[:user (str/replace (gen-user graph id)
+                          #"the parts"
+                          "the several parts")]])))
 
 (comment
+  (reset! *world graph)
+  (write-world)
+  (spit "world.dot" (dot @*world))
+
+  (def resp
+    (chat {:msgs
+           [[:system "You are building a world of connected locations."]
+            [:user (gen-user graph :d100)]
+            [:assistant (gen-assistant graph :d100)]
+            [:user (gen-user graph :s103)]
+            [:assistant (gen-assistant graph :s103)]
+            [:user (gen-user graph :a001)]
+            [:assistant (gen-assistant graph :a001)]
+            [:user (gen-user graph :d103)]]}))
 
   (pprint (sort (fix-errors graph (graph-errors graph))))
 
