@@ -14,11 +14,32 @@ graph world {
         r018[shape=ellipse, label="Jail\nroom :r018"];
       }
       s005[shape=box, label="Wilhelm's Forge\nbuilding :s005"];
-      s006[shape=box, label="Odd Duck\ntavern :s006"];
-      s007[shape=box, label="Temple of the Divine\nbuilding :s007"];
+      subgraph cluster_s006 {
+      label="Odd Duck\ntavern :s006";
+        ck658[shape=ellipse, label="Main Bar Area\nroom :ck658"];
+        ia212[shape=ellipse, label="Private Dining Room\nroom :ia212"];
+        mf890[shape=ellipse, label="Cellar\nroom :mf890"];
+        xu606[shape=ellipse, label="Kitchen\nroom :xu606"];
+      }
+      subgraph cluster_s007 {
+      label="Temple of the Divine\nbuilding :s007";
+        ex227[shape=ellipse, label="Sanctuary\nroom :ex227"];
+        gg321[shape=ellipse, label="Hall of Mirrors\nroom :gg321"];
+        og842[shape=ellipse, label="Library\nroom :og842"];
+        tu381[shape=ellipse, label="Chapel of the Saints\nroom :tu381"];
+        vx886[shape=ellipse, label="Tomb of the Divine\nroom :vx886"];
+        zc843[shape=box, label="Priest Quarters\nsection :zc843"];
+        zw475[shape=ellipse, label="Entrance Hall\nroom :zw475"];
+      }
       s008[shape=ellipse, label="Dockside\nsection :s008"];
       s009[shape=box, label="Keep\nbuilding :s009"];
-      s010[shape=box, label="Alchemist's Shop\nbuilding :s010"];
+      subgraph cluster_s010 {
+      label="Alchemist's Shop\nbuilding :s010";
+        my977[shape=ellipse, label="Main Room\nroom :my977"];
+        pm694[shape=ellipse, label="Garden\noutdoor area :pm694"];
+        uj649[shape=ellipse, label="Back Room\nroom :uj649"];
+        xl799[shape=ellipse, label="Storage Room\nroom :xl799"];
+      }
       s011[shape=box, label="Farmstead\nsection :s011"];
       s012[shape=ellipse, label="Graveyard\nsection :s012"];
       s013[shape=ellipse, label="Keep Bridge\nbridge :s013"];
@@ -27,24 +48,42 @@ graph world {
     }
     d003[shape=box, label="Tangled Forest\ndistrict :d003"];
   }
-  s003 -- s006;
+  zw475 -- s012;
+  s008 -- mf890;
+  ck658 -- xu606;
+  zw475 -- tu381;
+  tu381 -- gg321;
   s013 -- r016;
+  zw475 -- gg321;
+  my977 -- s014;
   s003 -- d003;
-  s007 -- s012;
+  xl799 -- uj649;
+  vx886 -- zc843;
+  ex227 -- gg321;
+  ex227 -- tu381;
   s014 -- s003;
+  my977 -- pm694;
+  gg321 -- og842;
+  ex227 -- zw475;
   r018 -- r016;
   r013 -- r015;
-  s008 -- s006;
   s005 -- s003;
   r015 -- r014;
   r013 -- s003;
   r013 -- r014;
+  s014 -- zw475;
   s009 -- s013;
   r017 -- r016;
-  s014 -- s010;
-  s014 -- s007;
+  tu381 -- og842;
+  s003 -- ck658;
+  ex227 -- og842;
+  xu606 -- mf890;
   s005 -- s015;
-  s015 -- s010;
+  my977 -- xl799;
+  ck658 -- ia212;
   r013 -- r016;
+  zc843 -- og842;
   s011 -- s003;
+  s015 -- uj649;
+  my977 -- uj649;
 }

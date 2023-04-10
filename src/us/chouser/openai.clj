@@ -1,5 +1,6 @@
 (ns us.chouser.openai
   (:require [clojure.java.io :as io]
+            [clojure.java.shell :refer [sh]]
             [clojure.pprint :refer [pprint]]
             [clojure.data.json :as json]
             [clj-http.client :as http]
@@ -14,9 +15,12 @@
 (def get-secret
   (partial get (read (PushbackReader. (io/reader "secrets.edn")))))
 
+(defn read-world []
+  (->> "us/chouser/world.edn" io/resource io/reader PushbackReader.
+       read))
+
 (defonce *world
-  (atom (->> "us/chouser/world.edn" io/resource io/reader PushbackReader.
-             read)))
+  (atom (read-world)))
 
 (defn write-world []
   (with-open [w (io/writer (io/resource "us/chouser/world.edn"))]
@@ -325,6 +329,7 @@
 (defn id-content [graph id parsed]
   (let [self-node (node graph id)
         new-nodes (->> (:parts parsed)
+                       (map #(assoc % :parent id))
                        (zipmap (repeatedly rand-id)))
         new-name-ids (zipmap (map :name (vals new-nodes))
                              (keys new-nodes))
@@ -413,12 +418,28 @@
                           #"the parts"
                           "the several parts")]])))
 
+(defn populate [id]
+  (let [graph @*world]
+    (->> (chat {:msgs (prompt-msgs graph id)})
+         content
+         parse-content
+         (id-content graph id)
+         (swap! *world merge-subgraph)))
+  (write-world)
+  (sh "dot" "-Tsvg" "-o" "world.svg" :in (dot @*world)))
+
 (comment
   (reset! *world graph)
+  (reset! *world (read-world))
   (write-world)
   (spit "world.dot" (dot @*world))
 
-  (def resp (chat {:msgs (prompt-msgs graph :d103)}))
+  (def resp (chat {:msgs (prompt-msgs graph :s007)}))
   (println (content resp))
+
+  (swap! *world merge-subgraph
+         (->> resp content parse-content (id-content graph :s007)))
+
+  (populate :s010)
 
   )
