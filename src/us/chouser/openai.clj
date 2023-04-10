@@ -77,30 +77,8 @@
 ;; If a box has sub-boxes, you must be in a specific sub-box
 ;; For a building, each linked section is linked to some room in the building.
 ;; Each room can be linked to zero or one section.
-#_
-(defn graph-errors [graph]
-  (concat
-   ;; no directed edges
-   (for [[id1 {:keys [adj]}] graph
-         id2 adj
-         :when (not (get-in graph [id2 :adj id1]))]
-     [:missing-adj id2 id1])
-   ;; no edges to self
-   (for [[id {:keys [adj]}] graph
-         :when (get-in graph [id :adj id])]
-     [:bad-adj id id])))
+;; No actual children, but `:children? true` means you're incomplete.
 
-#_
-(defn fix-errors [graph errors]
-  (reduce (fn [graph [err-type & args]]
-            (case err-type
-              :missing-adj (update-in
-                            graph [(first args) :adj] conj (second args))))
-          graph
-          errors))
-
-;; No parent means you're incomplete? You have a child, but some are missing
-#_
 (def graph
   {:nodes
    {:a001 {:name "Gryphon"
@@ -115,8 +93,8 @@
            :kind "district"
            :parent :a001
            :children? true}
-    :s003 {:name "Market Square"
-           :kind "section"
+    :s003 {:name "Main Street"
+           :kind "street"
            :parent :d002}
     :s004 {:name "Town Hall"
            :kind "building"
@@ -151,9 +129,16 @@
            :children? true}
     :s012 {:name "Graveyard"
            :kind "section"
-           :parent :d002
-           :children? true}
-
+           :parent :d002}
+    :s013 {:name "Keep Bridge"
+           :kind "bridge"
+           :parent :d002}
+    :s014 {:name "South Street"
+           :kind "street"
+           :parent :d002}
+    :s015 {:name "Alchemist's Alley"
+           :kind "back alley"
+           :parent :d002}
     :r013 {:name "Entrance Hall"
            :kind "room"
            :parent :s004}
@@ -181,19 +166,21 @@
           #{:r018 :r016}
           #{:s003 :s004}
           #{:s003 :s006}
-          #{:s003 :s007}
-          #{:s003 :s010}
           #{:s005 :s003}
-          #{:s005 :s010}
-          #{:s006 :s004}
+          #{:s005 :s015}
+          #{:s015 :s010}
           #{:s007 :s012}
           #{:s008 :s006}
-          #{:s009 :r016}
-          #{:s009 :s004}
           #{:s011 :s003}
           #{:d002 :d003}
-          #{:s011 :d003}}})
+          #{:s003 :d003}
+          #{:s013 :s009}
+          #{:s013 :r016}
+          #{:s014 :s003}
+          #{:s014 :s010}
+          #{:s014 :s007}}})
 
+#_
 (def graph
   {:nodes
    {:a001 {:name "Gryphon"           :kind "region"   :parent nil   :children? true}
@@ -220,12 +207,6 @@
           #{:d100 :d102}
           #{:d102 :d103}
           }})
-
-
-#_
-(->> graph :nodes vals
-     (filter #(= :d100 (:parent %)))
-     (run! #(println (str (:name %) ", a " (:kind %)))))
 
 (defn node [graph id]
   (get-in graph [:nodes id]))
@@ -280,7 +261,7 @@
       "For each, indicate if it contains sub-locations people can enter.\n"
       (when (seq peer-adj)
         [(:name m)" is adjacent to " (interpose ", " (map #(:name %) peer-adj))
-         "; so for each of these choose one appropriate part to be a gateway to it.\n"])
+         "; so for each of these choose one appropriate part without sub-locations to be a gateway to it.\n"])
       "Finally, for each part, list one or more adjacent parts (a commutative property), "
       "primarily connecting parts that are related in purpose or physically near "
       "each other. No two parts that each have sub-locations may be adjacent."])))
@@ -304,7 +285,7 @@
                       (let [gws (filter part-id-set (adjacent-ids graph (:id peer)))]
                         (if (not= 1 (count gws))
                           (throw (ex-info "Bad gateway count"
-                                          {:id id :node m, :peer peer, :gateways gws}))
+                                          {:id id :node m, :peer-adj peer-adj, :peer peer, :gateways gws}))
                           (->> gws first (node graph) :name)))
                       "\n"])))])
       "\n=== adjacent parts of " (:name m)"\n"
@@ -422,7 +403,6 @@
                                               shuffle
                                               first))))
                             path)]
-    (prn example-ids)
     (concat
      [[:system "You are building a world of connected locations."]]
      (->> example-ids
@@ -438,27 +418,7 @@
   (write-world)
   (spit "world.dot" (dot @*world))
 
-  (def resp
-    (chat {:msgs
-           [[:system "You are building a world of connected locations."]
-            [:user (gen-user graph :d100)]
-            [:assistant (gen-assistant graph :d100)]
-            [:user (gen-user graph :s103)]
-            [:assistant (gen-assistant graph :s103)]
-            [:user (gen-user graph :a001)]
-            [:assistant (gen-assistant graph :a001)]
-            [:user (gen-user graph :d103)]]}))
+  (def resp (chat {:msgs (prompt-msgs graph :d103)}))
+  (println (content resp))
 
-  (pprint (sort (fix-errors graph (graph-errors graph))))
-
-  (pprint-msgs (full-prompt @*world "50_52"))
-
-  (def resp (chat {:msgs (full-prompt @*world "50_52")}))
-
-  (merge-world @*world "50_52" (parse-content resp))
-
-  (swap! *world merge-world "50_52" (parse-content resp))
-  (write-world)
-
-  (println (-> resp :body-map :choices first :message :content println))
   )
