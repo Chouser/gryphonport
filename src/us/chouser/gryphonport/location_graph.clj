@@ -177,15 +177,18 @@
                     ["  " (name (first pair)) " -- " (name (second pair)) ";\n"]))))
       "}\n"])))
 
+(defn path-from-root [graph id]
+  (->> (iterate #(->> % (node graph) :parent) id)
+       (take-while identity)
+       next
+       reverse))
+
 (defn prompt-msgs [graph id]
   (let [parts-map (get-parts-map graph)
         _ (assert (empty? (parts-map id)))
         n (node graph id)
         _ (assert (:children? n))
-        path (->> (iterate #(->> % (node graph) :parent) id)
-                  (take-while identity)
-                  next
-                  reverse)
+        path (path-from-root graph id)
         path-set (set path)
         example-ids (distinct
                      (concat [:d002 :s004]

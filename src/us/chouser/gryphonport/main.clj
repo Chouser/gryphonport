@@ -2,6 +2,7 @@
   (:require [clojure.java.io :as io]
             [clojure.java.shell :refer [sh]]
             [us.chouser.gryphonport.location-graph :as loc]
+            [us.chouser.gryphonport.location-descriptions :as desc]
             [us.chouser.gryphonport.util :as util])
   (:import (java.io PushbackReader)))
 
@@ -72,29 +73,52 @@
           #{:d102 :d103}
           #{:d103 :d104}}})
 
-(alter-var-root #'seed-graph assoc-in [:nodes :r013 :description]
-                "You find yourself standing in the Entrance Hall of Gryphonport's Town Hall. The room is dimly lit with flickering torches mounted on the walls, creating a warm and inviting atmosphere. The air is filled with the scent of old books and polished wood, suggesting that the building has a long history.
+(def seed-descriptions
+  {:r013
+   "You find yourself standing in the Entrance Hall of Gryphonport's Town Hall. The room is dimly lit with flickering torches mounted on the walls, creating a warm and inviting atmosphere. The air is filled with the scent of old books and polished wood, suggesting that the building has a long history.
 
 In the center of the room stands a grand statue of a majestic griffin, its wings outstretched as if about to take flight. The statue is made of polished wood and stands atop a pedestal decorated with intricate carvings. It immediately catches your eye as you take in the details of the room.
 
 Looking around, you notice several doors leading to different areas of the building. One door to the Guard Room and another door that leads to the Archives. A grand staircase leads up to the Council Chambers, where the town's leaders meet to make important decisions.
 
-Another striking feature of the Entrance Hall is the ceiling above you, which is decorated with a large mural. It depicts the early settlers of Gryphon fighting against ferocious beasts that once roamed the land. The mural is incredibly detailed and tells the story of the town's heroic origins.")
+Another striking feature of the Entrance Hall is the ceiling above you, which is decorated with a large mural. It depicts the early settlers of Gryphon fighting against ferocious beasts that once roamed the land. The mural is incredibly detailed and tells the story of the town's heroic origins."
 
-(alter-var-root #'seed-graph assoc-in [:nodes :r016 :description]
-                "As you enter the Guard Room, you find yourself in a small, windowless chamber. The room is dimly lit by torches mounted on the walls, casting flickering shadows across the floor.
+   :r016
+   "As you enter the Guard Room, you find yourself in a small, windowless chamber. The room is dimly lit by torches mounted on the walls, casting flickering shadows across the floor.
 
 The space is dominated by a large, sturdy oak table that takes up most of the room. The table is surrounded by several wooden chairs. In one corner of the room, you spot several weapons hung on the wall, including swords, spears, and shields.
 
 Looking around, you notice that the walls are decorated with several paintings depicting scenes of battle and conquest. The images are vivid and detailed, showing warriors in armor fighting against mythical beasts and other enemies. It's clear that this room was meant to inspire bravery and determination in those who used it.
 
-You also notice several doors, one leading to the Keep Bridge, one to Jail, and one to the Entrance Hall with it's grand staircase.")
+You also notice several doors, one leading to the Keep Bridge, one to Jail, and one to the Entrance Hall with it's grand staircase."
 
-(alter-var-root #'seed-graph assoc-in [:nodes :s003 :description]
-                "As you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.
+   :s003
+   "As you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.
 
-From Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall.")
+From Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."
 
+   :a001
+   "Gryphon is a vast, rugged region located in the northern part of the continent. It is known for its breathtaking natural beauty, with jagged mountain peaks, deep forests, and winding rivers that cut through the landscape. The region is also home to a diverse array of wildlife, including wolves, bears, deer, and many species of birds.
+
+Despite its natural beauty, Gryphon is a challenging place to live. The rugged terrain and harsh climate make it difficult to grow crops, and the inhabitants must be resourceful and self-sufficient to survive. Many people in Gryphon rely on hunting, fishing, and trapping to make a living.
+
+The people of Gryphon are known for their hardiness and resilience, as well as their fierce independence. They are a proud people who value self-sufficiency and individual freedom, and they are fiercely protective of their land and way of life.
+
+Despite its challenges, Gryphon is a popular destination for adventurers and explorers. The region is home to many hidden treasures, including ancient ruins, lost cities, and hidden valleys that are said to be home to magical creatures and powerful artifacts. Many adventurers come to Gryphon in search of fame, fortune, and adventure, and while many are never heard from again, those who succeed in their quests often become legends in their own right."
+
+   :d002
+   "Gryphonport is a bustling town located in the heart of Gryphon, near the famous Blackwood Trail road. The town is situated at the foot of a towering mountain range and surrounded by dense forests, giving it a sense of isolation and ruggedness.
+
+The town is centered around Main Street, a tidy thoroughfare lined with shops, inns, and other establishments."
+
+   :s005
+   "Wilhelm's Forge is a large, imposing building located in Gryphonport, near Main Street and Alchemist's Alley. The building is made of sturdy stone and is easily recognizable by the large sign hanging above the entrance, depicting a hammer and anvil."})
+
+(defn merge-descriptions [graph description-map]
+  (reduce (fn [m [k d]]
+            (assoc-in m [:nodes k :description] d))
+          graph
+          description-map))
 
 (defn read-world []
   (->> "us/chouser/world.edn" io/resource io/reader PushbackReader.
@@ -120,6 +144,13 @@ From Main Street, you can access several different parts of town. South Street i
     (spit "world.dot" dot-str)
     (sh "dot" "-Tsvg" "-o" "world.svg" :in dot-str)))
 
+(defn describe [id]
+  (let [graph @*world
+        content (util/content
+                 (util/chat {:msgs (desc/prompt-msgs graph id)}))]
+    (swap! *world merge-descriptions {id content})
+    (write-world)
+    (println content)))
 
 (defn _comment []
   (reset! *world seed-graph)
@@ -128,11 +159,15 @@ From Main Street, you can access several different parts of town. South Street i
   (spit "world.dot" (loc/dot @*world))
   (sh "dot" "-Tsvg" "-o" "world.svg" :in (loc/dot @*world))
 
-  (def resp (util/chat {:msgs (loc/prompt-msgs seed-graph :s007)}))
+  (def resp (util/chat {:msgs (desc/prompt-msgs @*world :ev370)}))
   (println (util/content resp))
+
+  (swap! *world merge-descriptions seed-descriptions)
 
   (populate :s005)
 
   (util/pprint-msgs (loc/prompt-msgs seed-graph :s005))
+
+  (desc/gen-user @*world :s005)
 
   )

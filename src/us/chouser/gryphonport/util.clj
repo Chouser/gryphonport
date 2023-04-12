@@ -31,6 +31,13 @@
       (walk coll)
       (str sb))))
 
+(defn flist [sep1 sep2 coll]
+  (if-not (next coll)
+    (first coll)
+    (concat (interpose sep1 (drop-last coll))
+            [sep1 sep2] ;; oxford comma!
+            (last coll))))
+
 (defn format-msgs [msgs]
   (map (fn [[role & content]]
          {:role (name role)
@@ -60,9 +67,13 @@
       (binding [*out* log]
         (pprint {:request req
                  :response response})))
-    (assoc response
-           :body-map (try (json/read-str (:body response) :key-fn keyword)
-                          (catch Exception ex nil)))))
+    (let [response
+          (assoc response
+                 :body-map (try (json/read-str (:body response) :key-fn keyword)
+                                (catch Exception ex nil)))]
+      (binding [*out* *err*]
+        (some-> response :body-map :usage prn))
+      response)))
 
 (defn content [resp]
   (when (not= 200 (-> resp :status))
