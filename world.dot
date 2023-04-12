@@ -13,7 +13,12 @@ graph world {
         r017[shape=ellipse, label="Treasury\nroom :r017"];
         r018[shape=ellipse, label="Jail\nroom :r018"];
       }
-      s005[shape=box, label="Wilhelm's Forge\nbuilding :s005"];
+      subgraph cluster_s005 {
+      label="Wilhelm's Forge\nbuilding :s005";
+        ev370[shape=ellipse, label="Workshop\nroom :ev370"];
+        oo761[shape=ellipse, label="Office\nroom :oo761"];
+        zy389[shape=ellipse, label="Storage Room\nroom :zy389"];
+      }
       s006[shape=box, label="Odd Duck\ntavern :s006"];
       s007[shape=box, label="Temple of the Divine\nbuilding :s007"];
       s008[shape=ellipse, label="Dockside\narea :s008"];
@@ -61,6 +66,7 @@ graph world {
   s003 -- s006;
   s013 -- r016;
   xj579 -- ul718;
+  zy389 -- ev370;
   pr889 -- d103;
   d102 -- s102;
   s014 -- d102;
@@ -73,7 +79,6 @@ graph world {
   pr889 -- gv132;
   r013 -- r015;
   s008 -- s006;
-  s005 -- s003;
   an557 -- ul718;
   r015 -- r014;
   r013 -- s003;
@@ -86,8 +91,10 @@ graph world {
   fs551 -- zz936;
   pr889 -- xb245;
   s014 -- s010;
+  s003 -- oo761;
+  s015 -- ev370;
+  ev370 -- oo761;
   s014 -- s007;
-  s005 -- s015;
   s015 -- s010;
   r105 -- r104;
   r013 -- r016;
