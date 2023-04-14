@@ -40,6 +40,20 @@
           {}
           (:nodes graph)))
 
+(defn find-gateway [world from to]
+  (let [parts (set (map :id (get-parts world to)))
+        _ (assert (seq parts) (str "Target must be populated: " to))
+        gateways
+        (->> (:adj world)
+             (filter #(get % from))
+             (map #(first (disj % from)))
+             (filter #(get parts %)))]
+
+    (assert (= 1 (count gateways))
+            (str "Bad gateway count for " from " -> "
+                 to ": " (pr-str gateways)))
+    (first gateways)))
+
 ;; Add a short description of each node? To help coherence during graph generation?
 (defn gen-user [graph id]
   (let [m (node graph id)
@@ -139,6 +153,7 @@
                 (->> (:adjacent parsed)
                      (map (fn [name-pair]
                             (set (map new-name-ids name-pair))))
+                     (remove #(contains? % nil))
                      set)))}))
 
 (defn merge-subgraph [graph m]

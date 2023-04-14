@@ -3,7 +3,8 @@
             [clojure.java.shell :refer [sh]]
             [us.chouser.gryphonport.location-graph :as loc]
             [us.chouser.gryphonport.location-descriptions :as desc]
-            [us.chouser.gryphonport.util :as util])
+            [us.chouser.gryphonport.util :as util]
+            [clojure.data.json :as json])
   (:import (java.io PushbackReader)))
 
 (set! *warn-on-reflection* true)
@@ -81,7 +82,9 @@ In the center of the room stands a grand statue of a majestic griffin, its wings
 
 Looking around, you notice several doors leading to different areas of the building. One door to the Guard Room and another door that leads to the Archives. A grand staircase leads up to the Council Chambers, where the town's leaders meet to make important decisions.
 
-Another striking feature of the Entrance Hall is the ceiling above you, which is decorated with a large mural. It depicts the early settlers of Gryphon fighting against ferocious beasts that once roamed the land. The mural is incredibly detailed and tells the story of the town's heroic origins."
+Another striking feature of the Entrance Hall is the ceiling above you, which is decorated with a large mural. It depicts the early settlers of Gryphon fighting against ferocious beasts that once roamed the land. The mural is incredibly detailed and tells the story of the town's heroic origins.
+
+The front doors, which reach nearly to the vaulted ceiling, lead out to Main Street."
 
    :r016
    "As you enter the Guard Room, you find yourself in a small, windowless chamber. The room is dimly lit by torches mounted on the walls, casting flickering shadows across the floor.
@@ -114,11 +117,44 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
    :s005
    "Wilhelm's Forge is a large, imposing building located in Gryphonport, near Main Street and Alchemist's Alley. The building is made of sturdy stone and is easily recognizable by the large sign hanging above the entrance, depicting a hammer and anvil."})
 
+(def characters
+  {:p1 {:loc :r013}})
+
 (defn merge-descriptions [graph description-map]
   (reduce (fn [m [k d]]
             (assoc-in m [:nodes k :description] d))
           graph
           description-map))
+
+(defn move-character [world cid loc]
+  (let [n (loc/node world loc)
+        orig-loc (get-in world [:characters cid :loc])]
+    (if (not (:children? n))
+      (assoc-in world [:characters cid :loc] loc)
+      (let [world (if (seq (loc/get-parts world loc))
+                    world
+                    (do
+                      (prn :populate loc)
+                      (->> (util/chat {:msgs (loc/prompt-msgs world loc)})
+                           util/content
+                           loc/parse-content
+                           (loc/id-content world loc)
+                           (loc/merge-subgraph world))))]
+        (recur world cid (loc/find-gateway world orig-loc loc))))))
+
+(defn describe-down-to [world loc]
+  (reduce (fn [world loc]
+            (if-let [desc (:description (loc/node world loc))]
+              world
+              (do
+                (prn :describe loc)
+                (merge-descriptions
+                 world
+                 {loc (util/content
+                       (util/chat {:msgs (desc/prompt-msgs world loc)}))}))))
+          world
+          (concat (loc/path-from-root world loc)
+                  [loc])))
 
 (defn read-world []
   (->> "us/chouser/world.edn" io/resource io/reader PushbackReader.
@@ -128,29 +164,28 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
   (atom (read-world)))
 
 (defn write-world []
+  (let [dot-str (loc/dot @*world)]
+    (spit "world.dot" dot-str)
+    (sh "dot" "-Tsvg" "-o" "world.svg" :in dot-str))
   (with-open [w (io/writer (io/resource "us/chouser/world.edn"))]
     (binding [*out* w]
       (prn @*world))))
 
-(defn populate [id]
-  (let [graph @*world]
-    (->> (util/chat {:msgs (loc/prompt-msgs graph id)})
-         util/content
-         loc/parse-content
-         (loc/id-content graph id)
-         (swap! *world loc/merge-subgraph)))
-  (write-world)
-  (let [dot-str (loc/dot @*world)]
-    (spit "world.dot" dot-str)
-    (sh "dot" "-Tsvg" "-o" "world.svg" :in dot-str)))
+(defn info []
+  (let [char-id :p1
+        world @*world
+        loc-id (get-in world [:characters char-id :loc])]
+    (prn :loc-id loc-id)
+    (println (get-in world [:nodes loc-id :description]))))
 
-(defn describe [id]
-  (let [graph @*world
-        content (util/content
-                 (util/chat {:msgs (desc/prompt-msgs graph id)}))]
-    (swap! *world merge-descriptions {id content})
+(defn go [loc]
+  (let [char-id :p1
+        world (move-character @*world char-id loc)
+        new-loc (get-in world [:characters char-id :loc])
+        world (describe-down-to world new-loc)]
+    (reset! *world world)
     (write-world)
-    (println content)))
+    (info)))
 
 (defn _comment []
   (reset! *world seed-graph)
@@ -162,12 +197,19 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
   (def resp (util/chat {:msgs (desc/prompt-msgs @*world :ev370)}))
   (println (util/content resp))
 
+  (swap! *world assoc :characters characters)
+
   (swap! *world merge-descriptions seed-descriptions)
 
+  (swap! *world update :nodes dissoc nil)
+
   (populate :s005)
+  (describe :oo761)
 
   (util/pprint-msgs (loc/prompt-msgs seed-graph :s005))
 
   (desc/gen-user @*world :s005)
+
+  ;; FIXME description of :d102 is wrong -- shouldn't mention Stable Yard
 
   )

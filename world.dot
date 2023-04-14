@@ -20,10 +20,22 @@ graph world {
         zy389[shape=ellipse, label="Storage Room\nroom :zy389"];
       }
       s006[shape=box, label="Odd Duck\ntavern :s006"];
-      s007[shape=box, label="Temple of the Divine\nbuilding :s007"];
+      subgraph cluster_s007 {
+      label="Temple of the Divine\nbuilding :s007";
+        by344[shape=ellipse, label="Sanctuary\nroom :by344"];
+        ez555[shape=ellipse, label="Choir Loft\nroom :ez555"];
+        sr570[shape=ellipse, label="Vestibule\nroom :sr570"];
+        vm205[shape=ellipse, label="Sacristy\nroom :vm205"];
+      }
       s008[shape=ellipse, label="Dockside\narea :s008"];
       s009[shape=box, label="Keep\nbuilding :s009"];
-      s010[shape=box, label="Alchemist's Shop\nbuilding :s010"];
+      subgraph cluster_s010 {
+      label="Alchemist's Shop\nbuilding :s010";
+        ba404[shape=ellipse, label="Back Office\nroom :ba404"];
+        dg327[shape=ellipse, label="Main Laboratory\nroom :dg327"];
+        nk909[shape=ellipse, label="Storage Room\nroom :nk909"];
+        xv674[shape=ellipse, label="Entrance Hall\nroom :xv674"];
+      }
       s011[shape=ellipse, label="Farmstead\narea :s011"];
       s012[shape=ellipse, label="Graveyard\narea :s012"];
       s013[shape=ellipse, label="Keep Bridge\nbridge :s013"];
@@ -65,6 +77,7 @@ graph world {
   oy686 -- ul718;
   s003 -- s006;
   s013 -- r016;
+  s014 -- sr570;
   xj579 -- ul718;
   zy389 -- ev370;
   pr889 -- d103;
@@ -72,15 +85,18 @@ graph world {
   s014 -- d102;
   d102 -- d103;
   r106 -- r104;
-  s007 -- s012;
+  vm205 -- by344;
   s014 -- s003;
+  ba404 -- dg327;
   r104 -- s102;
   r018 -- r016;
   pr889 -- gv132;
   r013 -- r015;
+  by344 -- sr570;
   s008 -- s006;
   an557 -- ul718;
   r015 -- r014;
+  xv674 -- ba404;
   r013 -- s003;
   r013 -- r014;
   s009 -- s013;
@@ -89,15 +105,20 @@ graph world {
   an557 -- pr889;
   pr889 -- xj579;
   fs551 -- zz936;
+  s014 -- xv674;
   pr889 -- xb245;
-  s014 -- s010;
   s003 -- oo761;
   s015 -- ev370;
   ev370 -- oo761;
-  s014 -- s007;
-  s015 -- s010;
+  nk909 -- xv674;
+  xv674 -- dg327;
+  nk909 -- ba404;
+  nk909 -- dg327;
   r105 -- r104;
+  by344 -- ez555;
+  s015 -- ba404;
   r013 -- r016;
   pr889 -- fs551;
   s011 -- s003;
+  sr570 -- s012;
 }
