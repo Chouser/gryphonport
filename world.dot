@@ -57,7 +57,11 @@ graph world {
     subgraph cluster_d104 {
     label="Brookside\ntown :d104";
       at668[shape=box, label="The Dry Goods\nshop :at668"];
-      gv132[shape=box, label="The Blacksmith's\nshop :gv132"];
+      subgraph cluster_gv132 {
+      label="The Blacksmith's\nshop :gv132";
+        kk121[shape=ellipse, label="Back Room\nroom :kk121"];
+        yf754[shape=ellipse, label="Main Shop Floor\nroom :yf754"];
+      }
       subgraph cluster_he254 {
       label="The Broken Anvil\ntavern :he254";
         an557[shape=ellipse, label="Kitchen\nroom :an557"];
@@ -84,17 +88,18 @@ graph world {
   d102 -- s102;
   s014 -- d102;
   d102 -- d103;
+  kk121 -- yf754;
   r106 -- r104;
   vm205 -- by344;
   s014 -- s003;
   ba404 -- dg327;
   r104 -- s102;
   r018 -- r016;
-  pr889 -- gv132;
   r013 -- r015;
   by344 -- sr570;
   s008 -- s006;
   an557 -- ul718;
+  pr889 -- yf754;
   r015 -- r014;
   xv674 -- ba404;
   r013 -- s003;
