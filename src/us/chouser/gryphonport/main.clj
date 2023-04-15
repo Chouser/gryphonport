@@ -201,7 +201,7 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
 
   (swap! *world merge-descriptions seed-descriptions)
 
-  (swap! *world update :nodes dissoc nil)
+  (swap! *world update-in [:nodes :d102] dissoc :description)
 
   (populate :s005)
   (describe :oo761)
@@ -209,7 +209,5 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
   (util/pprint-msgs (loc/prompt-msgs seed-graph :s005))
 
   (desc/gen-user @*world :s005)
-
-  ;; FIXME description of :d102 is wrong -- shouldn't mention Stable Yard
 
   )
