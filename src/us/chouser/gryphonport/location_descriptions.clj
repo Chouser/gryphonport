@@ -9,27 +9,32 @@
                  #_(when-let [p (:parent n)]
                    [" of " (:name (loc/node graph p))])
                  ")"])
-        n (loc/node graph id)
-        adj (loc/peer-adjacent-nodes graph id)]
+        n (loc/node graph id)]
     (util/fstr
-     ["Describe "(title n)" of "(:name (loc/node graph (:parent n)))"."
-      (when (:children? n)
+     ["Describe "(title n)" of "(:name (loc/node graph (:parent n)))" as a storyteller."
+      (if (:children? n)
+        ;; Location summary that is never displayed directly to players:
         (let [parts (loc/get-parts graph id)]
           (assert (seq parts) "populate graph before describing")
-          [" You may briefly summarize that it contains "
+          [" It's the kind of place that would contain "
            (util/flist ", " "and " (map :name parts))
-           (when (seq adj)
-             [", and that it is near "
+           (when-let [adj (loc/peer-adjacent-nodes graph id)]
+             [", and be near "
               (->> adj
                    (map title)
                    (util/flist ", " "and "))])
-           ", but do not list all these locations."]))
-      (when (and (not (:children? n)) (seq adj))
-        [" Be sure to mention that from here you can go to "
-         (->> adj
-              (map title)
-              (util/flist ", " "or "))
-         "."])])))
+           "."])
+        ;; Childless location descriptions will be shown to players:
+        (let [adj (set (loc/adjacent-ids graph id))
+              _ (prn :adj adj)
+              adj (->> adj
+                       (map (partial loc/node graph))
+                       (remove #(contains? adj (:parent %))))]
+          [" Be sure to mention that from here the only places you can go are "
+           (->> adj
+                (map title)
+                (util/flist ", " "or "))
+           "."]))])))
 
 (defn gen-assistant [graph id]
   (:description (loc/node graph id)))

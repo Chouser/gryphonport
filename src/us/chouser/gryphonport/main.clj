@@ -60,6 +60,7 @@
           #{:s003 :d003}
           #{:s013 :s009}
           #{:s013 :r016}
+          #{:s013 :s004}
           #{:s014 :s003}
           #{:s014 :s010}
           #{:s014 :s007}
@@ -187,8 +188,17 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
     (write-world)
     (info)))
 
+#_
+(defn cmd [text]
+  (let [char-id :p1]
+    (util/chat {:msgs (db/prompt-msgs world )}))
+  )
+
 (defn _comment []
   (reset! *world seed-graph)
+  (swap! *world merge-descriptions seed-descriptions)
+  (swap! *world assoc :characters characters)
+
   (reset! *world (read-world))
   (write-world)
   (spit "world.dot" (loc/dot @*world))
@@ -196,10 +206,6 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
 
   (def resp (util/chat {:msgs (desc/prompt-msgs @*world :ev370)}))
   (println (util/content resp))
-
-  (swap! *world assoc :characters characters)
-
-  (swap! *world merge-descriptions seed-descriptions)
 
   (swap! *world update-in [:nodes :d102] dissoc :description)
 
