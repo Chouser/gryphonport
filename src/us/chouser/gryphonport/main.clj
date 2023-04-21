@@ -3,6 +3,7 @@
             [clojure.java.shell :refer [sh]]
             [us.chouser.gryphonport.location-graph :as loc]
             [us.chouser.gryphonport.location-descriptions :as desc]
+            [us.chouser.gryphonport.dm :as dm]
             [us.chouser.gryphonport.util :as util]
             [clojure.data.json :as json])
   (:import (java.io PushbackReader)))
@@ -57,7 +58,6 @@
           #{:s008 :s006}
           #{:s011 :s003}
           #{:d002 :d102}
-          #{:s003 :d003}
           #{:s013 :s009}
           #{:s013 :r016}
           #{:s013 :s004}
@@ -127,22 +127,6 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
           graph
           description-map))
 
-(defn move-character [world cid loc]
-  (let [n (loc/node world loc)
-        orig-loc (get-in world [:characters cid :loc])]
-    (if (not (:children? n))
-      (assoc-in world [:characters cid :loc] loc)
-      (let [world (if (seq (loc/get-parts world loc))
-                    world
-                    (do
-                      (prn :populate loc)
-                      (->> (util/chat {:msgs (loc/prompt-msgs world loc)})
-                           util/content
-                           loc/parse-content
-                           (loc/id-content world loc)
-                           (loc/merge-subgraph world))))]
-        (recur world cid (loc/find-gateway world orig-loc loc))))))
-
 (defn describe-down-to [world loc]
   (reduce (fn [world loc]
             (if-let [desc (:description (loc/node world loc))]
@@ -156,6 +140,24 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
           world
           (concat (loc/path-from-root world loc)
                   [loc])))
+
+(defn move-character [world cid loc]
+  (let [n (loc/node world loc)
+        orig-loc (get-in world [:characters cid :loc])]
+    (if (not (:children? n))
+      (-> world
+          (describe-down-to loc)
+          (assoc-in [:characters cid :loc] loc))
+      (let [world (if (seq (loc/get-parts world loc))
+                    world
+                    (do
+                      (prn :populate loc)
+                      (->> (util/chat {:msgs (loc/prompt-msgs world loc)})
+                           util/content
+                           loc/parse-content
+                           (loc/id-content world loc)
+                           (loc/merge-subgraph world))))]
+        (recur world cid (loc/find-gateway world orig-loc loc))))))
 
 (defn read-world []
   (->> "us/chouser/world.edn" io/resource io/reader PushbackReader.
@@ -176,28 +178,52 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
   (let [char-id :p1
         world @*world
         loc-id (get-in world [:characters char-id :loc])]
-    (prn :loc-id loc-id)
     (println (get-in world [:nodes loc-id :description]))))
 
 (defn go [loc]
   (let [char-id :p1
-        world (move-character @*world char-id loc)
-        new-loc (get-in world [:characters char-id :loc])
-        world (describe-down-to world new-loc)]
+        world (move-character @*world char-id loc)]
+    (reset! *world world)
+    (write-world)
+    (info)))
+
+(defn cmd [text]
+  (let [char-id :p1
+        world @*world
+        dm-user-data (dm/add-instruction-locs world {char-id text})
+        dm-cmds (->> (util/chat {:msgs (dm/prompt-msgs world dm-user-data)})
+                     util/content
+                     dm/parse-content
+                     (dm/id-content world))
+        ;;_ (clojure.pprint/pprint dm-cmds)
+        world (update world :dm-history conj
+                      [:user dm-user-data]
+                      [:assistant dm-cmds])
+        world (reduce (fn [world [cid m]]
+                        (when-let [s (:say m)]
+                          (println "(You say:" s ")"))
+                        (when-let [r (:reply m)]
+                          (println r)
+                          (println))
+                        (if-let [go-loc (:go m)]
+                          (move-character world cid go-loc)
+                          world))
+                      world
+                      dm-cmds)]
     (reset! *world world)
     (write-world)
     (info)))
 
 #_
-(defn cmd [text]
-  (let [char-id :p1]
-    (util/chat {:msgs (db/prompt-msgs world )}))
-  )
-
 (defn _comment []
   (reset! *world seed-graph)
   (swap! *world merge-descriptions seed-descriptions)
   (swap! *world assoc :characters characters)
+  (swap! *world assoc :dm-history dm/example)
+
+  (swap! *world assoc-in [:characters :p1 :loc] :pq541)
+
+  (def resp (util/chat {:msgs (dm/prompt-msgs @*world {:p1 "say goodbye and go to main street"})}))
 
   (reset! *world (read-world))
   (write-world)

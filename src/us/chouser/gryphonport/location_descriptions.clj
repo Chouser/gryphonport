@@ -18,23 +18,18 @@
           (assert (seq parts) "populate graph before describing")
           [" It's the kind of place that would contain "
            (util/flist ", " "and " (map :name parts))
-           (when-let [adj (loc/peer-adjacent-nodes graph id)]
+           (when-let [adj (loc/peer-adjacent-nodes graph id)] ;; adjacent-ids might be ok here
              [", and be near "
               (->> adj
                    (map title)
                    (util/flist ", " "and "))])
            "."])
         ;; Childless location descriptions will be shown to players:
-        (let [adj (set (loc/adjacent-ids graph id))
-              _ (prn :adj adj)
-              adj (->> adj
-                       (map (partial loc/node graph))
-                       (remove #(contains? adj (:parent %))))]
-          [" Be sure to mention that from here the only places you can go are "
-           (->> adj
-                (map title)
-                (util/flist ", " "or "))
-           "."]))])))
+        [" Be sure to mention that from here the only places you can go are "
+         (->> (loc/nav-adj-node graph id)
+              (map title)
+              (util/flist ", " "or "))
+         "."])])))
 
 (defn gen-assistant [graph id]
   (:description (loc/node graph id)))

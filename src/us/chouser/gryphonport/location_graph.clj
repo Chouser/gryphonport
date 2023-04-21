@@ -1,6 +1,7 @@
 (ns us.chouser.gryphonport.location-graph
   (:require [us.chouser.gryphonport.util :refer [fstr]]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [us.chouser.gryphonport.util :as util]))
 
 ;; If a box has sub-boxes, you must be in a specific sub-box
 ;; For a building, each linked section is linked to some room in the building.
@@ -24,6 +25,14 @@
     (->> (adjacent-ids graph id)
          (map #(assoc (node graph %) :id %))
          (filter #(= parent-id (:parent %))))))
+
+(defn nav-adj-node
+  "All the places a user can say they will go from id"
+  [graph id]
+  (let [adj (set (adjacent-ids graph id))]
+    (->> adj
+         (map #(assoc (node graph %) :id %))
+         (remove #(contains? adj (:parent %))))))
 
 (defn get-parts
   "All the parts (nodes) of id (with :id added)"
@@ -66,7 +75,7 @@
       "Then for each of these locations, list one or more adjacent locations. "
       "Locations should only be adjacent if they are related in purpose or physically connected, and never if both have sub-locations. "
       (when (seq peer-adj)
-        ["Finally, since "(:name m)" is adjacent to " (interpose ", " (map #(:name %) peer-adj))
+        ["Finally, since "(:name m)" is adjacent to " (util/flist ", " "and " (map #(:name %) peer-adj))
          ", for each of these choose one room or non-building in "(:name m)" to be an exit to it."])])))
 
 (defn gen-assistant [graph id]

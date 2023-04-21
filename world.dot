@@ -1,4 +1,5 @@
 graph world {
+  ya595[shape=ellipse, label="\n :ya595"];
   subgraph cluster_a001 {
   label="Gryphon\nregion :a001";
     subgraph cluster_d002 {
@@ -13,8 +14,18 @@ graph world {
         r017[shape=ellipse, label="Treasury\nroom :r017"];
         r018[shape=ellipse, label="Jail\nroom :r018"];
       }
-      s005[shape=box, label="Wilhelm's Forge\nbuilding :s005"];
-      s006[shape=box, label="Odd Duck\ntavern :s006"];
+      subgraph cluster_s005 {
+      label="Wilhelm's Forge\nbuilding :s005";
+        pq541[shape=ellipse, label="Blacksmith's Workshop\nroom :pq541"];
+        uw946[shape=ellipse, label="Living Quarters\nroom :uw946"];
+        ya622[shape=ellipse, label="Storage Room\nroom :ya622"];
+      }
+      subgraph cluster_s006 {
+      label="Odd Duck\ntavern :s006";
+        ey136[shape=ellipse, label="Kitchen\nroom :ey136"];
+        ri662[shape=ellipse, label="Bar Room\nroom :ri662"];
+        yu595[shape=ellipse, label="Private Room\nroom :yu595"];
+      }
       s007[shape=box, label="Temple of the Divine\nbuilding :s007"];
       s008[shape=ellipse, label="Dockside\narea :s008"];
       s009[shape=box, label="Keep\nbuilding :s009"];
@@ -39,19 +50,21 @@ graph world {
     d103[shape=ellipse, label="Brookside Road\nroad :d103"];
     d104[shape=box, label="Brookside\ntown :d104"];
   }
-  s003 -- s006;
   s013 -- r016;
+  pq541 -- s003;
+  ri662 -- ey136;
   d102 -- s102;
   s014 -- d102;
   d102 -- d103;
+  ya622 -- s015;
   r106 -- r104;
   s007 -- s012;
   s014 -- s003;
+  s008 -- ey136;
   r104 -- s102;
+  pq541 -- uw946;
   r018 -- r016;
   r013 -- r015;
-  s008 -- s006;
-  s005 -- s003;
   r015 -- r014;
   r013 -- s003;
   d104 -- d103;
@@ -60,9 +73,11 @@ graph world {
   r017 -- r016;
   s014 -- s010;
   s014 -- s007;
-  s005 -- s015;
+  ri662 -- s003;
   s015 -- s010;
   r105 -- r104;
   r013 -- r016;
+  pq541 -- ya622;
+  yu595 -- ri662;
   s011 -- s003;
 }

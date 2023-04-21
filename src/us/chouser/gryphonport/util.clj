@@ -2,7 +2,8 @@
   (:require [clj-http.client :as http]
             [clojure.data.json :as json]
             [clojure.pprint :refer [pprint]]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [clojure.string :as str])
   (:import (java.io PushbackReader)
            (java.time ZonedDateTime ZoneOffset)
            (java.time.temporal ChronoUnit)
@@ -32,19 +33,30 @@
       (str sb))))
 
 (defn flist [sep1 sep2 coll]
-  (if-not (next coll)
-    (first coll)
-    (concat (interpose sep1 (drop-last coll))
-            [sep1 sep2] ;; oxford comma!
-            (last coll))))
+  (let [result
+        (if-not (next coll)
+          (first coll)
+          (concat (interpose sep1 (drop-last coll))
+                  [sep1 sep2] ;; oxford comma!
+                  (last coll)))]
+    (assert (every? seq coll) (apply str result))
+    result))
+
+(defn assert-valid-msgs [msgs]
+  (assert (= :system (ffirst msgs)))
+  (assert (->> msgs (drop 1) (take-nth 2) (map first) (every? #(= :user %))))
+  (assert (->> msgs (drop 2) (take-nth 2) (map first) (every? #(= :assistant %))))
+  (assert (= :user (first (last msgs)))))
 
 (defn format-msgs [msgs]
+  (assert-valid-msgs msgs)
   (map (fn [[role & content]]
          {:role (name role)
           :content (fstr content)})
        msgs))
 
 (defn pprint-msgs [msgs]
+  (assert-valid-msgs msgs)
   (run! (fn [[role & content]]
           (println "==" role)
           (println (fstr content)))
