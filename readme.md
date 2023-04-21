@@ -1,8 +1,8 @@
 # GryphonPorT
 
-An exploration of openai.com's ChatGPT API to build, populate, and explore a text-adventure world.
+Using openai.com's ChatGPT API to build, populate, and explore a text-adventure world.
 
-It's isn't really a game or playable yet, but some of the machinery is starting to work.
+This isn't really a game or playable yet, but some of the machinery is starting to work.
 
 ## Example "gameplay" so far:
 
