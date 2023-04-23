@@ -97,3 +97,14 @@
       (when (not= "stop" (-> choice :finish_reason))
         (println "WARNING unexpenced finish_reason:" (:finish_reason choice)))
       (-> resp :body-map :choices first :message :content))))
+
+(let [log-map
+      (clojure.edn/read-string {:readers {'object identity}} (slurp "log/2023-04-22T18:12:33Z.edn"))]
+  (-> log-map :request :body (json/read-str :key-fn keyword)
+
+      #_clojure.pprint/pprint
+      :messages
+      (->> (map (fn [m] [(keyword (:role m)) [(:content m)]])))
+      pprint-msgs
+)
+  #_(println (-> log-map :response :body)))

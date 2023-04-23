@@ -49,6 +49,7 @@
         (map (fn [[cid actions]]
                ["Player " cid " actions:\n"
                 (->> actions
+                     (#(dissoc % :examine))
                      (map (fn [[verb arg :as action]]
                             ["  " (name verb) ": "
                              (case verb

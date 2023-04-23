@@ -187,6 +187,24 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
     (write-world)
     (info)))
 
+(defn talk [world txt]
+  (let [world (update-in world [:characters :barman :chat]
+                         (fnil conj []) [:user txt])
+        msgs (concat
+              [[:system "The assistant is the barman."]
+               [:user ["Pretend to be the barman at the Odd Duck for this entire conversation."
+                       #_(get-in world [:nodes
+                                      (get-in world [:characters :p1 :loc])
+                                      :description])]]
+               [:assistant ["Ok!"]]]
+              (get-in world [:characters :barman :chat]))
+        content (->> (util/chat {:msgs msgs}) util/content)
+
+        world (update-in world [:characters :barman :chat]
+                         conj [:assistant content])]
+    (println "Barman says:" content)
+    world))
+
 (defn cmd [text]
   (let [char-id :p1
         world @*world
@@ -200,19 +218,23 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
                       [:user dm-user-data]
                       [:assistant dm-cmds])
         world (reduce (fn [world [cid m]]
-                        (when-let [s (:say m)]
-                          (println "(You say:" s ")"))
                         (when-let [r (:reply m)]
                           (println r)
                           (println))
-                        (if-let [go-loc (:go m)]
-                          (move-character world cid go-loc)
+                        (let [world (if-let [go-loc (:go m)]
+                                      (move-character world cid go-loc)
+                                      world)
+                              world (if-let [txt (:say m)]
+                                      (do
+                                        (println "(You say:" txt ")")
+                                        (talk world txt))
+                                      world)]
                           world))
                       world
                       dm-cmds)]
     (reset! *world world)
     (write-world)
-    (info)))
+    #_(info)))
 
 #_
 (defn _comment []
@@ -223,7 +245,11 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
 
   (swap! *world assoc-in [:characters :p1 :loc] :pq541)
 
+  (swap! *world assoc-in [:characters :barman :chat] [])
+
   (def resp (util/chat {:msgs (dm/prompt-msgs @*world {:p1 "say goodbye and go to main street"})}))
+
+  (util/pprint-msgs (dm/prompt-msgs @*world (dm/add-instruction-locs @*world {:p1 "say goodbye and go to main street"})))
 
   (reset! *world (read-world))
   (write-world)
@@ -234,6 +260,8 @@ The town is centered around Main Street, a tidy thoroughfare lined with shops, i
   (println (util/content resp))
 
   (swap! *world update-in [:nodes :d102] dissoc :description)
+
+  (get-in @*world [:dm-history])
 
   (populate :s005)
   (describe :oo761)
