@@ -69,6 +69,7 @@
                    :method :post
                    :headers {"Content-Type" "application/json"
                              "Authorization" (str "Bearer " (get-secret :openai-key))}
+                   :throw-exceptions false
                    :body (json/write-str
                           (merge {:model "gpt-3.5-turbo",
                                   :messages (format-msgs msgs)
@@ -89,7 +90,8 @@
 
 (defn content [resp]
   (when (not= 200 (-> resp :status))
-    (println "WARNING unexpected status" (:status resp)))
+    (throw (ex-info (str "WARNING unexpected status " (:status resp))
+                    {:response resp})))
   (let [choices (-> resp :body-map :choices)]
     (when (-> choices next)
       (println "WARNING multiple choices"))
