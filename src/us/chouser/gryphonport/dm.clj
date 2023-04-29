@@ -27,9 +27,7 @@
          (group-by #(-> % val :loc))
          (map (fn [[loc chars]]
                 (let [loc-node (loc/node world loc)]
-                  ["=== Description of " (:name loc-node) "\n"
-                   (:description loc-node) "\n\n"
-                   "=== Instruction context:\n"
+                  ["=== Instruction context:\n"
                    "From " (:name loc-node) ", a player may only go to one of: "
                    (->> (loc/nav-adj-node world loc)
                         (map :name)
@@ -101,18 +99,20 @@
 
 (defn prompt-msgs [world user-data]
   (concat
-   [[:system "The user will provide enough context for the assistant to act as referee, choosing the actions that will apply to each player."]]
-   (map (fn [[etype m] [_ prev-m]]
+   [[:system "The user will provide enough context for the assistant to act as referee, choosing the actions that will apply to each player."]
+    [:user (->> (concat (:dm-history world) [[:user user-data]])
+                (filter #(= :user (first %)))
+                (mapcat #(->> % second vals (map :loc)))
+                distinct
+                (map (fn [loc]
+                       (let [loc-node (loc/node world loc)]
+                         ["=== Description of " (:name loc-node) "\n"
+                          (:description loc-node) "\n\n"]))))]
+    [:assistant "Ok"]]
+   (map (fn [[etype m]]
           [etype
            (case etype
              :user (gen-user world m)
-             :assistant (let [world world
-                              #_(reduce
-                                     (fn [world [cid {:keys [loc]}]]
-                                       (assoc-in world [:characters cid :loc] loc))
-                                     world
-                                     prev-m)]
-                          (gen-assistant world m)))])
-        (:dm-history world)
-        (cons nil (:dm-history world)))
+             :assistant (gen-assistant world m))])
+        (:dm-history world))
    [[:user (gen-user world user-data)]]))
