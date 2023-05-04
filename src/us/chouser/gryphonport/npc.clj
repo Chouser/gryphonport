@@ -253,26 +253,21 @@ You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, d
       [:example-assistant "You can't do that. Try something else."]
       [:user "Instructions from " (get-in w [:actors actor-id :name]) ": " actor-instruction]])))
 
-(defn parse-narrator-content [s]
-  (or (next (re-find #"(?m)^Second person: (.*)\s+^Third person: (.*)" s))
-      (throw (ex-info "Failed to parse assistant" {:content s}))))
-
-
-
 (defn parse-actor-content [s]
   (re-find #"^.*" s))
 
-(defn apply-actor-content [w actor-id s]
-  )
+(defn apply-actor-content [w actor-id full-instruction]
+  (update-in w [:actors actor-id :mem] (fnil conj []) {:instruct full-instruction}))
 
-(defn apply-narrator-content [w {:keys [src instruction] :as pre-narration} s]
-  (let [[_ r3 r2] (re-find #"(?ms)^Third person: (.*)\s+^Second person(?:[^:]*): (.*)" s)
-        error (when-not r2 s)
+(defn parse-narrator-content [s src instruction]
+  (let [[_ r3 r2] (re-find #"(?ms)^Third person: (.*?)\s+^Second person(?:[^:]*): (.*)" s)
+        error (when-not r2 s)]
+    (cond-> {:src src, :instruction instruction}
+      r2 (assoc :response3 r3 :response2 r2)
+      error (assoc :error error))))
 
-        w (update w :narration (fnil conj [])
-                  (cond-> {:src src, :instruction instruction}
-                    r2 (assoc :response3 r3 :response2 r2)
-                    error (assoc :error error)))]
+(defn apply-narrator-content [w {:keys [src response2 response3 error] :as m}]
+  (let [w (update w :narration (fnil conj []) m)]
 
     (if error
       (update-in w [:actors src :mem] (fnil conj []) {:text (util/fstr "Error: " error)})
@@ -284,14 +279,32 @@ You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, d
                   (update-in w [:actors actor-id :mem] (fnil conj [])
                              {:text
                               (if (= actor-id src)
-                                r2
-                                r3)}))
+                                response2
+                                response3)}))
                 w
                 (-> w :actors keys))))))
 
+(defn go []
+  (let [state @*state
+        actor-id (-> state :next-turn first)
+        _ (prn :actor-id actor-id)
+        full-instruction (-> {:msgs (prompt-actor (-> state :actors actor-id))}
+                             util/chat
+                             util/content)
+        state (apply-actor-content state actor-id full-instruction)
+        short-instruction (parse-actor-content full-instruction)
+        narration (-> {:msgs (prompt-narrator
+                              state actor-id short-instruction)} ;; todo use map from apply below?
+                      util/chat
+                      util/content
+                      (parse-narrator-content actor-id short-instruction))]
+    (reset! *state (apply-narrator-content state narration))
+    (println (or (:response3 narration) (str "Do over: " (:error narration))))))
+
 (comment
 
-  (pprint state)
+  (apply-actor-content @*state :rafe
+                       "say did you know I once defeated a whole band of theives?\n\nIf I impress her, maybe she'll keep talking to me.")
 
   (def r
     (util/chat {:msgs
@@ -300,19 +313,9 @@ You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, d
                                  (parse-actor-content
                                   "say did you know I once defeated a whole band of theives?\n\nIf I impress her, maybe she'll keep talking to me."))}))
 
-  (apply-narrator-content state {:src :rafe :instruction "say did you know I once defeated a whole band of theives?"}
-                          "Third person: \"Did you know I once defeated a whole band of thieves?\" Rafe says, a glint in his eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\"
+  (def r (util/chat {:msgs (prompt-actor (-> @*state :actors :cori))}))
 
-Second person (with Rafe as 'you'): \"Did you know I once defeated a whole band of thieves?\" you say, a glint in your eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\"")
-
-  (swap! *state
-         apply-narrator-content
-         {:src :rafe :instruction "say did you know I once defeated a whole band of theives?"}
-         "Third person: \"Did you know I once defeated a whole band of thieves?\" Rafe says, a glint in his eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\"
-
-Second person (with Rafe as 'you'): \"Did you know I once defeated a whole band of thieves?\" you say, a glint in your eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\"")
-
-  (def r (util/chat {:msgs (prompt-actor (-> state :actors :rafe))}))
+  (apply-actor-content @*state :cori)
 
   (def r (util/chat {:msgs cori}))
 
@@ -323,5 +326,12 @@ Second person (with Rafe as 'you'): \"Did you know I once defeated a whole band 
   (println (util/content r))
 
   (parse-narrator-content (second (last narrator)))
+
+  (def nav
+    (-> "log/2023-05-04T03:26:33Z.edn"
+        (util/read-file {})
+        (update :response #(assoc % :body-map (clojure.data.json/read-str (:body %) :key-fn keyword)))
+        :response
+        (util/content)))
 
   )

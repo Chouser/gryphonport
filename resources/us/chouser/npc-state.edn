@@ -47,7 +47,19 @@
    :response3
    "\"Did you know I once defeated a whole band of thieves?\" Rafe says, a glint in his eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\"\n",
    :response2
-   "\"Did you know I once defeated a whole band of thieves?\" you say, a glint in your eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\""}],
+   "\"Did you know I once defeated a whole band of thieves?\" you say, a glint in your eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\""}
+  {:src :cori,
+   :instruction "ask Rafe to tell more about his adventure?",
+   :response3
+   "\"That sounds incredible,\" Cori says, leaning forward in her seat. \"Can you tell us more about your adventure?\"\n",
+   :response2
+   "\"That sounds incredible,\" you say, leaning forward in your seat. \"Can you tell us more about your adventure?\""}
+  {:src :rafe,
+   :instruction "tell a thrilling and detailed story",
+   :response3
+   "Rafe's eyes light up as he begins to tell his story. He paints a vivid picture of his adventure, describing in detail how he outsmarted the thieves and managed to retrieve the stolen goods they had taken from a nearby village.\n\nAs he speaks, the other patrons of the bar begin to gather around, listening intently to his every word. Rafe's story is gripping and full of suspense, and he knows just how to build the tension and keep his audience on the edge of their seats.\n\nBy the time he finishes his tale, the entire bar is buzzing with excitement, and everyone is eager to hear more about Rafe's adventures.",
+   :response2
+   "Your eyes light up as you begin to tell your story. You paint a vivid picture of your adventure, describing in detail how you outsmarted the thieves and managed to retrieve the stolen goods they had taken from a nearby village.\n\nAs you speak, the other patrons of the bar begin to gather around, listening intently to your every word. Your story is gripping and full of suspense, and you know just how to build the tension and keep your audience on the edge of their seats.\n\nBy the time you finish your tale, the entire bar is buzzing with excitement, and everyone is eager to hear more about your adventures."}],
  :actors
  {:rafe
   {:name "Rafe Hunter",
@@ -80,7 +92,13 @@
     {:instruct
      "say did you know I once defeated a whole band of theives?\n\nIf I impress her, maybe she'll keep talking to me."}
     {:text
-     "\"Did you know I once defeated a whole band of thieves?\" you say, a glint in your eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\""}]},
+     "\"Did you know I once defeated a whole band of thieves?\" you say, a glint in your eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\""}
+    {:text
+     "\"That sounds incredible,\" Cori says, leaning forward in her seat. \"Can you tell us more about your adventure?\"\n"}
+    {:instruct
+     "tell a thrilling and detailed story\n\nIf Cori is interested, I might as well spin a good yarn. It could be entertaining, and it might make her more interested in me."}
+    {:text
+     "Your eyes light up as you begin to tell your story. You paint a vivid picture of your adventure, describing in detail how you outsmarted the thieves and managed to retrieve the stolen goods they had taken from a nearby village.\n\nAs you speak, the other patrons of the bar begin to gather around, listening intently to your every word. Your story is gripping and full of suspense, and you know just how to build the tension and keep your audience on the edge of their seats.\n\nBy the time you finish your tale, the entire bar is buzzing with excitement, and everyone is eager to hear more about your adventures."}]},
   :cori
   {:name "Cornelia Finch",
    :self-bio
@@ -109,4 +127,10 @@
     {:text
      "\"Well, even freelance work can be interesting,\" you say to Rafe with a smile. \"Do you have any interesting stories to share?\""}
     {:text
-     "\"Did you know I once defeated a whole band of thieves?\" Rafe says, a glint in his eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\"\n"}]}}}
+     "\"Did you know I once defeated a whole band of thieves?\" Rafe says, a glint in his eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\"\n"}
+    {:instruct
+     "ask Rafe to tell more about his adventure?\n\nThis story sounds interesting and adventurous, and it might be a good inspiration for a song."}
+    {:text
+     "\"That sounds incredible,\" you say, leaning forward in your seat. \"Can you tell us more about your adventure?\""}
+    {:text
+     "Rafe's eyes light up as he begins to tell his story. He paints a vivid picture of his adventure, describing in detail how he outsmarted the thieves and managed to retrieve the stolen goods they had taken from a nearby village.\n\nAs he speaks, the other patrons of the bar begin to gather around, listening intently to his every word. Rafe's story is gripping and full of suspense, and he knows just how to build the tension and keep his audience on the edge of their seats.\n\nBy the time he finishes his tale, the entire bar is buzzing with excitement, and everyone is eager to hear more about Rafe's adventures."}]}}}

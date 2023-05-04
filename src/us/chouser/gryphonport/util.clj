@@ -1,5 +1,6 @@
 (ns us.chouser.gryphonport.util
   (:require [clj-http.client :as http]
+            [clojure.edn :as edn]
             [clojure.data.json :as json]
             [clojure.pprint :refer [pprint]]
             [clojure.java.io :as io]
@@ -24,7 +25,7 @@
 (defn read-file [file-path init]
   (let [r (io/file file-path)]
     (if (.exists r)
-      (->> r io/reader PushbackReader. read)
+      (->> r io/reader PushbackReader. (edn/read {:default (fn [_ v] v)}))
       init)))
 
 (defn write-file [file-path data]
@@ -106,14 +107,14 @@
                                   :temperature 0.7}
                                  body-map))}))
         response (http/request req)]
-    (with-open [log (io/writer (log-filename (ZonedDateTime/now ZoneOffset/UTC)))]
-      (binding [*out* log]
-        (pprint {:request req
-                 :response response})))
     (let [response
           (assoc response
                  :body-map (try (json/read-str (:body response) :key-fn keyword)
                                 (catch Exception ex nil)))]
+      (with-open [log (io/writer (log-filename (ZonedDateTime/now ZoneOffset/UTC)))]
+        (binding [*out* log]
+          (pprint {:request req
+                   :response response})))
       (binding [*out* *err*]
         (some-> response :body-map :usage prn))
       response)))
