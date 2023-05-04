@@ -21,7 +21,7 @@
                (.format DateTimeFormatter/ISO_DATE_TIME)
                (str ".edn"))))
 
-(defn fstr [coll]
+(defn fstr [& coll]
   (let [sb (StringBuilder. "")]
     (letfn [(walk [x]
               (cond
@@ -49,14 +49,19 @@
   (assert (= :user (first (last msgs)))))
 
 (defn format-msgs [msgs]
-  (assert-valid-msgs msgs)
-  (map (fn [[role & content]]
-         {:role (name role)
-          :content (fstr content)})
+  #_(assert-valid-msgs msgs)
+  (map (fn [[role-or-name & content]]
+         (if-let [nom ({:example-user "example_user"
+                        :example-assistant "example_assistant"} role-or-name)]
+           {:role "system"
+            :name nom
+            :content (fstr content)}
+           {:role (name role-or-name)
+            :content (fstr content)}))
        msgs))
 
 (defn pprint-msgs [msgs]
-  (assert-valid-msgs msgs)
+  #_(assert-valid-msgs msgs)
   (run! (fn [[role & content]]
           (println "==" role)
           (println (fstr content)))
