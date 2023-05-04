@@ -216,6 +216,8 @@ Your dream is to compose a musical masterpiece that will be remembered for gener
       {:instruct "ask if he has any interesting stories to share?\n\nIf Rafe isn't willing to share about his business, maybe he has other interesting stories to tell."}
       {:text "\"Well, even freelance work can be interesting,\" you say to Rafe with a smile. \"Do you have any interesting stories to share?\""}]}}})
 
+(def *state (util/make-resource-obj atom "resources/us/chouser/npc-state.edn" state))
+
 (defn prompt-actor [actor]
   (into [[:system (util/fstr ["You are controlling " (:name actor) " in this scene."])]]
         (->> (cons {:text (:self-bio actor)} (:mem actor))
@@ -260,8 +262,6 @@ You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, d
 (defn parse-actor-content [s]
   (re-find #"^.*" s))
 
-(defonce *state (atom state))
-
 (defn apply-actor-content [w actor-id s]
   )
 
@@ -302,6 +302,13 @@ You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, d
 
   (apply-narrator-content state {:src :rafe :instruction "say did you know I once defeated a whole band of theives?"}
                           "Third person: \"Did you know I once defeated a whole band of thieves?\" Rafe says, a glint in his eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\"
+
+Second person (with Rafe as 'you'): \"Did you know I once defeated a whole band of thieves?\" you say, a glint in your eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\"")
+
+  (swap! *state
+         apply-narrator-content
+         {:src :rafe :instruction "say did you know I once defeated a whole band of theives?"}
+         "Third person: \"Did you know I once defeated a whole band of thieves?\" Rafe says, a glint in his eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\"
 
 Second person (with Rafe as 'you'): \"Did you know I once defeated a whole band of thieves?\" you say, a glint in your eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\"")
 

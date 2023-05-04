@@ -21,6 +21,31 @@
                (.format DateTimeFormatter/ISO_DATE_TIME)
                (str ".edn"))))
 
+(defn read-file [file-path init]
+  (let [r (io/file file-path)]
+    (if (.exists r)
+      (->> r io/reader PushbackReader. read)
+      init)))
+
+(defn write-file [file-path data]
+  (with-open [w (io/writer file-path)]
+    (binding [*out* w]
+      (pprint data))))
+
+(defn make-resource-obj
+  "Create an atom (or other watchable object) linked to a file on the classpath.
+  The object will be initiallized with the current edn contents of the file (or
+  init if the file doesn't exist), and any time the object is update the file
+  will be written with the new pprint'ed value.
+
+  Example: (defonce data (make-resource-obj atom \"us/chouser/data.edn\"))"
+  [ctor file-path init]
+  (let [obj (ctor (read-file file-path init))]
+    (add-watch obj ::make-resource-obj
+               (fn [_ _ _ new-value]
+                 (write-file file-path new-value)))
+    obj))
+
 (defn fstr [& coll]
   (let [sb (StringBuilder. "")]
     (letfn [(walk [x]
