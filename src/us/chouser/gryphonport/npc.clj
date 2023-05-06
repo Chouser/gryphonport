@@ -3,243 +3,44 @@
             [clojure.pprint :refer [pprint]]
             [clojure.string :as str]))
 
-(def narrator
-  [[:system "You are narrating a story, taking instructions from the characters involved."]
-   [:user "The Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.
-
-The space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you.
-
-You can see Cornelia Finch, A young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely.
-
-You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.
-
-Instructions from Cori: join rafe"]
-   [:assistant "Second person: Your eyes sparkle mischievously as you say, \"Is this seat taken?\"
-Third person: Cori's eyes sparkle mischievously as she says, \"Is this seat taken?\""]
-   [:user "Instructions from Rafe: invite her to sit"]
-   [:assistant "Second person: \"Not at all,\" you reply, gesturing to the empty chair opposite you. \"Please, sit down.\"
-Third person: \"Not at all,\" Rafe replies, gesturing to the empty chair opposite him. \"Please, sit down.\""]
-   [:user "Instructions from Cori: say what brings you to here?"]
-   [:assistant "Second person: You take a seat, and before the silence gets awkward you ask, \"So, what brings you to Gryphenport?\"
-Third person: She takes a seat, and before the silence gets awkward she asks, \"So, what brings you to Gryphenport?\""]
-   [:user "Instructions from Rafe: say I'm here on business"]
-   [:assistant "Second person: \"I'm here on business,\" you reply vaguely.
-Third person: \"I'm here on business,\" he replies vaguely."]
-   [:user "Instructions from Cori: ask Rafe what kind of business he is in?"]
-   [:assistant "Second person: \"Business, eh? What kind of business?\" you press.
-Third person: \"Business, eh? What kind of business?\" she presses."]
-   [:user "Instructions from Rafe: be evasive"]
-   [:assistant "Second person: \"Just some freelance work,\" you say with a shrug. \"Nothing exciting, really.\"
-Third person: \"Just some freelance work,\" Rafe says with a shrug. \"Nothing exciting, really.\""]
-   [:user "Instructions from Cori: ask Rafe if he has any interesting stories to share?"]
-   [:assistant "Second person: \"Well, even freelance work can be interesting,\" you say with a smile. \"Do you have any interesting stories to share?\"
-Third person: \"Well, even freelance work can be interesting,\" Cori says with a smile. \"Do you have any interesting stories to share?\""]])
-
-(def rafe
-  [[:system "You are controlling Rafe in this scene."]
-   [:user "You are a young man, son of successful merchant John Foster, who long ago became convinced the life of a merchant was too boring to pursue. Though it caused a falling-out with your father, you left home and your father's dreams for you, to seek a living adventuring in the wide world. You're better than average at knife-fighting and navigating, but the skill that sets you apart is your hard-nosed, realistic view of the world and your ability to unhesitatingly take the necessary action. Your name is Rafe Foster, but in order to avoid association with your rich father, you usually go by Rafe Hunter.
-
-The Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.
-
-The space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you.
-
-You can see Cornelia Finch, A young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely.
-
-Cori's eyes sparkle mischievously as she says, \"Is this seat taken?\"
-
-What should you do, and why?"]
-
-   [:assistant "invite her to sit
-
-She doesn't look like she has much money, but I'm always happy to talk to a pretty girl."]
-
-   [:user "\"Not at all,\" you reply, gesturing to the empty chair opposite you. \"Please, sit down.\"
-
-She takes a seat, and before the silence gets awkward she asks, \"So, what brings you to Gryphenport?\"
-
-What should you do, and why?"]
-   [:assistant "say I'm here on business
-
-I'm a little suspicious about how forward she's being. Perhaps she wants something, so I don't want to give too much away."]
-   [:user "\"I'm here on business,\" you reply vaguely.
-
-\"Business, eh? What kind of business?\" she presses.
-
-What should you do, and why?"]
-
-   [:assistant "be evasive
-
-I don't want to reveal too much about my business or myself. It's best to keep things vague for now."]
-   [:user "\"Just some freelance work,\" you say with a shrug. \"Nothing exciting, really.\"
-
-\"Well, even freelance work can be interesting,\" Cori says with a smile. \"Do you have any interesting stories to share?\"
-
-What should you do, and why?"]])
-
-(def cori
-  [[:system "You are controlling Cori in this scene."]
-   [:user "You are a young woman named Cornelia Finch who grew up in a poor family in a small fishing village. Your friends call you Cori. As a child, you discovered your love for music and would sing and play your lute whenever you had a chance. Your parents disapproved, but you loved it so much you continued to pursue your passion and eventually became a minstrel.
-
-Your dream is to compose a musical masterpiece that will be remembered for generations to come. You often act impulsively and also struggle with the drawbacks of perfectionism.
-
-The Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.
-
-The space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you.
-
-You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.
-
-What should you do, and why?"]
-
-   [:assistant "join rafe
-
-I need to find an interesting character to write a song abount. Maybe Rafe is interesting."]
-
-   [:user "Your eyes sparkle mischievously as you say, \"Is this seat taken?\"
-
-\"Not at all,\" Rafe replies, gesturing to the empty chair opposite him. \"Please, sit down.\"
-
-What should you do, and why?"]
-
-   [:assistant "say what brings you to here?
-
-I want to find out if Rafe is interesting."]
-
-   [:user "You take a seat, and before the silence gets awkward you ask, \"So, what brings you to Gryphenport?\"
-
-\"I'm here on business,\" Rafe replies vaguely.
-
-What should you do, and why?"]
-
-   [:assistant "ask Rafe what kind of business he is in?
-
-I want to know more about Rafe's business and find out if it's interesting enough to write a song about."]
-
-   [:user "\"Business, eh? What kind of business?\" you press.
-
-\"Just some freelance work,\" Rafe says with a shrug. \"Nothing exciting, really.\"
-
-What should you do, and why?"]])
-
-;; narrator has interpreted instructions from cori.  It's rafe's turn
-(def state
-  {:next-turn [:rafe :cori],
-   :narration
-   [{:src :cori,
-     :instruction "join rafe",
-     :response2
-     "Your eyes sparkle mischievously as you say, \"Is this seat taken?\"",
-     :response3
-     "Cori's eyes sparkle mischievously as she says, \"Is this seat taken?\""}
-    {:src :rafe,
-     :instruction "invite her to sit",
-     :response2
-     "\"Not at all,\" you reply, gesturing to the empty chair opposite you. \"Please, sit down.\"",
-     :response3
-     "\"Not at all,\" Rafe replies, gesturing to the empty chair opposite him. \"Please, sit down.\""}
-    {:src :cori,
-     :instruction "say what brings you to here?",
-     :response2
-     "You take a seat, and before the silence gets awkward you ask, \"So, what brings you to Gryphenport?\"",
-     :response3
-     "Cori takes a seat, and before the silence gets awkward she asks, \"So, what brings you to Gryphenport?\""}
-    {:src :rafe,
-     :instruction "say I'm here on business",
-     :response2 "\"I'm here on business,\" you reply vaguely.",
-     :response3 "\"I'm here on business,\" he replies vaguely."}
-    {:src :cori,
-     :instruction "ask Rafe what kind of business he is in?",
-     :response2 "\"Business, eh? What kind of business?\" you press.",
-     :response3 "\"Business, eh? What kind of business?\" Cori presses."}
-    {:src :rafe,
-     :instruction "be evasive",
-     :response2
-     "\"Just some freelance work,\" you say with a shrug. \"Nothing exciting, really.\"",
-     :response3
-     "\"Just some freelance work,\" Rafe says with a shrug. \"Nothing exciting, really.\""}
-    {:src :cori,
-     :instruction "ask if he has any interesting stories to share?",
-     :response2
-     "\"Well, even freelance work can be interesting,\" you say to Rafe with a smile. \"Do you have any interesting stories to share?\"",
-     :response3
-     "\"Well, even freelance work can be interesting,\" Cori says to Rafe with a smile. \"Do you have any interesting stories to share?\""}
-    {:src :rafe,
-     :instruction "share a harmless, entertaining story",
-     :error "Please give more specific instructions."}],
-
-   :actors
-   {:rafe
-    {:name "Rafe Hunter",
-     :self-bio
-     "You are a young man, son of successful merchant John Foster, who long ago became convinced the life of a merchant was too boring to pursue. Though it caused a falling-out with your father, you left home and your father's dreams for you, to seek a living adventuring in the wide world. You're better than average at knife-fighting and navigating, but the skill that sets you apart is your hard-nosed, realistic view of the world and your ability to unhesitatingly take the necessary action. Your name is Rafe Foster, but in order to avoid association with your rich father, you usually go by Rafe Hunter.",
-     :mem
-     [{:text
-       "The Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.\n\nThe space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you.\n\nYou can see Cornelia Finch, A young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely."}
-      {:text
-       "Cori's eyes sparkle mischievously as she says, \"Is this seat taken?\""}
-      {:instruct
-       "invite her to sit\n\nShe doesn't look like she has much money, but I'm always happy to talk to a pretty girl."}
-      {:text
-       "\"Not at all,\" you reply, gesturing to the empty chair opposite you. \"Please, sit down.\""}
-      {:text
-       "Cori takes a seat, and before the silence gets awkward she asks, \"So, what brings you to Gryphenport?\""}
-      {:instruct
-       "say I'm here on business\n\nI'm a little suspicious about how forward she's being. Perhaps she wants something, so I don't want to give too much away."}
-      {:text "\"I'm here on business,\" you reply vaguely."}
-      {:text "\"Business, eh? What kind of business?\" Cori presses."}
-      {:instruct
-       "be evasive\n\nI don't want to reveal too much about my business or myself. It's best to keep things vague for now."}
-      {:text
-       "\"Just some freelance work,\" you say with a shrug. \"Nothing exciting, really.\""}
-      {:text
-       "\"Well, even freelance work can be interesting,\" Cori says to Rafe with a smile. \"Do you have any interesting stories to share?\""}
-      {:instruct
-       "share a harmless, entertaining story\n\nI don't see any harm in sharing a fun story, and it could help establish a rapport with Cori."}
-      {:text "Your instructions are too vague. What story?"}
-      {:instruct "say did you know I once defeated a whole band of theives?\n\nIf I impress her, maybe she'll keep talking to me."}]},
-    :cori
-    {:name "Cornelia Finch"
-     :self-bio "You are a young woman named Cornelia Finch who grew up in a poor family in a small fishing village. Your friends call you Cori. As a child, you discovered your love for music and would sing and play your lute whenever you had a chance. Your parents disapproved, but you loved it so much you continued to pursue your passion and eventually became a minstrel.
-
-Your dream is to compose a musical masterpiece that will be remembered for generations to come. You often act impulsively and also struggle with the drawbacks of perfectionism."
-     :mem
-     [{:text
-       "The Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.\n\nThe space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you.\n\nYou can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new."}
-      {:instruct "join rafe\n\nI need to find an interesting character to write a song abount. Maybe Rafe is interesting."}
-      {:text "Your eyes sparkle mischievously as you say, \"Is this seat taken?\""}
-      {:text "\"Not at all,\" Rafe replies, gesturing to the empty chair opposite him. \"Please, sit down.\""}
-      {:instruct "say what brings you to here?\n\nI want to find out if Rafe is interesting."}
-      {:text "You take a seat, and before the silence gets awkward you ask, \"So, what brings you to Gryphenport?\""}
-      {:text "\"I'm here on business,\" Rafe replies vaguely."}
-      {:instruct "ask Rafe what kind of business he is in?\n\nI want to know more about Rafe's business and find out if it's interesting enough to write a song about."}
-      {:text "\"Business, eh? What kind of business?\" you press."}
-      {:text "\"Just some freelance work,\" Rafe says with a shrug. \"Nothing exciting, really.\""}
-      {:instruct "ask if he has any interesting stories to share?\n\nIf Rafe isn't willing to share about his business, maybe he has other interesting stories to tell."}
-      {:text "\"Well, even freelance work can be interesting,\" you say to Rafe with a smile. \"Do you have any interesting stories to share?\""}]}}})
-
 (def *state (util/make-resource-obj atom "resources/us/chouser/npc-state.edn" state))
 
 (defn prompt-actor [actor]
   (into [[:system (util/fstr ["You are controlling " (:name actor) " in this scene."])]]
         (->> (cons {:text (:self-bio actor)} (:mem actor))
-             (partition-by #(contains? % :instruct))
-             (map (fn [mem]
-                    (if (-> mem first :instruct)
-                      [:assistant (str/join "\n\n" (map :instruct mem))]
-                      [:user (util/fstr (interpose "\n\n" (map :text mem))
-                                        "\n\nWhat should you do, and why?")]))))))
+             (partition-by #(contains? % :text))
+             (map (fn [mems]
+                    (if (-> mems first :text)
+                      [:user (util/fstr (interpose "\n\n" (map :text mems))
+                                        "\n\nWhat should you do, and why? Choose between the commands `say` and `travel to`.")]
+                      [:assistant (->> mems
+                                       (map (fn [mem]
+                                              (cond
+                                                (:say mem) ["say: " (:say mem)
+                                                            "\n\nreason: " (:reason mem)])))
+                                       (interpose "\n\n")
+                                       util/fstr)]))))))
+
+(comment
+
+  (util/pprint-msgs
+   (prompt-actor (get-in @*state [:actors :rafe])))
+
+  )
 
 (defn prompt-narrator [w actor-id actor-instruction]
   (let [q (->> w :narration
-               (mapcat (fn [{:keys [src instruction error response2 response3]}]
+               (mapcat (fn [{:keys [src say error response2 response3]}]
                          (let [nom (get-in w [:actors src :name])]
-                           [[:user "Instructions from " nom  ": " instruction]
+                           [[:user nom " wants to say: " say] ;; TODO: support travel to etc.
                             (if-not error
                               [:assistant
                                "Third person: " response3
                                "\n\nSecond person (with " nom " as 'you'): " response2]
-                              [:assistant error])]))))]
+                              [:assistant error])]))))
+        nom (get-in w [:actors actor-id :name])]
     (concat
-     [[:system "You are narrating a story, taking instructions from the characters involved."]
+     [[:system "You are narrating a story, taking instructions for the characters involved."]
       [:user "The Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.
 
 The space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you.
@@ -247,22 +48,33 @@ The space is dominated by a long wooden bar, behind which stands the friendly ba
 You can see Cornelia Finch, A young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely.
 
 You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.\n\n"
-       (-> q first second)]]
+       ;; Append the first :user entry to this header text:
+       (-> q first rest)]]
      (rest q)
-     [[:example-user "Instructions from George: turn into a pumpkin"]
-      [:example-assistant "You can't do that. Try something else."]
-      [:user "Instructions from " (get-in w [:actors actor-id :name]) ": " actor-instruction]])))
+     [#_
+      [[:example-user "Instructions for Bob: say: Jill tell me a story"]
+       [:example-assistant "Third person: Bob thinks for a moment. \"Jill, tell me a story,\" he says.\n\nSecond person (with Bob as 'you'): You think for a moment. \"Jill, tell me a story,\" you say."]
+       [:example-user "Instructions for George: turn into a pumpkin"]
+       [:example-assistant "Error: You can't do that. Try something else."]
+       [:example-user "Instructions for Jill: tell a story"]
+       [:example-assistant "Error: That is too vague. Please give exactly the words you want to say."]]
+
+      [:user nom " wants to say: " (:say actor-instruction)
+       "\n\nDescribe the actions " nom " will take (in third-person and second-person form). If the instructions are impossible or unclear, return 'Error' and ask for clarification instead."]])))
 
 (defn parse-actor-content [s]
-  (re-find #"^.*" s))
+  (->> (re-seq #"(?m)^(say|travel to|reason): (.*)" s)
+       (map (fn [[_ k v]]
+              [(keyword k) v]))
+       (into {})))
 
-(defn apply-actor-content [w actor-id full-instruction]
-  (update-in w [:actors actor-id :mem] (fnil conj []) {:instruct full-instruction}))
+(defn apply-actor-content [w actor-id parsed-instruction]
+  (update-in w [:actors actor-id :mem] (fnil conj []) parsed-instruction))
 
-(defn parse-narrator-content [s src instruction]
+(defn parse-narrator-content [s src parsed-instruction]
   (let [[_ r3 r2] (re-find #"(?ms)^Third person: (.*?)\s+^Second person(?:[^:]*): (.*)" s)
         error (when-not r2 s)]
-    (cond-> {:src src, :instruction instruction}
+    (cond-> {:src src, :say (:say parsed-instruction)} ;; TODO: support other actions
       r2 (assoc :response3 r3 :response2 r2)
       error (assoc :error error))))
 
@@ -288,16 +100,17 @@ You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, d
   (let [state @*state
         actor-id (-> state :next-turn first)
         _ (prn :actor-id actor-id)
-        full-instruction (-> {:msgs (prompt-actor (-> state :actors actor-id))}
+        instruction (-> {:msgs (prompt-actor (-> state :actors actor-id))}
                              util/chat
                              util/content)
-        state (apply-actor-content state actor-id full-instruction)
-        short-instruction (parse-actor-content full-instruction)
+        _ (println instruction)
+        parsed-instruction (parse-actor-content instruction)
+        state (apply-actor-content state actor-id parsed-instruction)
         narration (-> {:msgs (prompt-narrator
-                              state actor-id short-instruction)} ;; todo use map from apply below?
+                              state actor-id parsed-instruction)} ;; todo use map from apply below?
                       util/chat
                       util/content
-                      (parse-narrator-content actor-id short-instruction))]
+                      (parse-narrator-content actor-id parsed-instruction))]
     (reset! *state (apply-narrator-content state narration))
     (println (or (:response3 narration) (str "Do over: " (:error narration))))))
 
@@ -306,14 +119,15 @@ You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, d
   (apply-actor-content @*state :rafe
                        "say did you know I once defeated a whole band of theives?\n\nIf I impress her, maybe she'll keep talking to me.")
 
-  (def r
-    (util/chat {:msgs
-                (prompt-narrator state
-                                 :rafe
-                                 (parse-actor-content
-                                  "say did you know I once defeated a whole band of theives?\n\nIf I impress her, maybe she'll keep talking to me."))}))
+  ;; TODO work this prompt! Get narrotor to refuse.
+  (util/pprint-msgs (prompt-narrator @*state
+                                     :rafe
+                                     (parse-actor-content
+                                      "say: Well, it all started when a wealthy merchant hired me to find a lost artifact...\n\nreason: I'm happy to share the details of my adventure, and it might be interesting to her. However, I won't go into too much detail, just in case she's not trustworthy.")))
 
-  (def r (util/chat {:msgs (prompt-actor (-> @*state :actors :cori))}))
+  (println (util/content r))
+
+  (def r (util/chat {:msgs (prompt-actor (-> @*state :actors :rafe))}))
 
   (apply-actor-content @*state :cori)
 
@@ -322,8 +136,6 @@ You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, d
   (def r (util/chat {:msgs rafe}))
 
   (def r (util/chat {:msgs narrator}))
-
-  (println (util/content r))
 
   (parse-narrator-content (second (last narrator)))
 

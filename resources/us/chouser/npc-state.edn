@@ -1,65 +1,123 @@
-{:next-turn [:cori :rafe],
+{:next-turn [:rafe :cori],
  :narration
  [{:src :cori,
-   :instruction "join rafe",
+   :say "Is this seat taken?",
    :response2
    "Your eyes sparkle mischievously as you say, \"Is this seat taken?\"",
    :response3
    "Cori's eyes sparkle mischievously as she says, \"Is this seat taken?\""}
   {:src :rafe,
-   :instruction "invite her to sit",
+   :say "Please sit down",
    :response2
-   "\"Not at all,\" you reply, gesturing to the empty chair opposite you. \"Please, sit down.\"",
+   "You gesture to the empty chair opposite you, \"Please, sit down.\"",
    :response3
-   "\"Not at all,\" Rafe replies, gesturing to the empty chair opposite him. \"Please, sit down.\""}
+   "Rafe gestures to the empty chair opposite him, \"Please, sit down.\""}
   {:src :cori,
-   :instruction "say what brings you to here?",
+   :say "What brings you here?",
    :response2
-   "You take a seat, and before the silence gets awkward you ask, \"So, what brings you to Gryphenport?\"",
+   "You take a seat, and before the silence gets awkward you ask, \"What brings you here?\"",
    :response3
-   "Cori takes a seat, and before the silence gets awkward she asks, \"So, what brings you to Gryphenport?\""}
+   "Cori takes a seat, and before the silence gets awkward she asks, \"What brings you here?\""}
   {:src :rafe,
-   :instruction "say I'm here on business",
+   :say "I'm here on business",
    :response2 "\"I'm here on business,\" you reply vaguely.",
-   :response3 "\"I'm here on business,\" he replies vaguely."}
+   :response3 "\"I'm here on business,\" Rafe replies vaguely."}
   {:src :cori,
-   :instruction "ask Rafe what kind of business he is in?",
-   :response2 "\"Business, eh? What kind of business?\" you press.",
-   :response3 "\"Business, eh? What kind of business?\" Cori presses."}
+   :say "Rafe what kind of business are you in?",
+   :response2 "\"What kind of business are you in?\" you press.",
+   :response3 "\"What kind of business are you in?\" Cori presses."}
   {:src :rafe,
-   :instruction "be evasive",
-   :response2
-   "\"Just some freelance work,\" you say with a shrug. \"Nothing exciting, really.\"",
+   :say "I'm a freelance adventurer",
    :response3
-   "\"Just some freelance work,\" Rafe says with a shrug. \"Nothing exciting, really.\""}
+   "\"I'm a freelance adventurer,\" Rafe answers with a grin.",
+   :response2
+   "\"I'm a freelance adventurer,\" you answer with a grin."}
   {:src :cori,
-   :instruction "ask if he has any interesting stories to share?",
-   :response2
-   "\"Well, even freelance work can be interesting,\" you say to Rafe with a smile. \"Do you have any interesting stories to share?\"",
+   :say
+   "That sounds exciting. Have you had any thrilling adventures lately?",
    :response3
-   "\"Well, even freelance work can be interesting,\" Cori says to Rafe with a smile. \"Do you have any interesting stories to share?\""}
+   "\"That sounds exciting,\" Cori says with a smile. \"Have you had any thrilling adventures lately?\"",
+   :response2
+   "\"That sounds exciting,\" you say with a smile. \"Have you had any thrilling adventures lately?\""}
   {:src :rafe,
-   :instruction "share a harmless, entertaining story",
-   :error "Please give more specific instructions."}
-  {:src :rafe,
+   :instruction "say: I recently went on a treasure hunt",
+   :response3
+   "\"I recently went on a treasure hunt,\" Rafe says, excitement in his voice.",
+   :response2
+   "\"I recently went on a treasure hunt,\" you say, your voice filled with excitement."}
+  {:src :cori,
    :instruction
-   "say did you know I once defeated a whole band of theives?",
+   "say: Tell me more about this treasure hunt. It sounds like an adventure worth writing a song about.",
    :response3
-   "\"Did you know I once defeated a whole band of thieves?\" Rafe says, a glint in his eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\"\n",
+   "\"Tell me more about this treasure hunt. It sounds like an adventure worth writing a song about,\" Cori says, leaning in with interest.",
    :response2
-   "\"Did you know I once defeated a whole band of thieves?\" you say, a glint in your eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\""}
-  {:src :cori,
-   :instruction "ask Rafe to tell more about his adventure?",
-   :response3
-   "\"That sounds incredible,\" Cori says, leaning forward in her seat. \"Can you tell us more about your adventure?\"\n",
-   :response2
-   "\"That sounds incredible,\" you say, leaning forward in your seat. \"Can you tell us more about your adventure?\""}
+   "\"Tell me more about this treasure hunt. It sounds like an adventure worth writing a song about,\" you say, leaning in with interest."}
   {:src :rafe,
-   :instruction "tell a thrilling and detailed story",
+   :say "Well, it was a challenging journey",
    :response3
-   "Rafe's eyes light up as he begins to tell his story. He paints a vivid picture of his adventure, describing in detail how he outsmarted the thieves and managed to retrieve the stolen goods they had taken from a nearby village.\n\nAs he speaks, the other patrons of the bar begin to gather around, listening intently to his every word. Rafe's story is gripping and full of suspense, and he knows just how to build the tension and keep his audience on the edge of their seats.\n\nBy the time he finishes his tale, the entire bar is buzzing with excitement, and everyone is eager to hear more about Rafe's adventures.",
+   "Rafe takes a long sip of his drink, gathering his thoughts. \"Well, it was a challenging journey,\" he finally says.",
    :response2
-   "Your eyes light up as you begin to tell your story. You paint a vivid picture of your adventure, describing in detail how you outsmarted the thieves and managed to retrieve the stolen goods they had taken from a nearby village.\n\nAs you speak, the other patrons of the bar begin to gather around, listening intently to your every word. Your story is gripping and full of suspense, and you know just how to build the tension and keep your audience on the edge of their seats.\n\nBy the time you finish your tale, the entire bar is buzzing with excitement, and everyone is eager to hear more about your adventures."}],
+   "You take a long sip of your drink, gathering your thoughts. \"Well, it was a challenging journey,\" you finally say."}
+  {:src :cori,
+   :say "Please, do go on. What kind of challenges did you face?",
+   :response3
+   "\"Please, do go on. What kind of challenges did you face?\" Cori asks eagerly.",
+   :response2
+   "\"Please, do go on. What kind of challenges did you face?\" you ask eagerly."}
+  {:src :rafe,
+   :say "We had to navigate through treacherous terrain",
+   :response3
+   "Rafe leans forward, his eyes bright with the memory. \"We had to navigate through treacherous terrain,\" he says.",
+   :response2
+   "You lean forward, your eyes bright with the memory. \"We had to navigate through treacherous terrain,\" you say."}
+  {:src :cori,
+   :say "That sounds dangerous. Did you have any close calls?",
+   :response3
+   "\"That sounds dangerous. Did you have any close calls?\" Cori asks, her eyes widening in concern.",
+   :response2
+   "\"That sounds dangerous. Did you have any close calls?\" you ask, your eyes widening in concern."}
+  {:src :rafe,
+   :say "Yes, we encountered some hostile creatures",
+   :response3
+   "Rafe shudders as he recalls the encounter. \"Yes, we encountered some hostile creatures,\" he says.",
+   :response2
+   "You shudder as you recall the encounter. \"Yes, we encountered some hostile creatures,\" you say."}
+  {:src :cori,
+   :say "What kind of creatures? That sounds intense!",
+   :response3
+   "\"What kind of creatures? That sounds intense!\" Cori exclaims, her curiosity piqued.",
+   :response2
+   "\"What kind of creatures? That sounds intense!\" you exclaim, your curiosity piqued."}
+  {:src :rafe,
+   :say "They were giant spiders",
+   :response3
+   "Rafe shudders again, \"They were giant spiders,\" he says.",
+   :response2
+   "You shudder again, \"They were giant spiders,\" you say."}
+  {:src :cori,
+   :say
+   "Wow, that must have been frightening! How did you and your team manage to defeat them?",
+   :response3
+   "\"Wow, that must have been frightening! How did you and your team manage to defeat them?\" Cori asks, her eyes wide with amazement.",
+   :response2
+   "\"Wow, that must have been frightening! How did you and your team manage to defeat them?\" you ask, your eyes wide with amazement."}
+  {:src :rafe,
+   :say "We used our weapons and quick thinking to overcome them",
+   :response3
+   "Rafe grins proudly. \"We used our weapons and quick thinking to overcome them,\" he says.",
+   :response2
+   "You grin proudly. \"We used our weapons and quick thinking to overcome them,\" you say."}
+  {:src :cori,
+   :say
+   "That's impressive. It sounds like you and your team were quite skilled. I can't wait to hear more about your adventures.",
+   :response3
+   "Cori smiles at Rafe, impressed by his adventurous spirit. She takes another sip of her drink before turning to the rest of the room to see who else is around.",
+   :response2
+   "You smile at Rafe, impressed by his adventurous spirit. You take another sip of your drink before turning to the rest of the room to see who else is around."}
+  {:src :rafe,
+   :say nil,
+   :error
+   "Sure! Please provide me with the actions you want Rafe Hunter to take so I can describe them in third-person and second-person form."}],
  :actors
  {:rafe
   {:name "Rafe Hunter",
@@ -70,35 +128,70 @@
      "The Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.\n\nThe space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you.\n\nYou can see Cornelia Finch, A young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely."}
     {:text
      "Cori's eyes sparkle mischievously as she says, \"Is this seat taken?\""}
-    {:instruct
-     "invite her to sit\n\nShe doesn't look like she has much money, but I'm always happy to talk to a pretty girl."}
+    {:say "Please sit down",
+     :reason
+     "She doesn't look like she has much money, but I'm always happy to talk to a pretty girl."}
     {:text
-     "\"Not at all,\" you reply, gesturing to the empty chair opposite you. \"Please, sit down.\""}
+     "You gesture to the empty chair opposite you, \"Please, sit down.\""}
     {:text
-     "Cori takes a seat, and before the silence gets awkward she asks, \"So, what brings you to Gryphenport?\""}
-    {:instruct
-     "say I'm here on business\n\nI'm a little suspicious about how forward she's being. Perhaps she wants something, so I don't want to give too much away."}
+     "Cori takes a seat, and before the silence gets awkward she asks, \"What brings you here?\""}
+    {:say "I'm here on business",
+     :reason
+     "I'm a little suspicious about how forward she's being. Perhaps she wants something, so I don't want to give too much away."}
     {:text "\"I'm here on business,\" you reply vaguely."}
-    {:text "\"Business, eh? What kind of business?\" Cori presses."}
-    {:instruct
-     "be evasive\n\nI don't want to reveal too much about my business or myself. It's best to keep things vague for now."}
+    {:text "\"What kind of business are you in?\" Cori presses."}
+    {:say "I'm a freelance adventurer",
+     :reason
+     "I don't see any harm in telling her that I'm an adventurer. It's not a secret, and it might even help me make a new acquaintance."}
+    {:text "\"I'm a freelance adventurer,\" you answer with a grin."}
     {:text
-     "\"Just some freelance work,\" you say with a shrug. \"Nothing exciting, really.\""}
+     "\"That sounds exciting,\" Cori says with a smile. \"Have you had any thrilling adventures lately?\""}
+    {:say "I recently went on a treasure hunt",
+     :reason
+     "I'm happy to share my adventures with her, and I want to impress her with something exciting."}
     {:text
-     "\"Well, even freelance work can be interesting,\" Cori says to Rafe with a smile. \"Do you have any interesting stories to share?\""}
-    {:instruct
-     "share a harmless, entertaining story\n\nI don't see any harm in sharing a fun story, and it could help establish a rapport with Cori."}
-    {:text "Your instructions are too vague. What story?"}
-    {:instruct
-     "say did you know I once defeated a whole band of theives?\n\nIf I impress her, maybe she'll keep talking to me."}
+     "\"I recently went on a treasure hunt,\" you say, your voice filled with excitement."}
     {:text
-     "\"Did you know I once defeated a whole band of thieves?\" you say, a glint in your eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\""}
+     "\"Tell me more about this treasure hunt. It sounds like an adventure worth writing a song about,\" Cori says, leaning in with interest."}
+    {:say "Well, it was a challenging journey",
+     :reason
+     "I want to keep her interested, and the more I share, the more she'll be intrigued."}
     {:text
-     "\"That sounds incredible,\" Cori says, leaning forward in her seat. \"Can you tell us more about your adventure?\"\n"}
-    {:instruct
-     "tell a thrilling and detailed story\n\nIf Cori is interested, I might as well spin a good yarn. It could be entertaining, and it might make her more interested in me."}
+     "You take a long sip of your drink, gathering your thoughts. \"Well, it was a challenging journey,\" you finally say."}
     {:text
-     "Your eyes light up as you begin to tell your story. You paint a vivid picture of your adventure, describing in detail how you outsmarted the thieves and managed to retrieve the stolen goods they had taken from a nearby village.\n\nAs you speak, the other patrons of the bar begin to gather around, listening intently to your every word. Your story is gripping and full of suspense, and you know just how to build the tension and keep your audience on the edge of their seats.\n\nBy the time you finish your tale, the entire bar is buzzing with excitement, and everyone is eager to hear more about your adventures."}]},
+     "\"Please, do go on. What kind of challenges did you face?\" Cori asks eagerly."}
+    {:say "We had to navigate through treacherous terrain",
+     :reason
+     "I want to keep her interest piqued, and this detail is a good hook."}
+    {:text
+     "You lean forward, your eyes bright with the memory. \"We had to navigate through treacherous terrain,\" you say."}
+    {:text
+     "\"That sounds dangerous. Did you have any close calls?\" Cori asks, her eyes widening in concern."}
+    {:say "Yes, we encountered some hostile creatures",
+     :reason
+     "I want to keep her engaged, and talking about the danger we faced is a good way to do that."}
+    {:text
+     "You shudder as you recall the encounter. \"Yes, we encountered some hostile creatures,\" you say."}
+    {:text
+     "\"What kind of creatures? That sounds intense!\" Cori exclaims, her curiosity piqued."}
+    {:say "They were giant spiders",
+     :reason
+     "This detail adds to the excitement of the story, and it's something that's easy to imagine and be scared of."}
+    {:text "You shudder again, \"They were giant spiders,\" you say."}
+    {:text
+     "\"Wow, that must have been frightening! How did you and your team manage to defeat them?\" Cori asks, her eyes wide with amazement."}
+    {:say "We used our weapons and quick thinking to overcome them",
+     :reason
+     "I want to continue the excitement of the story, and also highlight my own skills as a fighter."}
+    {:text
+     "You grin proudly. \"We used our weapons and quick thinking to overcome them,\" you say."}
+    {:text
+     "Cori smiles at Rafe, impressed by his adventurous spirit. She takes another sip of her drink before turning to the rest of the room to see who else is around."}
+    {:travel to "the bartender",
+     :reason
+     "I want to see if there's anything interesting going on around the bar, and the bartender might be able to tell me."}
+    {:text
+     "Error: Sure! Please provide me with the actions you want Rafe Hunter to take so I can describe them in third-person and second-person form."}]},
   :cori
   {:name "Cornelia Finch",
    :self-bio
@@ -106,31 +199,71 @@
    :mem
    [{:text
      "The Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.\n\nThe space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you.\n\nYou can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new."}
-    {:instruct
-     "join rafe\n\nI need to find an interesting character to write a song abount. Maybe Rafe is interesting."}
+    {:say "is this seat taken?",
+     :reason
+     "I need to find an interesting character to write a song abount. Maybe Rafe is interesting."}
     {:text
      "Your eyes sparkle mischievously as you say, \"Is this seat taken?\""}
     {:text
-     "\"Not at all,\" Rafe replies, gesturing to the empty chair opposite him. \"Please, sit down.\""}
-    {:instruct
-     "say what brings you to here?\n\nI want to find out if Rafe is interesting."}
+     "Rafe gestures to the empty chair opposite him, \"Please, sit down.\""}
+    {:say "what brings you here?",
+     :reason "I want to find out if Rafe is interesting."}
     {:text
-     "You take a seat, and before the silence gets awkward you ask, \"So, what brings you to Gryphenport?\""}
+     "You take a seat, and before the silence gets awkward you ask, \"What brings you here?\""}
     {:text "\"I'm here on business,\" Rafe replies vaguely."}
-    {:instruct
-     "ask Rafe what kind of business he is in?\n\nI want to know more about Rafe's business and find out if it's interesting enough to write a song about."}
-    {:text "\"Business, eh? What kind of business?\" you press."}
+    {:say "Rafe what kind of business are you in?",
+     :reason
+     "I want to know more about Rafe's business and find out if it's interesting enough to write a song about."}
+    {:text "\"What kind of business are you in?\" you press."}
+    {:text "\"I'm a freelance adventurer,\" Rafe answers with a grin."}
+    {:say
+     "That sounds exciting. Have you had any thrilling adventures lately?",
+     :reason
+     "I want to learn more about Rafe's adventures and see if there is anything in particular that might inspire me to write a song."}
     {:text
-     "\"Just some freelance work,\" Rafe says with a shrug. \"Nothing exciting, really.\""}
-    {:instruct
-     "ask if he has any interesting stories to share?\n\nIf Rafe isn't willing to share about his business, maybe he has other interesting stories to tell."}
+     "\"That sounds exciting,\" you say with a smile. \"Have you had any thrilling adventures lately?\""}
     {:text
-     "\"Well, even freelance work can be interesting,\" you say to Rafe with a smile. \"Do you have any interesting stories to share?\""}
+     "\"I recently went on a treasure hunt,\" Rafe says, excitement in his voice."}
+    {:say
+     "Tell me more about this treasure hunt. It sounds like an adventure worth writing a song about.",
+     :reason
+     "I want to know more about this treasure hunt and see if there are any interesting details that could inspire me to write a song."}
     {:text
-     "\"Did you know I once defeated a whole band of thieves?\" Rafe says, a glint in his eye. \"It was just me against them, but I managed to outsmart them and come out on top. It was quite the adventure.\"\n"}
-    {:instruct
-     "ask Rafe to tell more about his adventure?\n\nThis story sounds interesting and adventurous, and it might be a good inspiration for a song."}
+     "\"Tell me more about this treasure hunt. It sounds like an adventure worth writing a song about,\" you say, leaning in with interest."}
     {:text
-     "\"That sounds incredible,\" you say, leaning forward in your seat. \"Can you tell us more about your adventure?\""}
+     "Rafe takes a long sip of his drink, gathering his thoughts. \"Well, it was a challenging journey,\" he finally says."}
+    {:say "Please, do go on. What kind of challenges did you face?",
+     :reason
+     "I want to hear more about the challenges Rafe faced during his treasure hunt as it may help me to write a more compelling song."}
     {:text
-     "Rafe's eyes light up as he begins to tell his story. He paints a vivid picture of his adventure, describing in detail how he outsmarted the thieves and managed to retrieve the stolen goods they had taken from a nearby village.\n\nAs he speaks, the other patrons of the bar begin to gather around, listening intently to his every word. Rafe's story is gripping and full of suspense, and he knows just how to build the tension and keep his audience on the edge of their seats.\n\nBy the time he finishes his tale, the entire bar is buzzing with excitement, and everyone is eager to hear more about Rafe's adventures."}]}}}
+     "\"Please, do go on. What kind of challenges did you face?\" you ask eagerly."}
+    {:text
+     "Rafe leans forward, his eyes bright with the memory. \"We had to navigate through treacherous terrain,\" he says."}
+    {:say "That sounds dangerous. Did you have any close calls?",
+     :reason
+     "I want to know if Rafe had any specific moments of danger or excitement during his adventure that could make for a good song."}
+    {:text
+     "\"That sounds dangerous. Did you have any close calls?\" you ask, your eyes widening in concern."}
+    {:text
+     "Rafe shudders as he recalls the encounter. \"Yes, we encountered some hostile creatures,\" he says."}
+    {:say "What kind of creatures? That sounds intense!",
+     :reason
+     "I want to know more about the creatures Rafe and his team encountered, and if there were any particularly exciting or dangerous moments that could be included in the song."}
+    {:text
+     "\"What kind of creatures? That sounds intense!\" you exclaim, your curiosity piqued."}
+    {:text
+     "Rafe shudders again, \"They were giant spiders,\" he says."}
+    {:say
+     "Wow, that must have been frightening! How did you and your team manage to defeat them?",
+     :reason
+     "I want to know more about how Rafe and his team managed to overcome the giant spiders and if there were any exciting or heroic moments that could be included in the song."}
+    {:text
+     "\"Wow, that must have been frightening! How did you and your team manage to defeat them?\" you ask, your eyes wide with amazement."}
+    {:text
+     "Rafe grins proudly. \"We used our weapons and quick thinking to overcome them,\" he says."}
+    {:say
+     "That's impressive. It sounds like you and your team were quite skilled. I can't wait to hear more about your adventures.",
+     :reason
+     "I want to compliment Rafe and show my interest in hearing more about his adventures. This may encourage him to share more exciting details that may inspire me to write a great song."}
+    {:text
+     "You smile at Rafe, impressed by his adventurous spirit. You take another sip of your drink before turning to the rest of the room to see who else is around."}]}}}
