@@ -1,4 +1,4 @@
-{:next-turn [:rafe :cori],
+{:next-turn [:cori :rafe],
  :narration
  [{:src :cori,
    :say "Is this seat taken?",
@@ -106,18 +106,7 @@
    :response3
    "Rafe grins proudly. \"We used our weapons and quick thinking to overcome them,\" he says.",
    :response2
-   "You grin proudly. \"We used our weapons and quick thinking to overcome them,\" you say."}
-  {:src :cori,
-   :say
-   "That's impressive. It sounds like you and your team were quite skilled. I can't wait to hear more about your adventures.",
-   :response3
-   "Cori smiles at Rafe, impressed by his adventurous spirit. She takes another sip of her drink before turning to the rest of the room to see who else is around.",
-   :response2
-   "You smile at Rafe, impressed by his adventurous spirit. You take another sip of your drink before turning to the rest of the room to see who else is around."}
-  {:src :rafe,
-   :say nil,
-   :error
-   "Sure! Please provide me with the actions you want Rafe Hunter to take so I can describe them in third-person and second-person form."}],
+   "You grin proudly. \"We used our weapons and quick thinking to overcome them,\" you say."}],
  :actors
  {:rafe
   {:name "Rafe Hunter",
@@ -184,14 +173,7 @@
      :reason
      "I want to continue the excitement of the story, and also highlight my own skills as a fighter."}
     {:text
-     "You grin proudly. \"We used our weapons and quick thinking to overcome them,\" you say."}
-    {:text
-     "Cori smiles at Rafe, impressed by his adventurous spirit. She takes another sip of her drink before turning to the rest of the room to see who else is around."}
-    {:travel to "the bartender",
-     :reason
-     "I want to see if there's anything interesting going on around the bar, and the bartender might be able to tell me."}
-    {:text
-     "Error: Sure! Please provide me with the actions you want Rafe Hunter to take so I can describe them in third-person and second-person form."}]},
+     "You grin proudly. \"We used our weapons and quick thinking to overcome them,\" you say."}]},
   :cori
   {:name "Cornelia Finch",
    :self-bio
@@ -260,10 +242,4 @@
     {:text
      "\"Wow, that must have been frightening! How did you and your team manage to defeat them?\" you ask, your eyes wide with amazement."}
     {:text
-     "Rafe grins proudly. \"We used our weapons and quick thinking to overcome them,\" he says."}
-    {:say
-     "That's impressive. It sounds like you and your team were quite skilled. I can't wait to hear more about your adventures.",
-     :reason
-     "I want to compliment Rafe and show my interest in hearing more about his adventures. This may encourage him to share more exciting details that may inspire me to write a great song."}
-    {:text
-     "You smile at Rafe, impressed by his adventurous spirit. You take another sip of your drink before turning to the rest of the room to see who else is around."}]}}}
+     "Rafe grins proudly. \"We used our weapons and quick thinking to overcome them,\" he says."}]}}}
