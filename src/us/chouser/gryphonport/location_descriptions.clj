@@ -49,3 +49,41 @@
                     [[:user (gen-user graph eid)]
                      [:assistant (gen-assistant graph eid)]])))
      [[:user (gen-user graph id)]])))
+
+(defn merge-descriptions [graph description-map]
+  (reduce (fn [m [k d]]
+            (assoc-in m [:nodes k :description] d))
+          graph
+          description-map))
+
+(defn describe-down-to [world loc]
+  (reduce (fn [world loc]
+            (if-let [desc (:description (loc/node world loc))]
+              world
+              (do
+                (prn :describe loc)
+                (merge-descriptions
+                 world
+                 {loc (util/content
+                       (util/chat {:msgs (prompt-msgs world loc)}))}))))
+          world
+          (concat (loc/path-from-root world loc)
+                  [loc])))
+
+(defn move-thing [world loc-path to-loc]
+  (let [n (loc/node world to-loc)
+        orig-loc (get-in world loc-path)]
+    (if (not (:children? n))
+      (-> world
+          (describe-down-to to-loc)
+          (assoc-in loc-path to-loc))
+      (let [world (if (seq (loc/get-parts world to-loc))
+                    world
+                    (do
+                      (prn :populate to-loc)
+                      (->> (util/chat {:msgs (loc/prompt-msgs world to-loc)})
+                           util/content
+                           loc/parse-content
+                           (loc/id-content world to-loc)
+                           (loc/merge-subgraph world))))]
+        (recur world loc-path (loc/find-gateway world orig-loc to-loc))))))

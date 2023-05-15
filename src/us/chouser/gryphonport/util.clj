@@ -119,6 +119,9 @@
         (some-> response :body-map :usage prn))
       response)))
 
+(defn chatm [msgs]
+  (chat {:msgs msgs}))
+
 (defn content [resp]
   (when (not= 200 (-> resp :status))
     (throw (ex-info (str "WARNING unexpected status " (:status resp))

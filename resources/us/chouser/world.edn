@@ -1,1 +1,723 @@
-{:nodes {:s011 {:name "Farmstead", :kind "area", :parent :d002}, :yu595 {:name "Private Room", :kind "room", :children? false, :parent :s006, :description "The Private Room of Odd Duck is a cozy and intimate space tucked away from the lively Bar Room. As you enter, you're struck by the warm light of flickering candles and the soft murmur of conversation. The room is dimly lit, creating a cozy and romantic atmosphere.\n\nThe walls of the Private Room are adorned with hunting trophies and other rustic artifacts, similar to the Bar Room. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nThis room is perfect for private gatherings or special occasions. It can be reserved for small parties or business meetings, providing a comfortable and secluded space away from the hustle and bustle of the main tavern.\n\nFrom the Private Room, you can exit back into the Bar Room, where you can enjoy the lively atmosphere and entertainment."}, :pq541 {:name "Blacksmith's Workshop", :kind "room", :children? false, :parent :s005, :description "As you step into the Blacksmith's Workshop at Wilhelm's Forge, you are greeted by the sound of clanging metal and the roar of a blazing furnace. The room is filled with the sharp scent of hot metal and the sweet smell of burning coal.\n\nThe workshop is a large, open space, dominated by a massive anvil and a variety of tools hanging from the walls. A large furnace sits in one corner of the room, its flames casting flickering shadows across the walls.\n\nThere are several tables and workbenches scattered throughout the room, each one covered in various projects in various stages of completion. You can see weapons, tools and other metal items in different states of production.\n\nLooking around, you notice several doors leading to different areas of the building. One door leads to the Storage Room, where raw materials are kept. Another door leads to the Living Quarters, where the blacksmith and their apprentices live. You can also head back out onto Main Street."}, :r013 {:name "Entrance Hall", :kind "room", :parent :s004, :description "You find yourself standing in the Entrance Hall of Gryphonport's Town Hall. The room is dimly lit with flickering torches mounted on the walls, creating a warm and inviting atmosphere. The air is filled with the scent of old books and polished wood, suggesting that the building has a long history.\n\nIn the center of the room stands a grand statue of a majestic griffin, its wings outstretched as if about to take flight. The statue is made of polished wood and stands atop a pedestal decorated with intricate carvings. It immediately catches your eye as you take in the details of the room.\n\nLooking around, you notice several doors leading to different areas of the building. One door to the Guard Room and another door that leads to the Archives. A grand staircase leads up to the Council Chambers, where the town's leaders meet to make important decisions.\n\nAnother striking feature of the Entrance Hall is the ceiling above you, which is decorated with a large mural. It depicts the early settlers of Gryphon fighting against ferocious beasts that once roamed the land. The mural is incredibly detailed and tells the story of the town's heroic origins.\n\nThe front doors, which reach nearly to the vaulted ceiling, lead out to Main Street."}, :d104 {:name "Brookside", :kind "town", :parent :a001, :children? true}, :r106 {:name "Watchroom", :kind "room", :parent :s103}, :ya622 {:name "Storage Room", :kind "room", :children? false, :parent :s005, :description "As you step into the Storage Room of Wilhelm's Forge, you are greeted by the smell of metal and the sight of stacks of raw materials. The room is dimly lit, but you can make out the shapes of piles of iron, steel, and other metals.\n\nThe room is organized and tidy, with each pile of metal carefully labeled and sorted by type. There are also shelves containing other tools and supplies needed for the blacksmith's trade, such as hammers, tongs, and quenching buckets.\n\nLooking around, you notice that there are several doors leading to different areas of the building. One door leads back out to the Blacksmith's Workshop, where the raw materials are used to create finished products. Another door leads to Alchemist's Alley, where you can find shops selling potions and other magical supplies."}, :s005 {:name "Wilhelm's Forge", :kind "building", :parent :d002, :children? true, :description "Wilhelm's Forge is a large, imposing building located in Gryphonport, near Main Street and Alchemist's Alley. The building is made of sturdy stone and is easily recognizable by the large sign hanging above the entrance, depicting a hammer and anvil."}, :ri662 {:name "Bar Room", :kind "room", :children? false, :parent :s006, :description "The Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.\n\nThe space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you. You can see the skilled bartender mixing drinks, tossing bottles, and chatting with the patrons.\n\nThe walls of the Bar Room are adorned with hunting trophies and other rustic artifacts, such as old farm tools, antlers, and mounted fish. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nFrom the Bar Room, you can access the Kitchen, where delicious meals are prepared using fresh ingredients sourced from local farms and markets. There is also a Private Room, which can be reserved for special occasions or private gatherings.\n\nIf you're looking to explore more of Gryphonport, you can exit the Bar Room and step out onto Main Street, where you'll find a variety of shops, inns, and other establishments."}, :s014 {:name "South Street", :kind "street", :parent :d002, :description "As you step onto South Street in Gryphonport, you find yourself on a narrow, winding road that snakes through the heart of the town. The buildings along the street are older and more weathered than those on Main Street, giving the area a more rustic and authentic feel.\n\nDespite its narrow size, South Street is bustling with activity. Vendors line the sidewalks, hawking their wares and calling out to passersby. The air is thick with the smell of roasting meats, fresh bread, and other tantalizing aromas.\n\nFrom South Street, you can access several different parts of town. The road leads back to Main Street, where you can find a wider variety of shops and establishments. Alternatively, you can head north on Blackwood Trail, which winds through the surrounding wilderness and leads to other towns and cities.\n\nAlong South Street, you'll find the Temple of the Divine, a grand and imposing edifice that serves as the spiritual center of the town. The temple is a popular destination for pilgrims and travelers seeking guidance or solace.\n\nYou'll also notice the Alchemist's Shop, a small but fascinating establishment that sells potions, elixirs, and other magical items. The shop is run by a reclusive alchemist who is said to be one of the most skilled and powerful practitioners of magic in the region."}, :s003 {:name "Main Street", :kind "street", :parent :d002, :description "As you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."}, :r015 {:name "Archives", :kind "room", :parent :s004}, :d102 {:name "Blackwood Trail", :kind "road", :parent :a001}, :d103 {:name "Brookside Road", :kind "road", :parent :a001}, :r017 {:name "Treasury", :kind "room", :parent :s004}, :s008 {:name "Dockside", :kind "area", :parent :d002}, :r014 {:name "Council Chamber", :kind "room", :parent :s004}, :r018 {:name "Jail", :kind "room", :parent :s004}, :s015 {:name "Alchemist's Alley", :kind "back alley", :parent :d002, :description "Alchemist's Alley is a narrow, dimly lit back alley located in Gryphonport. The alley is lined with small shops and stalls, each selling a variety of magical potions, elixirs, and other arcane supplies.\n\nAs you walk down the alley, you can hear the sound of bubbling cauldrons and the faint hum of magical energy in the air. The shop owners are a mix of friendly and suspicious, some eager to show off their wares while others eye you warily.\n\nLooking around, you notice that there are only a few ways to exit the alley. One path leads back to Wilhelm's Forge, a nearby blacksmith shop, while another leads to the Alchemist's Shop, a larger establishment that sells a wider variety of magical supplies."}, :s009 {:name "Keep", :kind "building", :parent :d002, :children? true}, :ey136 {:name "Kitchen", :kind "room", :children? false, :parent :s006}, :r105 {:name "Bunkroom", :kind "room", :parent :s103}, :r104 {:name "Kitchen", :kind "room", :parent :s103}, :s007 {:name "Temple of the Divine", :kind "building", :parent :d002, :children? true}, :d002 {:name "Gryphonport", :kind "town", :parent :a001, :children? true, :description "Gryphonport is a bustling town located in the heart of Gryphon, near the famous Blackwood Trail road. The town is situated at the foot of a towering mountain range and surrounded by dense forests, giving it a sense of isolation and ruggedness.\n\nThe town is centered around Main Street, a tidy thoroughfare lined with shops, inns, and other establishments."}, :ya595 {:description "I apologize, but you did not provide me with a location to describe. Please let me know which location you would like me to describe."}, :uw946 {:name "Living Quarters", :kind "room", :children? false, :parent :s005}, :s013 {:name "Keep Bridge", :kind "bridge", :parent :d002}, :d100 {:name "Blackwood Station", :kind "outpost", :parent :a001, :children? true}, :s103 {:name "Watchtower", :kind "building", :parent :d100, :children? true}, :s006 {:name "Odd Duck", :kind "tavern", :parent :d002, :children? true, :description "Odd Duck is a popular tavern located in the heart of Gryphonport, not far from the bustling Main Street and the lively Dockside area. The tavern is a cozy and inviting space, with a warm fire crackling in the hearth and the sounds of music and laughter filling the air.\n\nThe main room of the tavern is the Bar Room, which is lined with polished wooden tables and benches. The walls are decorated with hunting trophies and other rustic artifacts, giving the room a sense of character and history. A long wooden bar runs along one side of the room, and behind it stands the jovial bartender who serves up frothy pints of ale and other drinks.\n\nIn the back of the tavern is the Kitchen, where the smells of roasting meat and baking bread waft out from the open door. This is where the tavern's skilled cooks prepare hearty meals for the patrons, using fresh ingredients sourced from local farms and markets.\n\nFor those who seek a more intimate experience, there is a Private Room located off to the side of the Bar Room. This room is reserved for special occasions or private gatherings, and is often used by local business owners or wealthy patrons to host meetings or negotiations.\n\nOverall, Odd Duck is a popular gathering spot for locals and visitors alike, and is known for its friendly atmosphere, delicious food, and lively entertainment."}, :s102 {:name "Stable Yard", :kind "area", :parent :d100}, :s004 {:name "Town Hall", :kind "building", :parent :d002, :children? true}, :s010 {:name "Alchemist's Shop", :kind "building", :parent :d002, :children? true}, :a001 {:name "Gryphon", :kind "region", :parent nil, :children? true, :description "Gryphon is a vast, rugged region located in the northern part of the continent. It is known for its breathtaking natural beauty, with jagged mountain peaks, deep forests, and winding rivers that cut through the landscape. The region is also home to a diverse array of wildlife, including wolves, bears, deer, and many species of birds.\n\nDespite its natural beauty, Gryphon is a challenging place to live. The rugged terrain and harsh climate make it difficult to grow crops, and the inhabitants must be resourceful and self-sufficient to survive. Many people in Gryphon rely on hunting, fishing, and trapping to make a living.\n\nThe people of Gryphon are known for their hardiness and resilience, as well as their fierce independence. They are a proud people who value self-sufficiency and individual freedom, and they are fiercely protective of their land and way of life.\n\nDespite its challenges, Gryphon is a popular destination for adventurers and explorers. The region is home to many hidden treasures, including ancient ruins, lost cities, and hidden valleys that are said to be home to magical creatures and powerful artifacts. Many adventurers come to Gryphon in search of fame, fortune, and adventure, and while many are never heard from again, those who succeed in their quests often become legends in their own right."}, :r016 {:name "Guard Room", :kind "room", :parent :s004, :description "As you enter the Guard Room, you find yourself in a small, windowless chamber. The room is dimly lit by torches mounted on the walls, casting flickering shadows across the floor.\n\nThe space is dominated by a large, sturdy oak table that takes up most of the room. The table is surrounded by several wooden chairs. In one corner of the room, you spot several weapons hung on the wall, including swords, spears, and shields.\n\nLooking around, you notice that the walls are decorated with several paintings depicting scenes of battle and conquest. The images are vivid and detailed, showing warriors in armor fighting against mythical beasts and other enemies. It's clear that this room was meant to inspire bravery and determination in those who used it.\n\nYou also notice several doors, one leading to the Keep Bridge, one to Jail, and one to the Entrance Hall with it's grand staircase."}, :s012 {:name "Graveyard", :kind "area", :parent :d002}}, :adj #{#{:s003 :s006} #{:s013 :r016} #{:pq541 :s003} #{:ri662 :ey136} #{:d102 :s102} #{:s014 :d102} #{:d102 :d103} #{:ya622 :s015} #{:r106 :r104} #{:d102 :d002} #{:s007 :s012} #{:d102 :d100} #{:s014 :s003} #{:s008 :ey136} #{:r104 :s102} #{:pq541 :uw946} #{:r018 :r016} #{:r013 :r015} #{:s008 :s006} #{:s005 :s003} #{:r015 :r014} #{:r013 :s003} #{:d104 :d103} #{:r013 :r014} #{:s009 :s013} #{:r017 :r016} #{:s014 :s010} #{:s014 :s007} #{:ri662 :s003} #{:s003 :s004} #{:s005 :s015} #{:s015 :s010} #{:s013 :s004} #{:s103 :s102} #{:r105 :r104} #{:r013 :r016} #{:pq541 :ya622} #{:yu595 :ri662} #{:s011 :s003}}, :characters {:p1 {:loc :s015}, :barman {:chat [[:user "How are you doing?"] [:assistant "I'm doing well, thank you for asking! Welcome to the Odd Duck. What can I get for you?"] [:user "Ale, please."] [:assistant "Sure thing! We have a few different ales on tap. Is there a specific type you're in the mood for?"]]}}, :dm-history [[:user {:p1 {:loc :s014, :instructions "go to main"}}] [:assistant {:p1 {:reply "You stroll to Main Street", :go :s003}}] [:user {:p1 {:loc :s003, :instructions "go forge"}}] [:assistant {:p1 {:reply "You duck into Wilhelm's Forge", :go :s005}}] [:user {:p1 {:loc :pq541, :instructions "go to south street"}}] [:assistant {:p1 {:reply "South Steet is not adjacent. You might try Main Street instead."}}] [:user {:p1 {:loc :pq541, :instructions "ask if anyone's here"}}] [:assistant {:p1 {:reply "You look around cautiously and say, \"Is anyone here?\"", :say "Is anyone here?"}}] [:user {:p1 {:loc :pq541, :instructions "say goodbye and go to main street"}}] [:assistant {:p1 {:reply "You say your goodbyes and exit the Blacksmith's Workshop, heading back out onto Main Street.", :say "Goodbye", :go :s003}}] [:user {:p1 {:loc :s003, :instructions "go to odd duck"}}] [:assistant {:p1 {:reply "You make your way to the Odd Duck, following the sound of music and laughter.", :go :s006}}] [:user {:p1 {:loc :ri662, :instructions "go to alley"}}] [:assistant {:p1 {:reply "You look around the Bar Room but don't see any alleys. You might try heading back out onto Main Street instead."}}] [:user {:p1 {:loc :ri662, :instructions "say hi to the barman"}}] [:assistant {:p1 {:reply "You wave at the friendly bartender and say, \"Hi there!\"", :say "Hi there!"}}] [:user {:p1 {:loc :ri662, :instructions "ask the barman how he's doing"}}] [:assistant {:p1 {:reply "You strike up a conversation with the friendly bartender and ask how he's doing.", :say "Hi, how are you doing?"}}] [:user {:p1 {:loc :ri662, :instructions "ask the barman how he's doing"}}] [:assistant {:p1 {:reply "The friendly bartender smiles and says, \"I'm doing well, thanks for asking! What can I get for you?\"", :say "How are you doing?"}}] [:user {:p1 {:loc :ri662, :instructions "say ale please"}}] [:assistant {:p1 {:reply "The friendly bartender nods and says, \"One ale, coming right up!\"", :say "Ale, please."}}] [:user {:p1 {:loc :ri662, :instructions "look into the private room"}}] [:assistant {:p1 {:reply "You peek into the Private Room and see a group of people gathered around a large table, enjoying food and drink in a more private setting.", :look "Private Room"}}] [:user {:p1 {:loc :ri662, :instructions "go to barber shop"}}] [:assistant {:p1 {:reply "The barber shop is not adjacent to the Bar Room. You might try heading out onto Main Street instead."}}] [:user {:p1 {:loc :ri662, :instructions "go main"}}] [:assistant {:p1 {:reply "You leave the Bar Room and step out onto Main Street.", :go :s003}}] [:user {:p1 {:loc :s003, :instructions "go to forge"}}] [:assistant {:p1 {:reply "You head to Wilhelm's Forge, hearing the sound of metal clanging as you approach.", :go :s005}}] [:user {:p1 {:loc :pq541, :instructions "go storage"}}] [:assistant {:p1 {:reply "You head to the Storage Room to see what raw materials are available.", :go :ya622}}] [:user {:p1 {:loc :ya622, :instructions "go ally"}}] [:assistant {:p1 {:reply "You exit the Storage Room and enter Alchemist's Alley, where you can find shops selling potions and other magical supplies.", :go :s015}}]]}
+{:nodes
+ {:s011 {:name "Farmstead", :kind "area", :parent :d002},
+  :yu595
+  {:name "Private Room",
+   :kind "room",
+   :children? false,
+   :parent :s006,
+   :description
+   "The Private Room of Odd Duck is a cozy and intimate space tucked away from the lively Bar Room. As you enter, you're struck by the warm light of flickering candles and the soft murmur of conversation. The room is dimly lit, creating a cozy and romantic atmosphere.\n\nThe walls of the Private Room are adorned with hunting trophies and other rustic artifacts, similar to the Bar Room. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nThis room is perfect for private gatherings or special occasions. It can be reserved for small parties or business meetings, providing a comfortable and secluded space away from the hustle and bustle of the main tavern.\n\nFrom the Private Room, you can exit back into the Bar Room, where you can enjoy the lively atmosphere and entertainment."},
+  :pq541
+  {:name "Blacksmith's Workshop",
+   :kind "room",
+   :children? false,
+   :parent :s005,
+   :description
+   "As you step into the Blacksmith's Workshop at Wilhelm's Forge, you are greeted by the sound of clanging metal and the roar of a blazing furnace. The room is filled with the sharp scent of hot metal and the sweet smell of burning coal.\n\nThe workshop is a large, open space, dominated by a massive anvil and a variety of tools hanging from the walls. A large furnace sits in one corner of the room, its flames casting flickering shadows across the walls.\n\nThere are several tables and workbenches scattered throughout the room, each one covered in various projects in various stages of completion. You can see weapons, tools and other metal items in different states of production.\n\nLooking around, you notice several doors leading to different areas of the building. One door leads to the Storage Room, where raw materials are kept. Another door leads to the Living Quarters, where the blacksmith and their apprentices live. You can also head back out onto Main Street."},
+  :r013
+  {:name "Entrance Hall",
+   :kind "room",
+   :parent :s004,
+   :description
+   "You find yourself standing in the Entrance Hall of Gryphonport's Town Hall. The room is dimly lit with flickering torches mounted on the walls, creating a warm and inviting atmosphere. The air is filled with the scent of old books and polished wood, suggesting that the building has a long history.\n\nIn the center of the room stands a grand statue of a majestic griffin, its wings outstretched as if about to take flight. The statue is made of polished wood and stands atop a pedestal decorated with intricate carvings. It immediately catches your eye as you take in the details of the room.\n\nLooking around, you notice several doors leading to different areas of the building. One door to the Guard Room and another door that leads to the Archives. A grand staircase leads up to the Council Chambers, where the town's leaders meet to make important decisions.\n\nAnother striking feature of the Entrance Hall is the ceiling above you, which is decorated with a large mural. It depicts the early settlers of Gryphon fighting against ferocious beasts that once roamed the land. The mural is incredibly detailed and tells the story of the town's heroic origins.\n\nThe front doors, which reach nearly to the vaulted ceiling, lead out to Main Street."},
+  :d104
+  {:name "Brookside", :kind "town", :parent :a001, :children? true},
+  :r106 {:name "Watchroom", :kind "room", :parent :s103},
+  :ya622
+  {:name "Storage Room",
+   :kind "room",
+   :children? false,
+   :parent :s005,
+   :description
+   "As you step into the Storage Room of Wilhelm's Forge, you are greeted by the smell of metal and the sight of stacks of raw materials. The room is dimly lit, but you can make out the shapes of piles of iron, steel, and other metals.\n\nThe room is organized and tidy, with each pile of metal carefully labeled and sorted by type. There are also shelves containing other tools and supplies needed for the blacksmith's trade, such as hammers, tongs, and quenching buckets.\n\nLooking around, you notice that there are several doors leading to different areas of the building. One door leads back out to the Blacksmith's Workshop, where the raw materials are used to create finished products. Another door leads to Alchemist's Alley, where you can find shops selling potions and other magical supplies."},
+  :s005
+  {:name "Wilhelm's Forge",
+   :kind "building",
+   :parent :d002,
+   :children? true,
+   :description
+   "Wilhelm's Forge is a large, imposing building located in Gryphonport, near Main Street and Alchemist's Alley. The building is made of sturdy stone and is easily recognizable by the large sign hanging above the entrance, depicting a hammer and anvil."},
+  :ri662
+  {:name "Bar Room",
+   :kind "room",
+   :children? false,
+   :parent :s006,
+   :description
+   "The Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.\n\nThe space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you. You can see the skilled bartender mixing drinks, tossing bottles, and chatting with the patrons.\n\nThe walls of the Bar Room are adorned with hunting trophies and other rustic artifacts, such as old farm tools, antlers, and mounted fish. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nFrom the Bar Room, you can access the Kitchen, where delicious meals are prepared using fresh ingredients sourced from local farms and markets. There is also a Private Room, which can be reserved for special occasions or private gatherings.\n\nIf you're looking to explore more of Gryphonport, you can exit the Bar Room and step out onto Main Street, where you'll find a variety of shops, inns, and other establishments."},
+  :s014
+  {:name "South Street",
+   :kind "street",
+   :parent :d002,
+   :description
+   "As you step onto South Street in Gryphonport, you find yourself on a narrow, winding road that snakes through the heart of the town. The buildings along the street are older and more weathered than those on Main Street, giving the area a more rustic and authentic feel.\n\nDespite its narrow size, South Street is bustling with activity. Vendors line the sidewalks, hawking their wares and calling out to passersby. The air is thick with the smell of roasting meats, fresh bread, and other tantalizing aromas.\n\nFrom South Street, you can access several different parts of town. The road leads back to Main Street, where you can find a wider variety of shops and establishments. Alternatively, you can head north on Blackwood Trail, which winds through the surrounding wilderness and leads to other towns and cities.\n\nAlong South Street, you'll find the Temple of the Divine, a grand and imposing edifice that serves as the spiritual center of the town. The temple is a popular destination for pilgrims and travelers seeking guidance or solace.\n\nYou'll also notice the Alchemist's Shop, a small but fascinating establishment that sells potions, elixirs, and other magical items. The shop is run by a reclusive alchemist who is said to be one of the most skilled and powerful practitioners of magic in the region."},
+  :s003
+  {:name "Main Street",
+   :kind "street",
+   :parent :d002,
+   :description
+   "As you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."},
+  :r015 {:name "Archives", :kind "room", :parent :s004},
+  :d102 {:name "Blackwood Trail", :kind "road", :parent :a001},
+  :d103 {:name "Brookside Road", :kind "road", :parent :a001},
+  :r017 {:name "Treasury", :kind "room", :parent :s004},
+  :s008 {:name "Dockside", :kind "area", :parent :d002},
+  :r014 {:name "Council Chamber", :kind "room", :parent :s004},
+  :r018 {:name "Jail", :kind "room", :parent :s004},
+  :s015
+  {:name "Alchemist's Alley",
+   :kind "back alley",
+   :parent :d002,
+   :description
+   "Alchemist's Alley is a narrow, dimly lit back alley located in Gryphonport. The alley is lined with small shops and stalls, each selling a variety of magical potions, elixirs, and other arcane supplies.\n\nAs you walk down the alley, you can hear the sound of bubbling cauldrons and the faint hum of magical energy in the air. The shop owners are a mix of friendly and suspicious, some eager to show off their wares while others eye you warily.\n\nLooking around, you notice that there are only a few ways to exit the alley. One path leads back to Wilhelm's Forge, a nearby blacksmith shop, while another leads to the Alchemist's Shop, a larger establishment that sells a wider variety of magical supplies."},
+  :s009
+  {:name "Keep", :kind "building", :parent :d002, :children? true},
+  :ey136
+  {:name "Kitchen", :kind "room", :children? false, :parent :s006},
+  :r105 {:name "Bunkroom", :kind "room", :parent :s103},
+  :r104 {:name "Kitchen", :kind "room", :parent :s103},
+  :s007
+  {:name "Temple of the Divine",
+   :kind "building",
+   :parent :d002,
+   :children? true},
+  :d002
+  {:name "Gryphonport",
+   :kind "town",
+   :parent :a001,
+   :children? true,
+   :description
+   "Gryphonport is a bustling town located in the heart of Gryphon, near the famous Blackwood Trail road. The town is situated at the foot of a towering mountain range and surrounded by dense forests, giving it a sense of isolation and ruggedness.\n\nThe town is centered around Main Street, a tidy thoroughfare lined with shops, inns, and other establishments."},
+  :ya595
+  {:description
+   "I apologize, but you did not provide me with a location to describe. Please let me know which location you would like me to describe."},
+  :uw946
+  {:name "Living Quarters",
+   :kind "room",
+   :children? false,
+   :parent :s005},
+  :s013 {:name "Keep Bridge", :kind "bridge", :parent :d002},
+  :d100
+  {:name "Blackwood Station",
+   :kind "outpost",
+   :parent :a001,
+   :children? true},
+  :s103
+  {:name "Watchtower",
+   :kind "building",
+   :parent :d100,
+   :children? true},
+  :s006
+  {:name "Odd Duck",
+   :kind "tavern",
+   :parent :d002,
+   :children? true,
+   :description
+   "Odd Duck is a popular tavern located in the heart of Gryphonport, not far from the bustling Main Street and the lively Dockside area. The tavern is a cozy and inviting space, with a warm fire crackling in the hearth and the sounds of music and laughter filling the air.\n\nThe main room of the tavern is the Bar Room, which is lined with polished wooden tables and benches. The walls are decorated with hunting trophies and other rustic artifacts, giving the room a sense of character and history. A long wooden bar runs along one side of the room, and behind it stands the jovial bartender who serves up frothy pints of ale and other drinks.\n\nIn the back of the tavern is the Kitchen, where the smells of roasting meat and baking bread waft out from the open door. This is where the tavern's skilled cooks prepare hearty meals for the patrons, using fresh ingredients sourced from local farms and markets.\n\nFor those who seek a more intimate experience, there is a Private Room located off to the side of the Bar Room. This room is reserved for special occasions or private gatherings, and is often used by local business owners or wealthy patrons to host meetings or negotiations.\n\nOverall, Odd Duck is a popular gathering spot for locals and visitors alike, and is known for its friendly atmosphere, delicious food, and lively entertainment."},
+  :s102 {:name "Stable Yard", :kind "area", :parent :d100},
+  :s004
+  {:name "Town Hall",
+   :kind "building",
+   :parent :d002,
+   :children? true},
+  :s010
+  {:name "Alchemist's Shop",
+   :kind "building",
+   :parent :d002,
+   :children? true},
+  :a001
+  {:name "Gryphon",
+   :kind "region",
+   :parent nil,
+   :children? true,
+   :description
+   "Gryphon is a vast, rugged region located in the northern part of the continent. It is known for its breathtaking natural beauty, with jagged mountain peaks, deep forests, and winding rivers that cut through the landscape. The region is also home to a diverse array of wildlife, including wolves, bears, deer, and many species of birds.\n\nDespite its natural beauty, Gryphon is a challenging place to live. The rugged terrain and harsh climate make it difficult to grow crops, and the inhabitants must be resourceful and self-sufficient to survive. Many people in Gryphon rely on hunting, fishing, and trapping to make a living.\n\nThe people of Gryphon are known for their hardiness and resilience, as well as their fierce independence. They are a proud people who value self-sufficiency and individual freedom, and they are fiercely protective of their land and way of life.\n\nDespite its challenges, Gryphon is a popular destination for adventurers and explorers. The region is home to many hidden treasures, including ancient ruins, lost cities, and hidden valleys that are said to be home to magical creatures and powerful artifacts. Many adventurers come to Gryphon in search of fame, fortune, and adventure, and while many are never heard from again, those who succeed in their quests often become legends in their own right."},
+  :r016
+  {:name "Guard Room",
+   :kind "room",
+   :parent :s004,
+   :description
+   "As you enter the Guard Room, you find yourself in a small, windowless chamber. The room is dimly lit by torches mounted on the walls, casting flickering shadows across the floor.\n\nThe space is dominated by a large, sturdy oak table that takes up most of the room. The table is surrounded by several wooden chairs. In one corner of the room, you spot several weapons hung on the wall, including swords, spears, and shields.\n\nLooking around, you notice that the walls are decorated with several paintings depicting scenes of battle and conquest. The images are vivid and detailed, showing warriors in armor fighting against mythical beasts and other enemies. It's clear that this room was meant to inspire bravery and determination in those who used it.\n\nYou also notice several doors, one leading to the Keep Bridge, one to Jail, and one to the Entrance Hall with it's grand staircase."},
+  :s012 {:name "Graveyard", :kind "area", :parent :d002}},
+ :adj
+ #{#{:s003 :s006}
+   #{:s013 :r016}
+   #{:pq541 :s003}
+   #{:ri662 :ey136}
+   #{:d102 :s102}
+   #{:s014 :d102}
+   #{:d102 :d103}
+   #{:ya622 :s015}
+   #{:r106 :r104}
+   #{:d102 :d002}
+   #{:s007 :s012}
+   #{:d102 :d100}
+   #{:s014 :s003}
+   #{:s008 :ey136}
+   #{:r104 :s102}
+   #{:pq541 :uw946}
+   #{:r018 :r016}
+   #{:r013 :r015}
+   #{:s008 :s006}
+   #{:s005 :s003}
+   #{:r015 :r014}
+   #{:r013 :s003}
+   #{:d104 :d103}
+   #{:r013 :r014}
+   #{:s009 :s013}
+   #{:r017 :r016}
+   #{:s014 :s010}
+   #{:s014 :s007}
+   #{:ri662 :s003}
+   #{:s003 :s004}
+   #{:s005 :s015}
+   #{:s015 :s010}
+   #{:s013 :s004}
+   #{:s103 :s102}
+   #{:r105 :r104}
+   #{:r013 :r016}
+   #{:pq541 :ya622}
+   #{:yu595 :ri662}
+   #{:s011 :s003}},
+ :narration
+ [{:src :human,
+   :loc :s014,
+   :travel-to :s003,
+   :response2 "You stroll to Main Street",
+   :response3-going "Frederik strolls to Main Street",
+   :response3-coming "Frederik strolls here from Main Street"}
+  {:src :cori,
+   :loc :s003,
+   :travel-to :s006,
+   :response2 "You slip into the Odd Duck",
+   :response3-going "Cornelia Finch slips into the Odd Duck",
+   :response3-coming "Cornelia Finch slips in from Main Street"}
+  {:src :cori,
+   :loc :ri662,
+   :say "Is this seat taken?",
+   :response2
+   "Your eyes sparkle mischievously as you say, \"Is this seat taken?\"",
+   :response3
+   "Cori's eyes sparkle mischievously as she says, \"Is this seat taken?\""}
+  {:src :rafe,
+   :loc :ri662,
+   :say "Please sit down",
+   :response2
+   "You gesture to the empty chair opposite you, \"Please, sit down.\"",
+   :response3
+   "Rafe gestures to the empty chair opposite him, \"Please, sit down.\""}
+  {:src :cori,
+   :loc :ri662,
+   :say "What brings you here?",
+   :response2
+   "You take a seat, and before the silence gets awkward you ask, \"What brings you here?\"",
+   :response3
+   "Cori takes a seat, and before the silence gets awkward she asks, \"What brings you here?\""}
+  {:src :rafe,
+   :loc :ri662,
+   :say "I'm here on business",
+   :response2 "\"I'm here on business,\" you reply vaguely.",
+   :response3 "\"I'm here on business,\" Rafe replies vaguely."}
+  {:src :cori,
+   :loc :ri662,
+   :say "Rafe what kind of business are you in?",
+   :response2 "\"What kind of business are you in?\" you press.",
+   :response3 "\"What kind of business are you in?\" Cori presses."}
+  {:src :rafe,
+   :loc :ri662,
+   :say "I'm a freelance adventurer",
+   :response3
+   "\"I'm a freelance adventurer,\" Rafe answers with a grin.",
+   :response2
+   "\"I'm a freelance adventurer,\" you answer with a grin."}
+  {:src :cori,
+   :loc :ri662,
+   :say
+   "That sounds exciting. Have you had any thrilling adventures lately?",
+   :response3
+   "\"That sounds exciting,\" Cori says with a smile. \"Have you had any thrilling adventures lately?\"",
+   :response2
+   "\"That sounds exciting,\" you say with a smile. \"Have you had any thrilling adventures lately?\""}
+  {:src :rafe,
+   :loc :ri662,
+   :say "I recently went on a treasure hunt",
+   :response3
+   "\"I recently went on a treasure hunt,\" Rafe says, excitement in his voice.",
+   :response2
+   "\"I recently went on a treasure hunt,\" you say, your voice filled with excitement."}
+  {:src :cori,
+   :loc :ri662,
+   :say
+   "Tell me more about this treasure hunt. It sounds like an adventure worth writing a song about.",
+   :response3
+   "\"Tell me more about this treasure hunt. It sounds like an adventure worth writing a song about,\" Cori says, leaning in with interest.",
+   :response2
+   "\"Tell me more about this treasure hunt. It sounds like an adventure worth writing a song about,\" you say, leaning in with interest."}
+  {:src :rafe,
+   :loc :ri662,
+   :say "Well, it was a challenging journey",
+   :response3
+   "Rafe takes a long sip of his drink, gathering his thoughts. \"Well, it was a challenging journey,\" he finally says.",
+   :response2
+   "You take a long sip of your drink, gathering your thoughts. \"Well, it was a challenging journey,\" you finally say."}
+  {:src :cori,
+   :loc :ri662,
+   :say "Please, do go on. What kind of challenges did you face?",
+   :response3
+   "\"Please, do go on. What kind of challenges did you face?\" Cori asks eagerly.",
+   :response2
+   "\"Please, do go on. What kind of challenges did you face?\" you ask eagerly."}
+  {:src :rafe,
+   :loc :ri662,
+   :say "We had to navigate through treacherous terrain",
+   :response3
+   "Rafe leans forward, his eyes bright with the memory. \"We had to navigate through treacherous terrain,\" he says.",
+   :response2
+   "You lean forward, your eyes bright with the memory. \"We had to navigate through treacherous terrain,\" you say."}
+  {:src :cori,
+   :loc :ri662,
+   :say "That sounds dangerous. Did you have any close calls?",
+   :response3
+   "\"That sounds dangerous. Did you have any close calls?\" Cori asks, her eyes widening in concern.",
+   :response2
+   "\"That sounds dangerous. Did you have any close calls?\" you ask, your eyes widening in concern."}
+  {:src :rafe,
+   :loc :ri662,
+   :say "Yes, we encountered some hostile creatures",
+   :response3
+   "Rafe shudders as he recalls the encounter. \"Yes, we encountered some hostile creatures,\" he says.",
+   :response2
+   "You shudder as you recall the encounter. \"Yes, we encountered some hostile creatures,\" you say."}
+  {:src :cori,
+   :loc :ri662,
+   :say "What kind of creatures? That sounds intense!",
+   :response3
+   "\"What kind of creatures? That sounds intense!\" Cori exclaims, her curiosity piqued.",
+   :response2
+   "\"What kind of creatures? That sounds intense!\" you exclaim, your curiosity piqued."}
+  {:src :rafe,
+   :loc :ri662,
+   :say "They were giant spiders",
+   :response3
+   "Rafe shudders again, \"They were giant spiders,\" he says.",
+   :response2
+   "You shudder again, \"They were giant spiders,\" you say."}
+  {:src :cori,
+   :loc :ri662,
+   :say
+   "Wow, that must have been frightening! How did you and your team manage to defeat them?",
+   :response3
+   "\"Wow, that must have been frightening! How did you and your team manage to defeat them?\" Cori asks, her eyes wide with amazement.",
+   :response2
+   "\"Wow, that must have been frightening! How did you and your team manage to defeat them?\" you ask, your eyes wide with amazement."}
+  {:src :rafe,
+   :loc :ri662,
+   :say "We used our weapons and quick thinking to overcome them",
+   :response3
+   "Rafe grins proudly. \"We used our weapons and quick thinking to overcome them,\" he says.",
+   :response2
+   "You grin proudly. \"We used our weapons and quick thinking to overcome them,\" you say."}
+  {:response3
+   "Cori leans back in her seat, impressed. \"That's impressive! You must be quite skilled with a weapon. I can't wait to hear more about your adventures,\" she says.",
+   :response2
+   "You lean back in your seat, impressed. \"That's impressive! You must be quite skilled with a weapon. I can't wait to hear more about your adventures,\" you say.",
+   :loc :ri662,
+   :say
+   "That's impressive! You must be quite skilled with a weapon. I can't wait to hear more about your adventures.",
+   :src :cori}
+  {:response3
+   "Rafe grins at Cori. \"I'd love to hear about your adventures too,\" he says.",
+   :response2
+   "You grin at Cori. \"I'd love to hear about your adventures too,\" you say.",
+   :loc :ri662,
+   :say "I'd love to hear about your adventures too",
+   :src :rafe}
+  {:response3
+   "Cori smiles. \"Well, I'm a minstrel. My adventures are mostly musical in nature. I'm searching for inspiration to write a new song.\"",
+   :response2
+   "You smile. \"Well, I'm a minstrel. My adventures are mostly musical in nature. I'm searching for inspiration to write a new song.\"",
+   :loc :ri662,
+   :say
+   "Well, I'm a minstrel. My adventures are mostly musical in nature. I'm searching for inspiration to write a new song.",
+   :src :cori}
+  {:response3
+   "Rafe leans forward, intrigued. \"That sounds fascinating. What kind of song are you looking to write?\" he asks.",
+   :response2
+   "You lean forward, intrigued. \"That sounds fascinating. What kind of song are you looking to write?\" you ask.",
+   :loc :ri662,
+   :say
+   "That sounds fascinating. What kind of song are you looking to write?",
+   :src :rafe}
+  {:response3
+   "Cori grins at Rafe. \"I'm looking to write an epic song about a heroic adventurer. Your stories have been quite inspiring so far,\" she says.",
+   :response2
+   "You grin at Rafe. \"I'm looking to write an epic song about a heroic adventurer. Your stories have been quite inspiring so far,\" you say.",
+   :loc :ri662,
+   :say
+   "I'm looking to write an epic song about a heroic adventurer. Your stories have been quite inspiring so far.",
+   :src :cori}
+  {:response3
+   "Rafe smiles, feeling flattered. \"Well, I'd be honored to be the subject of one of your songs,\" he says.",
+   :response2
+   "You smile, feeling flattered. \"Well, I'd be honored to be the subject of one of your songs,\" you say.",
+   :loc :ri662,
+   :say "Well, I'd be honored to be the subject of one of your songs",
+   :src :rafe}
+  {:response3
+   "Cori leans forward, her eyes shining with excitement. \"Great! Can you tell me more about your most daring adventure? I'm sure it will make for a perfect song.\"",
+   :response2
+   "You lean forward, your eyes shining with excitement. \"Great! Can you tell me more about your most daring adventure? I'm sure it will make for a perfect song.\"",
+   :loc :ri662,
+   :say
+   "Great! Can you tell me more about your most daring adventure? I'm sure it will make for a perfect song.",
+   :src :cori}
+  {:response3
+   "Rafe leans back in his seat, reminiscing. \"I once had to infiltrate a bandit camp to retrieve a stolen artifact,\" he says, his voice low and intense.",
+   :response2
+   "You lean back in your seat, reminiscing. \"I once had to infiltrate a bandit camp to retrieve a stolen artifact,\" you say, your voice low and intense.",
+   :loc :ri662,
+   :say
+   "I once had to infiltrate a bandit camp to retrieve a stolen artifact",
+   :src :rafe}
+  {:response3
+   "Cori leans forward, eagerly awaiting Rafe's answer. \"That sounds like a thrilling adventure. Can you tell me more about how you managed to infiltrate the bandit camp?\" she asks.",
+   :response2
+   "You lean forward, eagerly awaiting Rafe's answer. \"That sounds like a thrilling adventure. Can you tell me more about how you managed to infiltrate the bandit camp?\" you ask.",
+   :loc :ri662,
+   :say
+   "That sounds like a thrilling adventure. Can you tell me more about how you managed to infiltrate the bandit camp?",
+   :src :cori}
+  {:response3
+   "Rafe describes how he disguised himself as a bandit and snuck into the camp, carefully avoiding suspicion and gathering valuable information.",
+   :response2
+   "You describe how you disguised yourself as a bandit and snuck into the camp, carefully avoiding suspicion and gathering valuable information.",
+   :loc :ri662,
+   :say "I disguised myself as a bandit and snuck in",
+   :src :rafe}
+  {:response3
+   "Cori leans in, curious. \"That's amazing! It sounds like you were very brave and resourceful. Were there any close calls during your mission?\"",
+   :response2
+   "You lean in, curious. \"That's amazing! It sounds like you were very brave and resourceful. Were there any close calls during your mission?\"",
+   :loc :ri662,
+   :say
+   "That's amazing! It sounds like you were very brave and resourceful. Were there any close calls during your mission?",
+   :src :cori}
+  {:response3
+   "Rafe grimaces as he recalls the close call. \"Yes, I almost got caught when I was leaving the camp,\" he says.",
+   :response2
+   "You grimace as you recall the close call. \"Yes, I almost got caught when I was leaving the camp,\" you say.",
+   :loc :ri662,
+   :say "Yes, I almost got caught when I was leaving the camp",
+   :src :rafe}
+  {:response3
+   "Cori leans in, fascinated. \"That must have been nerve-wracking. How did you manage to escape?\" she asks.",
+   :response2
+   "You lean in, fascinated. \"That must have been nerve-wracking. How did you manage to escape?\" you ask.",
+   :loc :ri662,
+   :say
+   "That must have been nerve-wracking. How did you manage to escape?",
+   :src :cori}],
+ :next-turn [:rafe :cori],
+ :actors
+ {:human
+  {:type :local-player,
+   :loc :ri662,
+   :name "Frederik Ludgate",
+   :description
+   "a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing.",
+   :mem
+   [{:travel-to :s003}
+    {:text "You stroll from South Street to Main Street"}
+    {:text
+     "As you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."}
+    {:text
+     "Cori leans back in her seat, impressed. \"That's impressive! You must be quite skilled with a weapon. I can't wait to hear more about your adventures,\" she says."}
+    {:text
+     "Rafe grins at Cori. \"I'd love to hear about your adventures too,\" he says."}
+    {:text
+     "Cori smiles. \"Well, I'm a minstrel. My adventures are mostly musical in nature. I'm searching for inspiration to write a new song.\""}
+    {:text
+     "Rafe leans forward, intrigued. \"That sounds fascinating. What kind of song are you looking to write?\" he asks."}
+    {:text
+     "Cori grins at Rafe. \"I'm looking to write an epic song about a heroic adventurer. Your stories have been quite inspiring so far,\" she says."}
+    {:text
+     "Rafe smiles, feeling flattered. \"Well, I'd be honored to be the subject of one of your songs,\" he says."}
+    {:text
+     "Cori leans forward, her eyes shining with excitement. \"Great! Can you tell me more about your most daring adventure? I'm sure it will make for a perfect song.\""}
+    {:text
+     "Rafe leans back in his seat, reminiscing. \"I once had to infiltrate a bandit camp to retrieve a stolen artifact,\" he says, his voice low and intense."}
+    {:text
+     "Cori leans forward, eagerly awaiting Rafe's answer. \"That sounds like a thrilling adventure. Can you tell me more about how you managed to infiltrate the bandit camp?\" she asks."}
+    {:text
+     "Rafe describes how he disguised himself as a bandit and snuck into the camp, carefully avoiding suspicion and gathering valuable information."}
+    {:text
+     "Cori leans in, curious. \"That's amazing! It sounds like you were very brave and resourceful. Were there any close calls during your mission?\""}
+    {:text
+     "Rafe grimaces as he recalls the close call. \"Yes, I almost got caught when I was leaving the camp,\" he says."}
+    {:text
+     "Cori leans in, fascinated. \"That must have been nerve-wracking. How did you manage to escape?\" she asks."}]},
+  :rafe
+  {:type :npc,
+   :loc :ri662,
+   :name "Rafe Hunter",
+   :description
+   "a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.",
+   :self-bio
+   "You are a young man, son of successful merchant John Foster, who long ago became convinced the life of a merchant was too boring to pursue. Though it caused a falling-out with your father, you left home and your father's dreams for you, to seek a living adventuring in the wide world. You're better than average at knife-fighting and navigating, but the skill that sets you apart is your hard-nosed, realistic view of the world and your ability to unhesitatingly take the necessary action. Your name is Rafe Foster, but in order to avoid association with your rich father, you usually go by Rafe Hunter.",
+   :mem
+   [{:text
+     "The Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.\n\nThe space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you."}
+    {:text "Cornelia Finch slips into the Odd Duck from Main Street"}
+    {:text
+     "Cornelia Finch is a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely."}
+    {:text
+     "Cori's eyes sparkle mischievously as she says, \"Is this seat taken?\""}
+    {:say "Please sit down",
+     :reason
+     "She doesn't look like she has much money, but I'm always happy to talk to a pretty girl."}
+    {:text
+     "You gesture to the empty chair opposite you, \"Please, sit down.\""}
+    {:text
+     "Cori takes a seat, and before the silence gets awkward she asks, \"What brings you here?\""}
+    {:say "I'm here on business",
+     :reason
+     "I'm a little suspicious about how forward she's being. Perhaps she wants something, so I don't want to give too much away."}
+    {:text "\"I'm here on business,\" you reply vaguely."}
+    {:text "\"What kind of business are you in?\" Cori presses."}
+    {:say "I'm a freelance adventurer",
+     :reason
+     "I don't see any harm in telling her that I'm an adventurer. It's not a secret, and it might even help me make a new acquaintance."}
+    {:text "\"I'm a freelance adventurer,\" you answer with a grin."}
+    {:text
+     "\"That sounds exciting,\" Cori says with a smile. \"Have you had any thrilling adventures lately?\""}
+    {:say "I recently went on a treasure hunt",
+     :reason
+     "I'm happy to share my adventures with her, and I want to impress her with something exciting."}
+    {:text
+     "\"I recently went on a treasure hunt,\" you say, your voice filled with excitement."}
+    {:text
+     "\"Tell me more about this treasure hunt. It sounds like an adventure worth writing a song about,\" Cori says, leaning in with interest."}
+    {:say "Well, it was a challenging journey",
+     :reason
+     "I want to keep her interested, and the more I share, the more she'll be intrigued."}
+    {:text
+     "You take a long sip of your drink, gathering your thoughts. \"Well, it was a challenging journey,\" you finally say."}
+    {:text
+     "\"Please, do go on. What kind of challenges did you face?\" Cori asks eagerly."}
+    {:say "We had to navigate through treacherous terrain",
+     :reason
+     "I want to keep her interest piqued, and this detail is a good hook."}
+    {:text
+     "You lean forward, your eyes bright with the memory. \"We had to navigate through treacherous terrain,\" you say."}
+    {:text
+     "\"That sounds dangerous. Did you have any close calls?\" Cori asks, her eyes widening in concern."}
+    {:say "Yes, we encountered some hostile creatures",
+     :reason
+     "I want to keep her engaged, and talking about the danger we faced is a good way to do that."}
+    {:text
+     "You shudder as you recall the encounter. \"Yes, we encountered some hostile creatures,\" you say."}
+    {:text
+     "\"What kind of creatures? That sounds intense!\" Cori exclaims, her curiosity piqued."}
+    {:say "They were giant spiders",
+     :reason
+     "This detail adds to the excitement of the story, and it's something that's easy to imagine and be scared of."}
+    {:text "You shudder again, \"They were giant spiders,\" you say."}
+    {:text
+     "\"Wow, that must have been frightening! How did you and your team manage to defeat them?\" Cori asks, her eyes wide with amazement."}
+    {:say "We used our weapons and quick thinking to overcome them",
+     :reason
+     "I want to continue the excitement of the story, and also highlight my own skills as a fighter."}
+    {:text
+     "You grin proudly. \"We used our weapons and quick thinking to overcome them,\" you say."}
+    {:text
+     "Cori leans back in her seat, impressed. \"That's impressive! You must be quite skilled with a weapon. I can't wait to hear more about your adventures,\" she says."}
+    {:loc :ri662,
+     :say "I'd love to hear about your adventures too",
+     :reason
+     "This is a good opportunity to shift the focus of the conversation to Cori, and also show that I'm interested in her."}
+    {:text
+     "You grin at Cori. \"I'd love to hear about your adventures too,\" you say.\n\n"}
+    {:text
+     "Cori smiles. \"Well, I'm a minstrel. My adventures are mostly musical in nature. I'm searching for inspiration to write a new song.\""}
+    {:loc :ri662,
+     :say
+     "That sounds fascinating. What kind of song are you looking to write?",
+     :reason
+     "I want to show that I'm interested in Cori's passions and that I'm a good listener."}
+    {:text
+     "You lean forward, intrigued. \"That sounds fascinating. What kind of song are you looking to write?\" you ask.\n\n"}
+    {:text
+     "Cori grins at Rafe. \"I'm looking to write an epic song about a heroic adventurer. Your stories have been quite inspiring so far,\" she says."}
+    {:loc :ri662,
+     :say
+     "Well, I'd be honored to be the subject of one of your songs",
+     :reason
+     "This is a great opportunity to flatter Cori and also possibly gain some recognition for my exploits."}
+    {:text
+     "You smile, feeling flattered. \"Well, I'd be honored to be the subject of one of your songs,\" you say.\n\n"}
+    {:text
+     "Cori leans forward, her eyes shining with excitement. \"Great! Can you tell me more about your most daring adventure? I'm sure it will make for a perfect song.\""}
+    {:loc :ri662,
+     :say
+     "I once had to infiltrate a bandit camp to retrieve a stolen artifact",
+     :reason
+     "This is a good opportunity to share a daring story that will make for a good song, and also show off my skills as an adventurer."}
+    {:text
+     "You lean back in your seat, reminiscing. \"I once had to infiltrate a bandit camp to retrieve a stolen artifact,\" you say, your voice low and intense.\n\n"}
+    {:text
+     "Cori leans forward, eagerly awaiting Rafe's answer. \"That sounds like a thrilling adventure. Can you tell me more about how you managed to infiltrate the bandit camp?\" she asks."}
+    {:loc :ri662,
+     :say "I disguised myself as a bandit and snuck in",
+     :reason
+     "This is a key detail in the story and also shows my cunning and ability to think on my feet."}
+    {:text
+     "You describe how you disguised yourself as a bandit and snuck into the camp, carefully avoiding suspicion and gathering valuable information.\n\n"}
+    {:text
+     "Cori leans in, curious. \"That's amazing! It sounds like you were very brave and resourceful. Were there any close calls during your mission?\""}
+    {:loc :ri662,
+     :say "Yes, I almost got caught when I was leaving the camp",
+     :reason
+     "This adds to the excitement of the story and also shows that even though I'm skilled, I'm not infallible."}
+    {:text
+     "You grimace as you recall the close call. \"Yes, I almost got caught when I was leaving the camp,\" you say.\n\n"}
+    {:text
+     "Cori leans in, fascinated. \"That must have been nerve-wracking. How did you manage to escape?\" she asks."}]},
+  :cori
+  {:type :npc,
+   :loc :ri662,
+   :name "Cornelia Finch",
+   :description
+   "a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely.",
+   :self-bio
+   "You are a young woman named Cornelia Finch who grew up in a poor family in a small fishing village. Your friends call you Cori. As a child, you discovered your love for music and would sing and play your lute whenever you had a chance. Your parents disapproved, but you loved it so much you continued to pursue your passion and eventually became a minstrel.\n\nYour dream is to compose a musical masterpiece that will be remembered for generations to come. You often act impulsively and also struggle with the drawbacks of perfectionism.",
+   :mem
+   [{:loc :s003,
+     :travel-to :s006,
+     :reason "I bet there are some adventerous people in the tavern."}
+    {:text "You slip into the Odd Duck from Main Street"}
+    {:text
+     "The Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.\n\nThe space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you."}
+    {:text
+     "You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new."}
+    {:say "is this seat taken?",
+     :reason
+     "I need to find an interesting character to write a song abount. Maybe Rafe is interesting."}
+    {:text
+     "Your eyes sparkle mischievously as you say, \"Is this seat taken?\""}
+    {:text
+     "Rafe gestures to the empty chair opposite him, \"Please, sit down.\""}
+    {:say "what brings you here?",
+     :reason "I want to find out if Rafe is interesting."}
+    {:text
+     "You take a seat, and before the silence gets awkward you ask, \"What brings you here?\""}
+    {:text "\"I'm here on business,\" Rafe replies vaguely."}
+    {:say "Rafe what kind of business are you in?",
+     :reason
+     "I want to know more about Rafe's business and find out if it's interesting enough to write a song about."}
+    {:text "\"What kind of business are you in?\" you press."}
+    {:text "\"I'm a freelance adventurer,\" Rafe answers with a grin."}
+    {:say
+     "That sounds exciting. Have you had any thrilling adventures lately?",
+     :reason
+     "I want to learn more about Rafe's adventures and see if there is anything in particular that might inspire me to write a song."}
+    {:text
+     "\"That sounds exciting,\" you say with a smile. \"Have you had any thrilling adventures lately?\""}
+    {:text
+     "\"I recently went on a treasure hunt,\" Rafe says, excitement in his voice."}
+    {:say
+     "Tell me more about this treasure hunt. It sounds like an adventure worth writing a song about.",
+     :reason
+     "I want to know more about this treasure hunt and see if there are any interesting details that could inspire me to write a song."}
+    {:text
+     "\"Tell me more about this treasure hunt. It sounds like an adventure worth writing a song about,\" you say, leaning in with interest."}
+    {:text
+     "Rafe takes a long sip of his drink, gathering his thoughts. \"Well, it was a challenging journey,\" he finally says."}
+    {:say "Please, do go on. What kind of challenges did you face?",
+     :reason
+     "I want to hear more about the challenges Rafe faced during his treasure hunt as it may help me to write a more compelling song."}
+    {:text
+     "\"Please, do go on. What kind of challenges did you face?\" you ask eagerly."}
+    {:text
+     "Rafe leans forward, his eyes bright with the memory. \"We had to navigate through treacherous terrain,\" he says."}
+    {:say "That sounds dangerous. Did you have any close calls?",
+     :reason
+     "I want to know if Rafe had any specific moments of danger or excitement during his adventure that could make for a good song."}
+    {:text
+     "\"That sounds dangerous. Did you have any close calls?\" you ask, your eyes widening in concern."}
+    {:text
+     "Rafe shudders as he recalls the encounter. \"Yes, we encountered some hostile creatures,\" he says."}
+    {:say "What kind of creatures? That sounds intense!",
+     :reason
+     "I want to know more about the creatures Rafe and his team encountered, and if there were any particularly exciting or dangerous moments that could be included in the song."}
+    {:text
+     "\"What kind of creatures? That sounds intense!\" you exclaim, your curiosity piqued."}
+    {:text
+     "Rafe shudders again, \"They were giant spiders,\" he says."}
+    {:say
+     "Wow, that must have been frightening! How did you and your team manage to defeat them?",
+     :reason
+     "I want to know more about how Rafe and his team managed to overcome the giant spiders and if there were any exciting or heroic moments that could be included in the song."}
+    {:text
+     "\"Wow, that must have been frightening! How did you and your team manage to defeat them?\" you ask, your eyes wide with amazement."}
+    {:text
+     "Rafe grins proudly. \"We used our weapons and quick thinking to overcome them,\" he says."}
+    {:loc :ri662,
+     :say
+     "That's impressive! You must be quite skilled with a weapon. I can't wait to hear more about your adventures.",
+     :reason
+     "I want to compliment Rafe on his skills and encourage him to share more about his adventures."}
+    {:text
+     "You lean back in your seat, impressed. \"That's impressive! You must be quite skilled with a weapon. I can't wait to hear more about your adventures,\" you say.\n\n"}
+    {:text
+     "Rafe grins at Cori. \"I'd love to hear about your adventures too,\" he says."}
+    {:loc :ri662,
+     :say
+     "Well, I'm a minstrel. My adventures are mostly musical in nature. I'm searching for inspiration to write a new song.",
+     :reason
+     "I want to let Rafe know that my adventures are of a different kind, and that I'm searching for inspiration to write a new song."}
+    {:text
+     "You smile. \"Well, I'm a minstrel. My adventures are mostly musical in nature. I'm searching for inspiration to write a new song.\"\n\n"}
+    {:text
+     "Rafe leans forward, intrigued. \"That sounds fascinating. What kind of song are you looking to write?\" he asks."}
+    {:loc :ri662,
+     :say
+     "I'm looking to write an epic song about a heroic adventurer. Your stories have been quite inspiring so far.",
+     :reason
+     "I want to let Rafe know that he has been the source of my inspiration for the song, and that I'm interested in hearing more about his adventures."}
+    {:text
+     "You grin at Rafe. \"I'm looking to write an epic song about a heroic adventurer. Your stories have been quite inspiring so far,\" you say.\n\n"}
+    {:text
+     "Rafe smiles, feeling flattered. \"Well, I'd be honored to be the subject of one of your songs,\" he says."}
+    {:loc :ri662,
+     :say
+     "Great! Can you tell me more about your most daring adventure? I'm sure it will make for a perfect song.",
+     :reason
+     "I want to encourage Rafe to share more about his most daring adventure and see if there are any exciting or heroic moments that could be included in the song."}
+    {:text
+     "You lean forward, your eyes shining with excitement. \"Great! Can you tell me more about your most daring adventure? I'm sure it will make for a perfect song.\"\n\n"}
+    {:text
+     "Rafe leans back in his seat, reminiscing. \"I once had to infiltrate a bandit camp to retrieve a stolen artifact,\" he says, his voice low and intense."}
+    {:loc :ri662,
+     :say
+     "That sounds like a thrilling adventure. Can you tell me more about how you managed to infiltrate the bandit camp?",
+     :reason
+     "I want to know more about how Rafe successfully infiltrated the bandit camp and if there were any exciting or heroic moments that could be included in the song."}
+    {:text
+     "You lean forward, eagerly awaiting Rafe's answer. \"That sounds like a thrilling adventure. Can you tell me more about how you managed to infiltrate the bandit camp?\" you ask.\n\n"}
+    {:text
+     "Rafe describes how he disguised himself as a bandit and snuck into the camp, carefully avoiding suspicion and gathering valuable information."}
+    {:loc :ri662,
+     :say
+     "That's amazing! It sounds like you were very brave and resourceful. Were there any close calls during your mission?",
+     :reason
+     "I want to know if there were any particularly dangerous or exciting moments during Rafe's mission that could be included in the song."}
+    {:text
+     "You lean in, curious. \"That's amazing! It sounds like you were very brave and resourceful. Were there any close calls during your mission?\"\n\n"}
+    {:text
+     "Rafe grimaces as he recalls the close call. \"Yes, I almost got caught when I was leaving the camp,\" he says."}
+    {:loc :ri662,
+     :say
+     "That must have been nerve-wracking. How did you manage to escape?",
+     :reason
+     "I want to know more about how Rafe managed to escape, and if there were any particularly exciting or heroic moments that could be included in the song."}
+    {:text
+     "You lean in, fascinated. \"That must have been nerve-wracking. How did you manage to escape?\" you ask.\n\n"}]}}}
