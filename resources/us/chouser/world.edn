@@ -437,6 +437,38 @@
    "You smile warmly. \"I look forward to hearing the song,\" you say.",
    :loc :ri662,
    :say "I look forward to hearing the song",
+   :src :rafe}
+  {:response3
+   "Cori glances at the clock and stands up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" she says with a smile before heading towards the door.",
+   :response2
+   "You glance at the clock and stand up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" you say with a smile before heading towards the door.",
+   :loc :ri662,
+   :say
+   "It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe.",
+   :src :cori}
+  {:response3
+   "Rafe waves goodbye to Cori. \"Good night, Cori. It was great meeting you,\" he says as she leaves the Bar Room.",
+   :response2
+   "You wave goodbye to Cori. \"Good night, Cori. It was great meeting you,\" you say as she leaves the Bar Room.",
+   :loc :ri662,
+   :say "Good night, Cori. It was great meeting you.",
+   :src :rafe}
+  {:response3-coming
+   "Cori exits the Odd Duck and heads towards Main Street.",
+   :response3-going
+   "Cori disappears down Main Street, leaving the Bar Room behind.",
+   :response2 "You exit the Odd Duck and head towards Main Street.",
+   :loc :ri662,
+   :travel-to :s003,
+   :src :cori}
+  {:response3-coming
+   "Rafe gathers his things and heads towards the door, preparing to leave the Bar Room and head to Main Street.",
+   :response3-going
+   "Rafe steps out of the Bar Room and into Main Street, ready to continue his adventures.",
+   :response2
+   "You gather your things and head towards the door, preparing to leave the Bar Room and head to Main Street.",
+   :loc :ri662,
+   :travel-to :s003,
    :src :rafe}],
  :next-turn [:cori :rafe],
  :actors
@@ -482,10 +514,18 @@
     {:text
      "Cori beams at Rafe. \"That's incredible. You truly are a skilled adventurer. I can't wait to write a song about your daring mission.\""}
     {:text
-     "Rafe smiles warmly. \"I look forward to hearing the song,\" he says."}]},
+     "Rafe smiles warmly. \"I look forward to hearing the song,\" he says."}
+    {:text
+     "Cori glances at the clock and stands up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" she says with a smile before heading towards the door."}
+    {:text
+     "Rafe waves goodbye to Cori. \"Good night, Cori. It was great meeting you,\" he says as she leaves the Bar Room."}
+    {:text
+     "Cori disappears down Main Street, leaving the Bar Room behind."}
+    {:text
+     "Rafe steps out of the Bar Room and into Main Street, ready to continue his adventures."}]},
   :rafe
   {:type :npc,
-   :loc :ri662,
+   :loc :s003,
    :name "Rafe Hunter",
    :description
    "a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.",
@@ -622,10 +662,26 @@
      :reason
      "This is a good opportunity to wrap up the conversation on a positive note and show that I'm appreciative of Cori's interest in my adventures."}
     {:text
-     "You smile warmly. \"I look forward to hearing the song,\" you say.\n\n"}]},
+     "You smile warmly. \"I look forward to hearing the song,\" you say.\n\n"}
+    {:text
+     "Cori glances at the clock and stands up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" she says with a smile before heading towards the door."}
+    {:loc :ri662,
+     :say "Good night, Cori. It was great meeting you.",
+     :reason
+     "This is a polite and friendly way to end the conversation and show that I enjoyed talking to her."}
+    {:text
+     "You wave goodbye to Cori. \"Good night, Cori. It was great meeting you,\" you say as she leaves the Bar Room.\n\n"}
+    {:text
+     "Cori disappears down Main Street, leaving the Bar Room behind."}
+    {:loc :ri662,
+     :travel-to :s003,
+     :reason
+     "It's a good time to leave the Bar Room and explore the rest of Gryphonport."}
+    {:text
+     "You gather your things and head towards the door, preparing to leave the Bar Room and head to Main Street.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."}]},
   :cori
   {:type :npc,
-   :loc :ri662,
+   :loc :s003,
    :name "Cornelia Finch",
    :description
    "a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely.",
@@ -773,4 +829,22 @@
     {:text
      "You beam at Rafe. \"That's incredible. You truly are a skilled adventurer. I can't wait to write a song about your daring mission.\"\n\n"}
     {:text
-     "Rafe smiles warmly. \"I look forward to hearing the song,\" he says."}]}}}
+     "Rafe smiles warmly. \"I look forward to hearing the song,\" he says."}
+    {:loc :ri662,
+     :say
+     "It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe.",
+     :reason
+     "I want to end the conversation on a positive note and say goodnight to Rafe."}
+    {:text
+     "You glance at the clock and stand up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" you say with a smile before heading towards the door.\n\n"}
+    {:text
+     "Rafe waves goodbye to Cori. \"Good night, Cori. It was great meeting you,\" he says as she leaves the Bar Room."}
+    {:loc :ri662,
+     :travel-to :s003,
+     :reason
+     "I want to head back home and get some rest after a long day."}
+    {:text
+     "You exit the Odd Duck and head towards Main Street.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."}
+    {:text
+     "Rafe gathers his things and heads towards the door, preparing to leave the Bar Room and head to Main Street.\n\nRafe Hunter is a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new."}
+    {:text "You cannot travel-to Home from here."}]}}}

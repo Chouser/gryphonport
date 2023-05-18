@@ -55,22 +55,31 @@
         instruction (-> {:msgs (npc/prompt-actor w actor-id)}
                         util/chat
                         util/content)
-        _ (println instruction)
-        parsed-instruction (npc/parse-actor-content w
-                                                    (-> w :actors actor-id :loc)
-                                                    instruction)
-        w (npc/apply-actor-content w actor-id parsed-instruction) ;; TODO move this into apply-narrator-content
-        narr-instruction (-> parsed-instruction
-                             (dissoc :reason)
-                             (assoc :src actor-id))
-        narration (-> {:msgs (npc/prompt-narrator w narr-instruction)}
-                      util/chat
-                      util/content
-                      (npc/parse-narrator-content)
-                      (merge narr-instruction))]
-    (clojure.pprint/pprint {:narr narration})
-    (reset! *world (npc/apply-narrator-content w narration))
-    (println (or (:response3 narration) (str "Do over: " (:error narration))))))
+        _ (println instruction)]
+    (try
+      (let [parsed-instruction (npc/parse-actor-content w
+                                                        (-> w :actors actor-id :loc)
+                                                        instruction)
+            w (npc/apply-actor-content w actor-id parsed-instruction) ;; TODO move this into apply-narrator-content
+            narr-instruction (-> parsed-instruction
+                                 (dissoc :reason)
+                                 (assoc :src actor-id))
+            narration (-> {:msgs (npc/prompt-narrator w narr-instruction)}
+                          util/chat
+                          util/content
+                          (npc/parse-narrator-content)
+                          (merge narr-instruction))]
+        (clojure.pprint/pprint {:narr narration})
+        (reset! *world (npc/apply-narrator-content w narration))
+        (println (or (:response3 narration)
+                     (:response3-going narration)
+                     (str "Do over: " (:error narration)))))
+      (catch Exception ex
+        (if-let [amem (:actor-mem (ex-data ex))]
+          (do
+            (reset! *world (update-in w [:actors actor-id :mem] conj amem))
+            (prn amem))
+          (throw ex))))))
 
 #_
 (defn _comment []
@@ -111,7 +120,8 @@
     :travel-to :s003
     :src :cori
     :response2 "You stroll to the Bar Room"
-    :response3 "Cori strolls to the Bar Room"})
+    :response3-going "Cori strolls to the Bar Room"
+    :response3-coming "Cori strolls in from the Bar Room"})
 
   (reset! *world seed-graph)
   (swap! *world merge-descriptions seed-descriptions)

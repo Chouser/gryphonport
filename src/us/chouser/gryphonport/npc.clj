@@ -9,16 +9,20 @@
 (defn prompt-actor [state actor-id]
   (let [actor (-> state :actors actor-id)]
     (into [[:system (util/fstr ["You are controlling " (:name actor) " in this scene."])]]
-          (->> (cons {:text (:self-bio actor)} (:mem actor))
+          (->> (concat [{:text (:self-bio actor)}]
+                       (:mem actor)
+                       [{:text (util/fstr
+                                "You are currently in " (:name (loc/node state (:loc actor))) ". "
+                                "From here you could travel-to " (->> (:loc actor)
+                                                                   (loc/nav-adj-node state)
+                                                                   (map :name)
+                                                                   (util/flist ", " "or ")) "."
+                                "\nChoose between the commands `say` and `travel-to`.")}])
                (partition-by #(contains? % :text))
                (map (fn [mems]
                       (if (-> mems first :text)
                         [:user (interpose "\n\n" (map :text mems))
-                         "\n\nFrom here you could travel-to " (->> (:loc actor)
-                                                                   (loc/nav-adj-node state)
-                                                                   (map :name)
-                                                                   (util/flist ", " "or "))
-                         "\nWhat should you do, and why? Choose between the commands `say` and `travel-to`."]
+                         "\nWhat should you do, and why?"]
                         [:assistant (->> mems
                                          (map (fn [mem]
                                                 [(cond
@@ -99,7 +103,8 @@
                          adj)]
         (condp >= (count to-ids)
           0 (throw (ex-info (str "Bad travel-to target: " tt)
-                            {:loc loc, :tt tt, :adj-names (map :name adj)}))
+                            {:actor-mem {:text (util/fstr "You cannot travel-to " tt " from here.")}
+                             :loc loc, :tt tt, :adj-names (map :name adj)}))
           1 (assoc m :travel-to (first to-ids))
           (throw (ex-info (str "Too many matching travel-to targets: " tt)
                           {:loc loc, :tt tt, :adj-names (map :name adj)})))))))
@@ -171,8 +176,14 @@
                                  {:text
                                   (util/fstr
                                    (cond
-                                     (= actor-id src) [(:response2 m) "\n\n"
-                                                       (:description (loc/node w (:travel-to m)))]
+                                     (= actor-id src)
+                                     , (let [dest (loc/node w (:travel-to m))]
+                                         [(:response2 m) "\n\n"
+                                          (:description dest) "\n\n"
+                                          (->> w :actors
+                                               (map (fn [[_ a]]
+                                                      ["Here you can see " (:name a) ", "
+                                                       (:description a) "\n"])))])
                                      (= other-loc (:travel-to m)) [(:response3-coming m) "\n\n"
                                                                    (-> w :actors src :name) " is "
                                                                    (-> w :actors src :description)]
