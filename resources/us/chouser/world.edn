@@ -415,8 +415,30 @@
    :loc :ri662,
    :say
    "That must have been nerve-wracking. How did you manage to escape?",
-   :src :cori}],
- :next-turn [:rafe :cori],
+   :src :cori}
+  {:response3
+   "Rafe describes how he had to fight his way out of the camp, using his weapons and cunning to overcome the bandits and make his escape.",
+   :response2
+   "You describe how you had to fight your way out of the camp, using your weapons and cunning to overcome the bandits and make your escape.",
+   :loc :ri662,
+   :say "I had to fight my way out",
+   :src :rafe}
+  {:response3
+   "Cori beams at Rafe. \"That's incredible. You truly are a skilled adventurer. I can't wait to write a song about your daring mission.\"",
+   :response2
+   "You beam at Rafe. \"That's incredible. You truly are a skilled adventurer. I can't wait to write a song about your daring mission.\"",
+   :loc :ri662,
+   :say
+   "That's incredible. You truly are a skilled adventurer. I can't wait to write a song about your daring mission.",
+   :src :cori}
+  {:response3
+   "Rafe smiles warmly. \"I look forward to hearing the song,\" he says.",
+   :response2
+   "You smile warmly. \"I look forward to hearing the song,\" you say.",
+   :loc :ri662,
+   :say "I look forward to hearing the song",
+   :src :rafe}],
+ :next-turn [:cori :rafe],
  :actors
  {:human
   {:type :local-player,
@@ -454,7 +476,13 @@
     {:text
      "Rafe grimaces as he recalls the close call. \"Yes, I almost got caught when I was leaving the camp,\" he says."}
     {:text
-     "Cori leans in, fascinated. \"That must have been nerve-wracking. How did you manage to escape?\" she asks."}]},
+     "Cori leans in, fascinated. \"That must have been nerve-wracking. How did you manage to escape?\" she asks."}
+    {:text
+     "Rafe describes how he had to fight his way out of the camp, using his weapons and cunning to overcome the bandits and make his escape."}
+    {:text
+     "Cori beams at Rafe. \"That's incredible. You truly are a skilled adventurer. I can't wait to write a song about your daring mission.\""}
+    {:text
+     "Rafe smiles warmly. \"I look forward to hearing the song,\" he says."}]},
   :rafe
   {:type :npc,
    :loc :ri662,
@@ -580,7 +608,21 @@
     {:text
      "You grimace as you recall the close call. \"Yes, I almost got caught when I was leaving the camp,\" you say.\n\n"}
     {:text
-     "Cori leans in, fascinated. \"That must have been nerve-wracking. How did you manage to escape?\" she asks."}]},
+     "Cori leans in, fascinated. \"That must have been nerve-wracking. How did you manage to escape?\" she asks."}
+    {:loc :ri662,
+     :say "I had to fight my way out",
+     :reason
+     "This will add to the excitement of the story and highlight my combat skills."}
+    {:text
+     "You describe how you had to fight your way out of the camp, using your weapons and cunning to overcome the bandits and make your escape.\n\n"}
+    {:text
+     "Cori beams at Rafe. \"That's incredible. You truly are a skilled adventurer. I can't wait to write a song about your daring mission.\""}
+    {:loc :ri662,
+     :say "I look forward to hearing the song",
+     :reason
+     "This is a good opportunity to wrap up the conversation on a positive note and show that I'm appreciative of Cori's interest in my adventures."}
+    {:text
+     "You smile warmly. \"I look forward to hearing the song,\" you say.\n\n"}]},
   :cori
   {:type :npc,
    :loc :ri662,
@@ -720,4 +762,15 @@
      :reason
      "I want to know more about how Rafe managed to escape, and if there were any particularly exciting or heroic moments that could be included in the song."}
     {:text
-     "You lean in, fascinated. \"That must have been nerve-wracking. How did you manage to escape?\" you ask.\n\n"}]}}}
+     "You lean in, fascinated. \"That must have been nerve-wracking. How did you manage to escape?\" you ask."}
+    {:text
+     "Rafe describes how he had to fight his way out of the camp, using his weapons and cunning to overcome the bandits and make his escape."}
+    {:loc :ri662,
+     :say
+     "That's incredible. You truly are a skilled adventurer. I can't wait to write a song about your daring mission.",
+     :reason
+     "I want to compliment Rafe on his skills and bravery, and let him know that I'm excited to write a song about his mission."}
+    {:text
+     "You beam at Rafe. \"That's incredible. You truly are a skilled adventurer. I can't wait to write a song about your daring mission.\"\n\n"}
+    {:text
+     "Rafe smiles warmly. \"I look forward to hearing the song,\" he says."}]}}}

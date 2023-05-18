@@ -2,7 +2,6 @@
   (:require [clojure.data.json :as json]
             [clojure.java.io :as io]
             [clojure.java.shell :refer [sh]]
-            [us.chouser.gryphonport.dm :as dm]
             [us.chouser.gryphonport.location-descriptions :as desc]
             [us.chouser.gryphonport.location-graph :as loc]
             [us.chouser.gryphonport.npc :as npc]
@@ -60,7 +59,7 @@
         parsed-instruction (npc/parse-actor-content w
                                                     (-> w :actors actor-id :loc)
                                                     instruction)
-        w (npc/apply-actor-content w actor-id parsed-instruction)
+        w (npc/apply-actor-content w actor-id parsed-instruction) ;; TODO move this into apply-narrator-content
         narr-instruction (-> parsed-instruction
                              (dissoc :reason)
                              (assoc :src actor-id))
@@ -69,6 +68,7 @@
                       util/content
                       (npc/parse-narrator-content)
                       (merge narr-instruction))]
+    (clojure.pprint/pprint {:narr narration})
     (reset! *world (npc/apply-narrator-content w narration))
     (println (or (:response3 narration) (str "Do over: " (:error narration))))))
 
@@ -84,14 +84,14 @@
   (def resp
     (->
      (npc/prompt-narrator @*world
-                          :cori
                           {:loc :ri662
                            :src :cori
                            :travel-to :s003,
                            ;;:say "yow",
                            :reason "I bet there are some adventerous people in the tavern."})
      (doto util/pprint-msgs)
-     util/chatm))
+     {}
+     #_util/chatm))
 
   (npc/parse-narrator-content
    "The instruction makes sense. Here are the three requested formats:\n\nThird person coming: Cori enters Main Street.\nThird person going: Cori walks out of the Odd Duck and onto Main Street.\nSecond person: You walk out of the Odd Duck and onto Main Street.")
@@ -116,15 +116,10 @@
   (reset! *world seed-graph)
   (swap! *world merge-descriptions seed-descriptions)
   (swap! *world assoc :characters characters)
-  (swap! *world assoc :dm-history dm/example)
 
   (swap! *world assoc-in [:characters :p1 :loc] :pq541)
 
   (swap! *world assoc-in [:characters :barman :chat] [])
-
-  (def resp (util/chat {:msgs (dm/prompt-msgs @*world {:p1 "say goodbye and go to main street"})}))
-
-  (util/pprint-msgs (dm/prompt-msgs @*world (dm/add-instruction-locs @*world {:p1 "say goodbye and go to main street"})))
 
   (spit "world.dot" (loc/dot @*world))
   (sh "dot" "-Tsvg" "-o" "world.svg" :in (loc/dot @*world))
@@ -133,8 +128,6 @@
   (println (util/content resp))
 
   (swap! *world update-in [:nodes :d102] dissoc :description)
-
-  (get-in @*world [:dm-history])
 
   (populate :s005)
   (describe :oo761)

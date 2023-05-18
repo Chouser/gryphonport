@@ -13,8 +13,12 @@
                (partition-by #(contains? % :text))
                (map (fn [mems]
                       (if (-> mems first :text)
-                        [:user (util/fstr (interpose "\n\n" (map :text mems))
-                                          "\n\nWhat should you do, and why? Choose between the commands `say` and `travel-to`.")]
+                        [:user (interpose "\n\n" (map :text mems))
+                         "\n\nFrom here you could travel-to " (->> (:loc actor)
+                                                                   (loc/nav-adj-node state)
+                                                                   (map :name)
+                                                                   (util/flist ", " "or "))
+                         "\nWhat should you do, and why? Choose between the commands `say` and `travel-to`."]
                         [:assistant (->> mems
                                          (map (fn [mem]
                                                 [(cond
@@ -46,13 +50,9 @@
                                   "\nSecond person: " response2]))]])))]
     (concat
      [[:system "You are narrating a story, taking instructions for the characters involved."]
-      [:user "The Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.
-
-The space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you.
-
-You can see Cornelia Finch, A young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely.
-
-You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.\n\n"
+      [:user
+       (:description (loc/node w (:loc actor-instruction)))
+       "\n\n"
        ;; Append the first :user entry to this header text:
        (-> q first rest)]]
      (rest q)
@@ -64,14 +64,19 @@ You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, d
        [:example-user "Instructions for Jill: tell a story"]
        [:example-assistant "Error: That is too vague. Please give exactly the words you want to say."]]
 
-      [:user (gen-narrator-user w actor-instruction)
+      [:user
+       (gen-narrator-user w actor-instruction)
        "\n\n"
        (let [nom (-> w :actors (:src actor-instruction) :name)]
-         ["If that instruction makes sense, "
-          (if (:travel-to actor-instruction)
-            ["describe it in three formats: Third person coming (for someone observing the travel from the destination location), Third person going (for someone watching them leave), and Second person (for " nom ", like 'going' with 'you' instead of " nom ")."]
-            ["describe it in two formats: Third person (for someone observing), and Second person (like Third person with 'you' instead of " nom ")."])
-          " Otherwise, ask for clarification."])]])))
+         (if (:travel-to actor-instruction)
+           ["If that instruction makes sense, describe it in three formats: "
+            "Third person coming (for someone observing " nom " entering " "the travel from the "
+            "destination location), Third person going (for someone watching them "
+            "leave), and Second person (for " nom ", like 'going' with 'you'"
+            "instead of " nom ")."]
+           ["If that instruction makes sense, describe it in two formats: Third "
+            "person (for someone observing), and Second person (like Third person "
+            "with 'you' instead of " nom ")."]))]])))
 
 (m/=> parse-actor-content
       [:=> [:cat :any keyword? string?]
@@ -89,7 +94,9 @@ You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, d
     (if-not tt
       m
       (let [adj (loc/nav-adj-node w loc)
-            to-ids (keep #(when (= tt (:name %)) (:id %)) adj)]
+            to-ids (keep #(when (<= 0 (.indexOf tt (:name %)))
+                            (:id %))
+                         adj)]
         (condp >= (count to-ids)
           0 (throw (ex-info (str "Bad travel-to target: " tt)
                             {:loc loc, :tt tt, :adj-names (map :name adj)}))
@@ -123,7 +130,7 @@ You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, d
                              (cond
                                c "-coming"
                                g "-going")))
-               v])))
+               (str/trim v)])))
      (into {}))
     {:error narrator-response}))
 
@@ -135,10 +142,12 @@ You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, d
                        [:travel-to {:optional true} keyword?]
                        [:error {:optional true} string?]
                        [:response2 {:optional true} string?]
-                       [:response3 {:optional true} string?]]]
+                       [:response3 {:optional true} string?]
+                       [:response3-coming {:optional true} string?]
+                       [:response3-going {:optional true} string?]]]
        :any])
 (defn apply-narrator-content
-  [w {:keys [src response2 response3 error] :as m}]
+  [w {:keys [src error] :as m}]
   (when (not= src (-> w :next-turn first))
     (println "WARNING: next-turn is" (-> w :next-turn first) "but using src" src))
   (when (not= (:loc m) (-> w :actors src :loc))
@@ -161,14 +170,13 @@ You can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, d
                       (update-in w [:actors actor-id :mem] (fnil conj [])
                                  {:text
                                   (util/fstr
-                                   (if (= actor-id src)
-                                     [response2 "\n\n"
-                                      (:description (loc/node w (:travel-to m)))]
-                                     [response3
-                                      (when (= other-loc (:travel-to m))
-                                        ["\n\n"
-                                         (-> w :actors src :name) " is "
-                                         (-> w :actors src :description)])]))}))))
+                                   (cond
+                                     (= actor-id src) [(:response2 m) "\n\n"
+                                                       (:description (loc/node w (:travel-to m)))]
+                                     (= other-loc (:travel-to m)) [(:response3-coming m) "\n\n"
+                                                                   (-> w :actors src :name) " is "
+                                                                   (-> w :actors src :description)]
+                                     :else (or (:response3 m) (:response3-going m))))}))))
                 w
                 (-> w :actors keys))))))
 
