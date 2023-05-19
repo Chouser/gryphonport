@@ -26,6 +26,7 @@
                         [:assistant (->> mems
                                          (map (fn [mem]
                                                 [(cond
+                                                   (:err-cmd mem) (:err-cmd mem)
                                                    (:say mem) ["say: " (:say mem)]
                                                    (:travel-to mem) ["travel-to: " (:name (loc/node state (:travel-to mem)))])
                                                  "\n\nreason: " (:reason mem)]))
@@ -47,8 +48,8 @@
                           [:assistant
                            (or error
                                (if travel-to
-                                 ["Third person coming:" (:response3-coming mem)
-                                  "\nThird person going:" (:response3-going mem)
+                                 ["Third person coming: " (:response3-coming mem)
+                                  "\nThird person going: " (:response3-going mem)
                                   "\nSecond person: " response2]
                                  ["Third person: " (:response3 mem)
                                   "\nSecond person: " response2]))]])))]
@@ -103,7 +104,9 @@
                          adj)]
         (condp >= (count to-ids)
           0 (throw (ex-info (str "Bad travel-to target: " tt)
-                            {:actor-mem {:text (util/fstr "You cannot travel-to " tt " from here.")}
+                            {:actor-mem [{:err-cmd (util/fstr "travel-to: " tt)
+                                          :reason (:reason m)}
+                                         {:text (util/fstr "You cannot travel-to " tt " from here.")}]
                              :loc loc, :tt tt, :adj-names (map :name adj)}))
           1 (assoc m :travel-to (first to-ids))
           (throw (ex-info (str "Too many matching travel-to targets: " tt)
@@ -181,9 +184,11 @@
                                          [(:response2 m) "\n\n"
                                           (:description dest) "\n\n"
                                           (->> w :actors
-                                               (map (fn [[_ a]]
-                                                      ["Here you can see " (:name a) ", "
-                                                       (:description a) "\n"])))])
+                                               (map (fn [[aid a]]
+                                                      (when (and (not= aid actor-id)
+                                                                 (= (:travel-to m) (:loc a)))
+                                                        ["Here you can see " (:name a) ", "
+                                                         (:description a) "\n"]))))])
                                      (= other-loc (:travel-to m)) [(:response3-coming m) "\n\n"
                                                                    (-> w :actors src :name) " is "
                                                                    (-> w :actors src :description)]

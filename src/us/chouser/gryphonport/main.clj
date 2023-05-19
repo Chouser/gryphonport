@@ -77,7 +77,7 @@
       (catch Exception ex
         (if-let [amem (:actor-mem (ex-data ex))]
           (do
-            (reset! *world (update-in w [:actors actor-id :mem] conj amem))
+            (reset! *world (update-in w [:actors actor-id :mem] into amem))
             (prn amem))
           (throw ex))))))
 

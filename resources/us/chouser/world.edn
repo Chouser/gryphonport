@@ -1,5 +1,10 @@
 {:nodes
- {:s011 {:name "Farmstead", :kind "area", :parent :d002},
+ {:s011
+  {:name "Farmstead",
+   :kind "area",
+   :parent :d002,
+   :description
+   "Farmstead is a quaint area located on the outskirts of Gryphonport. The area is characterized by rolling hills, lush fields of crops, and wide-open spaces. The air is fresh and clean, and the scenery is breathtaking.\n\nAs you look around, you see that the area is dotted with small farms and homesteads, each with its own unique character. Some of the farms grow crops such as wheat, corn, and vegetables, while others raise livestock like cows, pigs, and chickens.\n\nDespite its rural nature, Farmstead is an important part of the town's economy. The area provides much of the food and resources that the people of Gryphonport rely on, and the farmers who work the land are respected and admired for their hard work and dedication.\n\nFrom Farmstead, you can return to Main Street, where you can find shops and other establishments that cater to the needs of the town's residents and visitors."},
   :yu595
   {:name "Private Room",
    :kind "room",
@@ -836,7 +841,7 @@
      :reason
      "I want to end the conversation on a positive note and say goodnight to Rafe."}
     {:text
-     "You glance at the clock and stand up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" you say with a smile before heading towards the door.\n\n"}
+     "You glance at the clock and stand up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" you say with a smile before heading towards the door."}
     {:text
      "Rafe waves goodbye to Cori. \"Good night, Cori. It was great meeting you,\" he says as she leaves the Bar Room."}
     {:loc :ri662,
@@ -846,5 +851,4 @@
     {:text
      "You exit the Odd Duck and head towards Main Street.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."}
     {:text
-     "Rafe gathers his things and heads towards the door, preparing to leave the Bar Room and head to Main Street.\n\nRafe Hunter is a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new."}
-    {:text "You cannot travel-to Home from here."}]}}}
+     "Rafe gathers his things and heads towards the door, preparing to leave the Bar Room and head to Main Street.\n\nRafe Hunter is a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new."}]}}}
