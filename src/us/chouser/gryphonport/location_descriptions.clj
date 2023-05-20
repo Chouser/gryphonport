@@ -35,6 +35,7 @@
   (:description (loc/node graph id)))
 
 (defn prompt-msgs [graph id]
+  (prn :prompt-loc-description id)
   (let [example-ids
         , (->> (concat [:r013 :r016 :s003]
                        (loc/path-from-root graph id)
@@ -60,12 +61,10 @@
   (reduce (fn [world loc]
             (if-let [desc (:description (loc/node world loc))]
               world
-              (do
-                (prn :describe loc)
-                (merge-descriptions
-                 world
-                 {loc (util/content
-                       (util/chat {:msgs (prompt-msgs world loc)}))}))))
+              (merge-descriptions
+               world
+               {loc (util/content
+                     (util/chat {:msgs (prompt-msgs world loc)}))})))
           world
           (concat (loc/path-from-root world loc)
                   [loc])))

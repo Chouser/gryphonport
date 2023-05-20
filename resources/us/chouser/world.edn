@@ -184,7 +184,7 @@
    #{:yu595 :ri662}
    #{:s011 :s003}},
  :narration
- [{:src :human,
+ [{:src :fred,
    :loc :s014,
    :travel-to :s003,
    :response2 "You stroll to Main Street",
@@ -474,12 +474,56 @@
    "You gather your things and head towards the door, preparing to leave the Bar Room and head to Main Street.",
    :loc :ri662,
    :travel-to :s003,
-   :src :rafe}],
- :next-turn [:cori :rafe],
- :actors
- {:human
-  {:type :local-player,
+   :src :rafe}
+  {:response3-coming
+   "From the vantage point of someone observing from the Farmstead, Cori appears at the end of Main Street, heading towards the farm.",
+   :response3-going
+   "Cori disappears down the path leading to the farm, leaving Main Street behind.",
+   :response2
+   "You make your way down Main Street towards the path leading to the Farmstead.",
+   :loc :s003,
+   :travel-to :s011,
+   :src :cori}
+  {:response3-coming
+   "Looking from South Street, you see Rafe walking towards it from Main Street.",
+   :response3-going
+   "Rafe disappears down South Street, leaving Main Street behind.",
+   :response2
+   "You make your way down Main Street towards South Street and begin walking along it.",
+   :loc :s003,
+   :travel-to :s014,
+   :src :rafe}
+  {:response3-coming
+   "From the perspective of someone in the Main Street, Cori appears in the distance as she makes her way towards the area, walking along the pathway that leads to Main Street.",
+   :response3-going
+   "Cori turns and waves goodbye to the farmers and other people of Farmstead, before heading towards the road that leads to Main Street.",
+   :response2
+   "You turn and wave goodbye to the farmers and other people of Farmstead, before beginning to walk towards the road that leads to Main Street.",
+   :loc :s011,
+   :travel-to :s003,
+   :src :cori}
+  {:response3-coming
+   "From the end of Main Street, Frederik Ludgate is seen entering the Bar Room, walking through the door and looking around the cozy, rustic interior.",
+   :response3-going
+   "Frederik Ludgate picks up his belongings and exits the Bar Room, disappearing down Main Street.",
+   :response2
+   "You gather your belongings and exit the Bar Room, heading down Main Street towards your next destination.",
    :loc :ri662,
+   :travel-to :s003,
+   :src :fred}
+  {:response3
+   "Cori spots Frederik Ludgate walking down Main Street and greets him. \"Good evening, Frederik. What brings you to the Bar Room tonight?\" she asks.",
+   :response2
+   "You spot Frederik Ludgate walking down Main Street and greet him. \"Good evening, Frederik. What brings you to the Bar Room tonight?\" you ask.",
+   :loc :s003,
+   :say
+   "Good evening, Frederik. What brings you to the Bar Room tonight?",
+   :src :cori}],
+ :next-turn [:fred :rafe :cori],
+ :actors
+ {:fred
+  {:type :local-player,
+   :loc :s003,
    :name "Frederik Ludgate",
    :description
    "a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing.",
@@ -527,10 +571,15 @@
     {:text
      "Cori disappears down Main Street, leaving the Bar Room behind."}
     {:text
-     "Rafe steps out of the Bar Room and into Main Street, ready to continue his adventures."}]},
+     "Rafe steps out of the Bar Room and into Main Street, ready to continue his adventures."}
+    {:loc :ri662, :travel-to :s003}
+    {:text
+     "You gather your belongings and exit the Bar Room, heading down Main Street towards your next destination.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall.\n\nHere you can see Cornelia Finch, a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely.\n"}
+    {:text
+     "Cori spots Frederik Ludgate walking down Main Street and greets him. \"Good evening, Frederik. What brings you to the Bar Room tonight?\" she asks."}]},
   :rafe
   {:type :npc,
-   :loc :s003,
+   :loc :s014,
    :name "Rafe Hunter",
    :description
    "a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.",
@@ -683,7 +732,15 @@
      :reason
      "It's a good time to leave the Bar Room and explore the rest of Gryphonport."}
     {:text
-     "You gather your things and head towards the door, preparing to leave the Bar Room and head to Main Street.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."}]},
+     "You gather your things and head towards the door, preparing to leave the Bar Room and head to Main Street.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."}
+    {:text
+     "Cori disappears down the path leading to the farm, leaving Main Street behind."}
+    {:loc :s003,
+     :travel-to :s014,
+     :reason
+     "I want to explore a different part of town and see what's happening at Wilhelm's Forge."}
+    {:text
+     "You make your way down Main Street towards South Street and begin walking along it.\n\nAs you step onto South Street in Gryphonport, you find yourself on a narrow, winding road that snakes through the heart of the town. The buildings along the street are older and more weathered than those on Main Street, giving the area a more rustic and authentic feel.\n\nDespite its narrow size, South Street is bustling with activity. Vendors line the sidewalks, hawking their wares and calling out to passersby. The air is thick with the smell of roasting meats, fresh bread, and other tantalizing aromas.\n\nFrom South Street, you can access several different parts of town. The road leads back to Main Street, where you can find a wider variety of shops and establishments. Alternatively, you can head north on Blackwood Trail, which winds through the surrounding wilderness and leads to other towns and cities.\n\nAlong South Street, you'll find the Temple of the Divine, a grand and imposing edifice that serves as the spiritual center of the town. The temple is a popular destination for pilgrims and travelers seeking guidance or solace.\n\nYou'll also notice the Alchemist's Shop, a small but fascinating establishment that sells potions, elixirs, and other magical items. The shop is run by a reclusive alchemist who is said to be one of the most skilled and powerful practitioners of magic in the region.\n\n"}]},
   :cori
   {:type :npc,
    :loc :s003,
@@ -851,4 +908,29 @@
     {:text
      "You exit the Odd Duck and head towards Main Street.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."}
     {:text
-     "Rafe gathers his things and heads towards the door, preparing to leave the Bar Room and head to Main Street.\n\nRafe Hunter is a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new."}]}}}
+     "Rafe gathers his things and heads towards the door, preparing to leave the Bar Room and head to Main Street.\n\nRafe Hunter is a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new."}
+    {:err-cmd "travel-to: Home",
+     :reason
+     "I want to head back home after a long day and get some rest."}
+    {:text "You cannot travel-to Home from here."}
+    {:loc :s003,
+     :travel-to :s011,
+     :reason
+     "I want to take a walk and enjoy the fresh air before heading back home."}
+    {:text
+     "You make your way down Main Street towards the path leading to the Farmstead.\n\nFarmstead is a quaint area located on the outskirts of Gryphonport. The area is characterized by rolling hills, lush fields of crops, and wide-open spaces. The air is fresh and clean, and the scenery is breathtaking.\n\nAs you look around, you see that the area is dotted with small farms and homesteads, each with its own unique character. Some of the farms grow crops such as wheat, corn, and vegetables, while others raise livestock like cows, pigs, and chickens.\n\nDespite its rural nature, Farmstead is an important part of the town's economy. The area provides much of the food and resources that the people of Gryphonport rely on, and the farmers who work the land are respected and admired for their hard work and dedication.\n\nFrom Farmstead, you can return to Main Street, where you can find shops and other establishments that cater to the needs of the town's residents and visitors.\n\n"}
+    {:loc :s011,
+     :travel-to :s003,
+     :reason
+     "I want to head back to Main Street and explore more of the town before heading home."}
+    {:text
+     "You turn and wave goodbye to the farmers and other people of Farmstead, before beginning to walk towards the road that leads to Main Street.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall.\n\n"}
+    {:text
+     "From the end of Main Street, Frederik Ludgate is seen entering the Bar Room, walking through the door and looking around the cozy, rustic interior.\n\nFrederik Ludgate is a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing."}
+    {:loc :s003,
+     :say
+     "Good evening, Frederik. What brings you to the Bar Room tonight?",
+     :reason
+     "I want to greet Frederik and strike up a conversation with him."}
+    {:text
+     "You spot Frederik Ludgate walking down Main Street and greet him. \"Good evening, Frederik. What brings you to the Bar Room tonight?\" you ask.\n\n\n\n"}]}}}

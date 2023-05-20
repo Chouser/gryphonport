@@ -208,6 +208,7 @@
        reverse))
 
 (defn prompt-msgs [graph id]
+  (prn :prompt-loc-graph id)
   (let [parts-map (get-parts-map graph)
         _ (assert (empty? (parts-map id)))
         n (node graph id)

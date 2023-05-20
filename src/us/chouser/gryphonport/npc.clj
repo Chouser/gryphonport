@@ -7,6 +7,7 @@
             [us.chouser.gryphonport.location-descriptions :as desc]))
 
 (defn prompt-actor [state actor-id]
+  (prn :prompt-actor actor-id)
   (let [actor (-> state :actors actor-id)]
     (into [[:system (util/fstr ["You are controlling " (:name actor) " in this scene."])]]
           (->> (concat [{:text (:self-bio actor)}]
@@ -42,7 +43,9 @@
        :travel-to (:name (loc/node w arg)))]))
 
 (defn prompt-narrator [w actor-instruction]
+  (prn :prompt-narrator actor-instruction)
   (let [q (->> w :narration
+               (take-last 30)
                (mapcat (fn [{:keys [src error travel-to response2] :as mem}]
                          [[:user (gen-narrator-user w mem)]
                           [:assistant
@@ -61,15 +64,7 @@
        ;; Append the first :user entry to this header text:
        (-> q first rest)]]
      (rest q)
-     [#_
-      [[:example-user "Instructions for Bob: say: Jill tell me a story"]
-       [:example-assistant "Third person: Bob thinks for a moment. \"Jill, tell me a story,\" he says.\n\nSecond person (with Bob as 'you'): You think for a moment. \"Jill, tell me a story,\" you say."]
-       [:example-user "Instructions for George: turn into a pumpkin"]
-       [:example-assistant "Error: You can't do that. Try something else."]
-       [:example-user "Instructions for Jill: tell a story"]
-       [:example-assistant "Error: That is too vague. Please give exactly the words you want to say."]]
-
-      [:user
+     [[:user
        (gen-narrator-user w actor-instruction)
        "\n\n"
        (let [nom (-> w :actors (:src actor-instruction) :name)]
@@ -89,7 +84,7 @@
         [:loc keyword?]
         [:say {:optional true} string?]
         [:travel-to {:optional true} keyword?]
-        [:reason string?]]])
+        [:reason {:optional true} string?]]])
 (defn parse-actor-content [w loc s]
   (let [m (->> (re-seq #"(?m)^(say|travel-to|reason): (.*)" s)
                (map (fn [[_ k v]]
