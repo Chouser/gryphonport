@@ -29,7 +29,13 @@ graph world {
       s007[shape=box, label="Temple of the Divine\nbuilding :s007"];
       s008[shape=ellipse, label="Dockside\narea :s008"];
       s009[shape=box, label="Keep\nbuilding :s009"];
-      s010[shape=box, label="Alchemist's Shop\nbuilding :s010"];
+      subgraph cluster_s010 {
+      label="Alchemist's Shop\nbuilding :s010";
+        la769[shape=ellipse, label="Main Room\nroom :la769"];
+        pz419[shape=ellipse, label="Storage Room\nroom :pz419"];
+        rk574[shape=ellipse, label="Entrance\nroom :rk574"];
+        yq120[shape=ellipse, label="Back Room\nroom :yq120"];
+      }
       s011[shape=ellipse, label="Farmstead\narea :s011"];
       s012[shape=ellipse, label="Graveyard\narea :s012"];
       s013[shape=ellipse, label="Keep Bridge\nbridge :s013"];
@@ -52,6 +58,7 @@ graph world {
   }
   s013 -- r016;
   pq541 -- s003;
+  la769 -- rk574;
   ri662 -- ey136;
   d102 -- s102;
   s014 -- d102;
@@ -65,19 +72,23 @@ graph world {
   pq541 -- uw946;
   r018 -- r016;
   r013 -- r015;
+  pz419 -- yq120;
   r015 -- r014;
   r013 -- s003;
   d104 -- d103;
   r013 -- r014;
   s009 -- s013;
   r017 -- r016;
-  s014 -- s010;
+  s015 -- yq120;
   s014 -- s007;
   ri662 -- s003;
-  s015 -- s010;
+  la769 -- pz419;
+  s014 -- rk574;
   r105 -- r104;
   r013 -- r016;
+  la769 -- yq120;
   pq541 -- ya622;
   yu595 -- ri662;
   s011 -- s003;
+  yq120 -- rk574;
 }

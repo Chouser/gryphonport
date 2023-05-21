@@ -62,6 +62,8 @@
    :description
    "As you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."},
   :r015 {:name "Archives", :kind "room", :parent :s004},
+  :la769
+  {:name "Main Room", :kind "room", :children? false, :parent :s010},
   :d102 {:name "Blackwood Trail", :kind "road", :parent :a001},
   :d103 {:name "Brookside Road", :kind "road", :parent :a001},
   :r017 {:name "Treasury", :kind "room", :parent :s004},
@@ -74,6 +76,13 @@
    :parent :d002,
    :description
    "Alchemist's Alley is a narrow, dimly lit back alley located in Gryphonport. The alley is lined with small shops and stalls, each selling a variety of magical potions, elixirs, and other arcane supplies.\n\nAs you walk down the alley, you can hear the sound of bubbling cauldrons and the faint hum of magical energy in the air. The shop owners are a mix of friendly and suspicious, some eager to show off their wares while others eye you warily.\n\nLooking around, you notice that there are only a few ways to exit the alley. One path leads back to Wilhelm's Forge, a nearby blacksmith shop, while another leads to the Alchemist's Shop, a larger establishment that sells a wider variety of magical supplies."},
+  :pz419
+  {:name "Storage Room",
+   :kind "room",
+   :children? false,
+   :parent :s010},
+  :yq120
+  {:name "Back Room", :kind "room", :children? false, :parent :s010},
   :s009
   {:name "Keep", :kind "building", :parent :d002, :children? true},
   :ey136
@@ -111,6 +120,13 @@
    :kind "building",
    :parent :d100,
    :children? true},
+  :rk574
+  {:name "Entrance",
+   :kind "room",
+   :children? false,
+   :parent :s010,
+   :description
+   "As you step into the Entrance of the Alchemist's Shop, you are greeted by the sound of bubbling cauldrons and the faint hum of magical energy in the air. The room is small and cramped, with shelves and display cases lining the walls.\n\nIn the Main Room, you can see shelves filled with a wide variety of magical ingredients, including crystals, herbs, and other exotic items. Potions and elixirs are stored in glass vials and bottles, each labeled with precise instructions and warnings.\n\nBehind the counter, you can see the alchemist himself, a tall, thin man with a long white beard and piercing blue eyes. He greets you with a friendly smile, but you can sense an air of caution and suspicion in his demeanor.\n\nBeyond the Main Room is the Back Room, a small private chamber where the alchemist conducts his most secretive and powerful experiments. Few have ever been allowed inside, and even fewer have emerged unscathed.\n\nAs you leave the shop, you can't help but feel a sense of awe and wonder at the incredible power and knowledge that lies within its walls. You can either exit onto South Street or continue exploring the magical wonders of the Main Room and the Back Room."},
   :s006
   {:name "Odd Duck",
    :kind "tavern",
@@ -128,7 +144,9 @@
   {:name "Alchemist's Shop",
    :kind "building",
    :parent :d002,
-   :children? true},
+   :children? true,
+   :description
+   "The Alchemist's Shop is a small, unassuming building located in the heart of Gryphonport, near the bustling South Street and the mysterious Alchemist's Alley. The shop is a haven for those seeking magical potions, elixirs, and other arcane supplies, and is run by a reclusive alchemist who is said to be one of the most skilled and powerful practitioners of magic in the region.\n\nAs you step inside the shop's Entrance, you are greeted by the sound of bubbling cauldrons and the faint hum of magical energy in the air. The shop's Main Room is filled with shelves and display cases, each filled with a wide variety of magical items. Crystals, herbs, and other ingredients are carefully arranged on shelves, while potions and elixirs are stored in glass vials and bottles.\n\nBehind the counter, you can see the alchemist himself, a tall, thin man with a long white beard and piercing blue eyes. He greets you with a friendly smile, but you can sense an air of caution and suspicion in his demeanor.\n\nBeyond the Main Room lies the Storage Room, where the alchemist stores his most powerful and dangerous magical items. The room is kept under lock and key and is accessible only to those who have earned the alchemist's trust.\n\nFinally, there is the Back Room, a small private chamber where the alchemist conducts his most secretive and powerful experiments. Few have ever been allowed inside, and even fewer have emerged unscathed.\n\nAs you leave the shop, you can't help but feel a sense of awe and wonder at the incredible power and knowledge that lies within its walls."},
   :a001
   {:name "Gryphon",
    :kind "region",
@@ -147,6 +165,7 @@
  #{#{:s003 :s006}
    #{:s013 :r016}
    #{:pq541 :s003}
+   #{:la769 :rk574}
    #{:ri662 :ey136}
    #{:d102 :s102}
    #{:s014 :d102}
@@ -164,25 +183,31 @@
    #{:r013 :r015}
    #{:s008 :s006}
    #{:s005 :s003}
+   #{:pz419 :yq120}
    #{:r015 :r014}
    #{:r013 :s003}
    #{:d104 :d103}
    #{:r013 :r014}
    #{:s009 :s013}
    #{:r017 :r016}
+   #{:s015 :yq120}
    #{:s014 :s010}
    #{:s014 :s007}
    #{:ri662 :s003}
+   #{:la769 :pz419}
    #{:s003 :s004}
    #{:s005 :s015}
    #{:s015 :s010}
+   #{:s014 :rk574}
    #{:s013 :s004}
    #{:s103 :s102}
    #{:r105 :r104}
    #{:r013 :r016}
+   #{:la769 :yq120}
    #{:pq541 :ya622}
    #{:yu595 :ri662}
-   #{:s011 :s003}},
+   #{:s011 :s003}
+   #{:yq120 :rk574}},
  :narration
  [{:src :fred,
    :loc :s014,
@@ -518,6 +543,30 @@
    :loc :s003,
    :say
    "Good evening, Frederik. What brings you to the Bar Room tonight?",
+   :src :cori}
+  {:response3
+   "Frederik Ludgate looks at Cori and furrows his brow in confusion. \"Hi Cori, are you okay? This is Main Street,\" he says, gesturing around at their surroundings.",
+   :response2
+   "Frederik Ludgate looks at you and furrows his brow in confusion. \"Hi Cori, are you okay? This is Main Street,\" he says, gesturing around at your surroundings.",
+   :loc :s003,
+   :say "Hi Cori, are you okay? This is Main Street.",
+   :src :fred}
+  {:response3-coming
+   "From inside the Alchemist's Shop, someone observing sees Rafe Hunter approaching the entrance, his steps purposeful as he makes his way towards the shop.",
+   :response3-going
+   "As Rafe Hunter exits the Alchemist's Shop, someone watching him from outside sees him step out onto South Street, his eyes scanning the street as he decides on his next destination.",
+   :response2
+   "You approach the entrance to the Alchemist's Shop, your steps purposeful as you make your way towards the shop.",
+   :loc :s014,
+   :travel-to :s010,
+   :src :rafe}
+  {:response3
+   "Cori apologizes to Frederik for her mistake. \"Oh, my apologies Frederik. I must have misspoken. How are you doing tonight?\" she asks, smiling warmly.",
+   :response2
+   "You apologize to Frederik for your mistake. \"Oh, my apologies Frederik. I must have misspoken. How are you doing tonight?\" you ask, smiling warmly.",
+   :loc :s003,
+   :say
+   "Oh, my apologies Frederik. I must have misspoken. How are you doing tonight?",
    :src :cori}],
  :next-turn [:fred :rafe :cori],
  :actors
@@ -576,10 +625,15 @@
     {:text
      "You gather your belongings and exit the Bar Room, heading down Main Street towards your next destination.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall.\n\nHere you can see Cornelia Finch, a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely.\n"}
     {:text
-     "Cori spots Frederik Ludgate walking down Main Street and greets him. \"Good evening, Frederik. What brings you to the Bar Room tonight?\" she asks."}]},
+     "Cori spots Frederik Ludgate walking down Main Street and greets him. \"Good evening, Frederik. What brings you to the Bar Room tonight?\" she asks."}
+    {:loc :s003, :say "Hi Cori, are you okay? This is Main Street."}
+    {:text
+     "Frederik Ludgate looks at you and furrows his brow in confusion. \"Hi Cori, are you okay? This is Main Street,\" he says, gesturing around at your surroundings.\n\n\n\n"}
+    {:text
+     "Cori apologizes to Frederik for her mistake. \"Oh, my apologies Frederik. I must have misspoken. How are you doing tonight?\" she asks, smiling warmly."}]},
   :rafe
   {:type :npc,
-   :loc :s014,
+   :loc :rk574,
    :name "Rafe Hunter",
    :description
    "a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.",
@@ -740,7 +794,11 @@
      :reason
      "I want to explore a different part of town and see what's happening at Wilhelm's Forge."}
     {:text
-     "You make your way down Main Street towards South Street and begin walking along it.\n\nAs you step onto South Street in Gryphonport, you find yourself on a narrow, winding road that snakes through the heart of the town. The buildings along the street are older and more weathered than those on Main Street, giving the area a more rustic and authentic feel.\n\nDespite its narrow size, South Street is bustling with activity. Vendors line the sidewalks, hawking their wares and calling out to passersby. The air is thick with the smell of roasting meats, fresh bread, and other tantalizing aromas.\n\nFrom South Street, you can access several different parts of town. The road leads back to Main Street, where you can find a wider variety of shops and establishments. Alternatively, you can head north on Blackwood Trail, which winds through the surrounding wilderness and leads to other towns and cities.\n\nAlong South Street, you'll find the Temple of the Divine, a grand and imposing edifice that serves as the spiritual center of the town. The temple is a popular destination for pilgrims and travelers seeking guidance or solace.\n\nYou'll also notice the Alchemist's Shop, a small but fascinating establishment that sells potions, elixirs, and other magical items. The shop is run by a reclusive alchemist who is said to be one of the most skilled and powerful practitioners of magic in the region.\n\n"}]},
+     "You make your way down Main Street towards South Street and begin walking along it.\n\nAs you step onto South Street in Gryphonport, you find yourself on a narrow, winding road that snakes through the heart of the town. The buildings along the street are older and more weathered than those on Main Street, giving the area a more rustic and authentic feel.\n\nDespite its narrow size, South Street is bustling with activity. Vendors line the sidewalks, hawking their wares and calling out to passersby. The air is thick with the smell of roasting meats, fresh bread, and other tantalizing aromas.\n\nFrom South Street, you can access several different parts of town. The road leads back to Main Street, where you can find a wider variety of shops and establishments. Alternatively, you can head north on Blackwood Trail, which winds through the surrounding wilderness and leads to other towns and cities.\n\nAlong South Street, you'll find the Temple of the Divine, a grand and imposing edifice that serves as the spiritual center of the town. The temple is a popular destination for pilgrims and travelers seeking guidance or solace.\n\nYou'll also notice the Alchemist's Shop, a small but fascinating establishment that sells potions, elixirs, and other magical items. The shop is run by a reclusive alchemist who is said to be one of the most skilled and powerful practitioners of magic in the region.\n\n"}
+    {:loc :s014,
+     :travel-to :s010,
+     :reason
+     "I'm curious about the magical items sold at the shop and interested in meeting the reclusive alchemist."}]},
   :cori
   {:type :npc,
    :loc :s003,
@@ -918,13 +976,13 @@
      :reason
      "I want to take a walk and enjoy the fresh air before heading back home."}
     {:text
-     "You make your way down Main Street towards the path leading to the Farmstead.\n\nFarmstead is a quaint area located on the outskirts of Gryphonport. The area is characterized by rolling hills, lush fields of crops, and wide-open spaces. The air is fresh and clean, and the scenery is breathtaking.\n\nAs you look around, you see that the area is dotted with small farms and homesteads, each with its own unique character. Some of the farms grow crops such as wheat, corn, and vegetables, while others raise livestock like cows, pigs, and chickens.\n\nDespite its rural nature, Farmstead is an important part of the town's economy. The area provides much of the food and resources that the people of Gryphonport rely on, and the farmers who work the land are respected and admired for their hard work and dedication.\n\nFrom Farmstead, you can return to Main Street, where you can find shops and other establishments that cater to the needs of the town's residents and visitors.\n\n"}
+     "You make your way down Main Street towards the path leading to the Farmstead.\n\nFarmstead is a quaint area located on the outskirts of Gryphonport. The area is characterized by rolling hills, lush fields of crops, and wide-open spaces. The air is fresh and clean, and the scenery is breathtaking.\n\nAs you look around, you see that the area is dotted with small farms and homesteads, each with its own unique character. Some of the farms grow crops such as wheat, corn, and vegetables, while others raise livestock like cows, pigs, and chickens.\n\nDespite its rural nature, Farmstead is an important part of the town's economy. The area provides much of the food and resources that the people of Gryphonport rely on, and the farmers who work the land are respected and admired for their hard work and dedication.\n\nFrom Farmstead, you can return to Main Street, where you can find shops and other establishments that cater to the needs of the town's residents and visitors."}
     {:loc :s011,
      :travel-to :s003,
      :reason
      "I want to head back to Main Street and explore more of the town before heading home."}
     {:text
-     "You turn and wave goodbye to the farmers and other people of Farmstead, before beginning to walk towards the road that leads to Main Street.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall.\n\n"}
+     "You turn and wave goodbye to the farmers and other people of Farmstead, before beginning to walk towards the road that leads to Main Street.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."}
     {:text
      "From the end of Main Street, Frederik Ludgate is seen entering the Bar Room, walking through the door and looking around the cozy, rustic interior.\n\nFrederik Ludgate is a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing."}
     {:loc :s003,
@@ -933,4 +991,13 @@
      :reason
      "I want to greet Frederik and strike up a conversation with him."}
     {:text
-     "You spot Frederik Ludgate walking down Main Street and greet him. \"Good evening, Frederik. What brings you to the Bar Room tonight?\" you ask.\n\n\n\n"}]}}}
+     "You spot Frederik Ludgate walking down Main Street and greet him. \"Good evening, Frederik. What brings you to the Bar Room tonight?\" you ask."}
+    {:text
+     "Frederik Ludgate looks at Cori and furrows his brow in confusion. \"Hi Cori, are you okay? This is Main Street,\" he says, gesturing around at their surroundings."}
+    {:loc :s003,
+     :say
+     "Oh, my apologies Frederik. I must have misspoken. How are you doing tonight?",
+     :reason
+     "I want to apologize for the confusion and continue the conversation with Frederik."}
+    {:text
+     "You apologize to Frederik for your mistake. \"Oh, my apologies Frederik. I must have misspoken. How are you doing tonight?\" you ask, smiling warmly.\n\n\n\n"}]}}}
