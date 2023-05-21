@@ -12,15 +12,18 @@
 
 (set! *warn-on-reflection* true)
 
+(def default-cache-key "1")
+(def request-cache-dir "log")
+
 (def get-secret
   (partial get (read (PushbackReader. (io/reader "secrets.edn")))))
 
-(defn log-filename [^ZonedDateTime time]
-  (io/file "log"
+(defn log-filename [md5 ^ZonedDateTime time]
+  (io/file request-cache-dir
            (-> time
                (.truncatedTo ChronoUnit/SECONDS)
                (.format DateTimeFormatter/ISO_DATE_TIME)
-               (str ".edn"))))
+               (str "-" md5".edn"))))
 
 (defn read-file [file-path init]
   (let [r (io/file file-path)]
@@ -29,9 +32,13 @@
       init)))
 
 (defn write-file [file-path data]
-  (with-open [w (io/writer file-path)]
-    (binding [*out* w]
-      (pprint data))))
+  (let [f (io/file file-path)]
+    (when (.exists f)
+      (when-not (.renameTo f (io/file (str file-path ".bak")))
+        (println "WARNING: backup failed")))
+    (with-open [w (io/writer f)]
+      (binding [*out* w]
+        (pprint data)))))
 
 (defn make-resource-obj
   "Create an atom (or other watchable object) linked to a file on the classpath.
@@ -93,31 +100,56 @@
           (println (fstr content)))
         msgs))
 
+(defn ^String get-md5-hash [^String input]
+  (str/replace
+   (->> (.getBytes input "utf-8")
+        (.digest (java.security.MessageDigest/getInstance "MD5"))
+        (.encodeToString (java.util.Base64/getEncoder)))
+   "/" "_"))
+
 (defn chat [{:keys [body-map msgs] :as request}]
-  (let [req (->> (dissoc request :msgs :body-map)
-                 (merge
-                  {:url "https://api.openai.com/v1/chat/completions"
-                   :method :post
-                   :headers {"Content-Type" "application/json"
-                             "Authorization" (str "Bearer " (get-secret :openai-key))}
-                   :throw-exceptions false
-                   :body (json/write-str
-                          (merge {:model "gpt-3.5-turbo",
-                                  :messages (format-msgs msgs)
-                                  :temperature 0.7}
-                                 body-map))}))
-        response (http/request req)]
-    (let [response
-          (assoc response
-                 :body-map (try (json/read-str (:body response) :key-fn keyword)
-                                (catch Exception ex nil)))]
-      (with-open [log (io/writer (log-filename (ZonedDateTime/now ZoneOffset/UTC)))]
-        (binding [*out* log]
-          (pprint {:request req
-                   :response response})))
-      (binding [*out* *err*]
-        (some-> response :body-map :usage prn))
-      response)))
+  (let [req-body-str (json/write-str
+                      (merge {:model "gpt-3.5-turbo",
+                              :messages (format-msgs msgs)
+                              :temperature 0.7}
+                             body-map))
+        req-md5 (get-md5-hash (str (or (:cache-key request) default-cache-key)
+                                   " " req-body-str))
+        [cache-hit] (->> (file-seq (io/file request-cache-dir))
+                         (remove #(neg? (.indexOf (str %) req-md5))))]
+
+    (if-let [cache-file cache-hit]
+      (do
+        (when (:prn-usage? request true)
+          (binding [*out* *err*]
+            (prn :cache-hit)))
+        (->> cache-file io/reader java.io.PushbackReader.
+             (edn/read {:default vector})
+             :response))
+      ;; cache miss:
+      (let [request
+            , (-> request
+                  (dissoc :msgs :body-map)
+                  (->> (merge
+                        {:url "https://api.openai.com/v1/chat/completions"
+                         :method :post
+                         :headers {"Content-Type" "application/json"
+                                   "Authorization" (str "Bearer " (get-secret :openai-key))}
+                         :throw-exceptions false
+                         :body req-body-str})))
+            response (http/request request)
+            response (assoc response
+                            :body-map (try (json/read-str (:body response) :key-fn keyword)
+                                           (catch Exception ex nil)))]
+        (with-open [log (io/writer
+                         (log-filename req-md5 (ZonedDateTime/now ZoneOffset/UTC)))]
+          (binding [*out* log]
+            (pprint {:request request
+                     :response response})))
+        (when (:prn-usage? request true)
+          (binding [*out* *err*]
+            (some-> response :body-map :usage prn)))
+        response))))
 
 (defn chatm [msgs]
   (chat {:msgs msgs}))
