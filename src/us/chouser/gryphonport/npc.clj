@@ -177,7 +177,8 @@
                                      (= actor-id src)
                                      , (let [dest (loc/node w (:travel-to m))]
                                          [(:response2 m) "\n\n"
-                                          (:description dest) "\n\n"
+                                          (:description dest)
+                                          (when (-> w :actors seq) "\n\n")
                                           (->> w :actors
                                                (map (fn [[aid a]]
                                                       (when (and (not= aid actor-id)

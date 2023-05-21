@@ -104,6 +104,9 @@
     (reset! *world (apply-actor-instruction w actor-id instruction))
     :ok))
 
+;; TODO:
+;; - the travel narrations are falling apart and need to be re-prompted.
+
 #_
 (defn _comment []
 
