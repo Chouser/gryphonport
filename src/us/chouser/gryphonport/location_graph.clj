@@ -146,7 +146,9 @@
         peer-adj-ids (->> (peer-adjacent-nodes graph id)
                           (map (fn [n] [(:name n) (:id n)]))
                           (into {}))]
-    {:nodes new-nodes
+    (assoc
+     graph
+     :nodes new-nodes
      :adj (set (concat
                 (->> (:exits parsed)
                      (map (fn [{:keys [adj parent child]}]
@@ -163,12 +165,14 @@
                      (map (fn [name-pair]
                             (set (map new-name-ids name-pair))))
                      (remove #(contains? % nil))
-                     set)))}))
+                     set))))))
 
 (defn merge-subgraph [graph m]
-  {:nodes (merge-with #(throw (ex-info "Id collision" {:nodes %&}))
+  (assoc
+   graph
+   :nodes (merge-with #(throw (ex-info "Id collision" {:nodes %&}))
                       (:nodes graph) (:nodes m))
-   :adj (into (:adj graph) (:adj m))})
+   :adj (into (:adj graph) (:adj m))))
 
 (defn dot [graph]
   (let [parts-map (get-parts-map graph)
