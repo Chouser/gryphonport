@@ -50,13 +50,14 @@
 
 (defn apply-actor-instruction [w actor-id instruction]
   (try
-    (let [parsed-instruction (npc/parse-actor-content w
-                                                      (-> w :actors actor-id :loc)
-                                                      instruction)
-          w (npc/apply-actor-content w actor-id parsed-instruction) ;; TODO move this into apply-narrator-content
+    (let [old-loc (-> w :actors actor-id :loc)
+          parsed-instruction (npc/parse-actor-content
+                              w old-loc instruction)
+          w (npc/apply-actor-content w actor-id parsed-instruction)
           narr-instruction (-> parsed-instruction
                                (dissoc :reason)
-                               (assoc :src actor-id))
+                               (assoc :src actor-id
+                                      :old-loc old-loc))
           narration (-> {:msgs (npc/prompt-narrator w narr-instruction)}
                         util/chat
                         util/content
@@ -64,7 +65,6 @@
                         (merge narr-instruction))]
       (clojure.pprint/pprint {:narr narration})
       (println (or (:response3 narration)
-                   (:response3-going narration)
                    (str "Do over: " (:error narration))))
       (npc/apply-narrator-content w narration))
     (catch Exception ex
@@ -110,25 +110,25 @@
 #_
 (defn _comment []
 
+  (npc/gen-narrator-user @*world {:src :cori
+                                  :loc :s003
+                                  :travel-to :ri662})
+
   (util/pprint-msgs (npc/prompt-actor @*world :cori))
 
   (npc/parse-actor-content @*world
                            :s003
                            "travel-to: Odd Duck\n\nreason: I bet there are some adventerous people in the tavern.")
 
-  (quot
-   (count
-    (with-out-str
-      (->
-       (npc/prompt-narrator @*world
-                            {:loc :ri662
-                             :src :cori
-                             :travel-to :s003,
-                             ;;:say "yow",
-                             :reason "I bet there are some adventerous people in the tavern."})
-       (doto util/pprint-msgs)
-       {})))
-   4)
+  (->
+   (npc/prompt-narrator @*world
+                        {:loc :ri662
+                         :src :cori
+                         :travel-to :s003,
+                         ;;:say "yow",
+                         })
+   (doto util/pprint-msgs)
+   {})
 
   (npc/parse-narrator-content
    "The instruction makes sense. Here are the three requested formats:\n\nThird person coming: Cori enters Main Street.\nThird person going: Cori walks out of the Odd Duck and onto Main Street.\nSecond person: You walk out of the Odd Duck and onto Main Street.")

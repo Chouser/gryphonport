@@ -34,33 +34,71 @@
                                          (interpose "\n\n")
                                          util/fstr)])))))))
 
-(defn gen-narrator-user [w {:keys [src loc] :as mem}]
-  (let [loc-name (:name (loc/node w loc))
-        [verb arg] (some (partial find mem) [:travel-to :say])]
-    [(-> w :actors src :name) " is in " loc-name " and wants to " (name verb) ": "
-     (case verb
-       :say arg
-       :travel-to (:name (loc/node w arg)))]))
+;; Travel to Main Street from Common Room
+;; Bob steps out toward Main Street
+;; You step out toward Main Street
+;; Bob steps arrives from the Odd Duck  ** ascend tree
+;;
+;; Jill ducks into the Odd Duck
+;; You duck into the Odd Duck
+;; Jill ducks in from Main Street
 
+(defn gen-narrator-user [w {:keys [src loc] :as mem}]
+  (let [nom (-> w :actors src :name)
+        [verb arg] (some (partial find mem) [:travel-to :say])]
+    (case verb
+      :say [nom " will say: " arg]
+      :travel-to (let [from-node (loc/node w loc)
+                       from-parent-node (->> from-node :parent (loc/node w))
+                       to-node (loc/node w arg)]
+                   [nom " will travel to " (:name (loc/node w arg))
+                    " from " (:name (if (= (:parent from-parent-node)
+                                           (:parent to-node))
+                                      from-parent-node
+                                      from-node))]))))
+
+(defn mem-type [mem]
+  (cond
+    (:say mem) :say
+    (:travel-to mem) :travel-to
+    :else :unknown))
+
+(m/=> prompt-narrator
+      [:=> [:cat :any [:map {:closed true}
+                       [:src keyword?]
+                       [:loc keyword?]
+                       [:say {:optional true} string?]
+                       [:travel-to {:optional true} keyword?]]]
+       :any])
 (defn prompt-narrator [w actor-instruction]
   (prn :prompt-narrator actor-instruction)
-  (let [q (->> w :narration
-               (take-last 30)
-               (mapcat (fn [{:keys [src error travel-to response2] :as mem}]
+  (let [recent-mems (->> w :narration (take-last 15))
+        instruction-type (mem-type actor-instruction)
+        more-examples-n (- 5 (->> recent-mems
+                                  (filter #(= instruction-type (mem-type %)))
+                                  count))
+        more-examples (->> w :narration reverse
+                           (drop (count recent-mems))
+                           (filter #(= instruction-type (mem-type %)))
+                           (take (max 0 more-examples-n))
+                           reverse)
+        q (->> (concat more-examples recent-mems)
+               (mapcat (fn [mem]
                          [[:user (gen-narrator-user w mem)]
                           [:assistant
-                           (or error
-                               (if travel-to
-                                 ["Third person coming: " (:response3-coming mem)
-                                  "\nThird person going: " (:response3-going mem)
-                                  "\nSecond person: " response2]
-                                 ["Third person: " (:response3 mem)
-                                  "\nSecond person: " response2]))]])))]
+                           (or (:error mem)
+                               ["Third person: " (:response3 mem)
+                                "\nSecond person: " (:response2 mem)
+                                (when-let [a (:arrive mem)]
+                                  ["\nArriving: " a])])]])))]
     (concat
      [[:system "You are narrating a story, taking instructions for the characters involved."]
       [:user
-       (:description (loc/node w (:loc actor-instruction)))
-       "\n\n"
+       (->> [:loc :travel-to]
+            (keep actor-instruction)
+            (map (fn [loc]
+                   [(:description (loc/node w loc))
+                    "\n\n"])))
        ;; Append the first :user entry to this header text:
        (-> q first rest)]]
      (rest q)
@@ -69,12 +107,11 @@
        "\n\n"
        (let [nom (-> w :actors (:src actor-instruction) :name)]
          (if (:travel-to actor-instruction)
-           ["If that instruction makes sense, describe it in three formats: "
-            "Third person coming (for someone observing " nom " entering " "the travel from the "
-            "destination location), Third person going (for someone watching them "
-            "leave), and Second person (for " nom ", like 'going' with 'you'"
-            "instead of " nom ")."]
-           ["If that instruction makes sense, describe it in two formats: Third "
+           ["Describe the action in three formats: Third person "
+            "(for someone watching " nom " leave), Second person (like Third "
+            "person but with 'you' instead of '" nom "', "
+            "and Arriving (third person for someone watching " nom " arrive)."]
+           ["Describe the action in two formats: Third "
             "person (for someone observing), and Second person (like Third person "
             "with 'you' instead of " nom ")."]))]])))
 
@@ -88,7 +125,7 @@
 (defn parse-actor-content [w loc s]
   (let [m (->> (re-seq #"(?m)^(say|travel-to|reason): (.*)" s)
                (map (fn [[_ k v]]
-                      [(keyword k) v]))
+                      [(keyword k) (str/trim v)]))
                (into {:loc loc}))
         tt (:travel-to m)]
     (if-not tt
@@ -198,13 +235,6 @@
 
   (apply-actor-content @*state :rafe
                        "say did you know I once defeated a whole band of theives?\n\nIf I impress her, maybe she'll keep talking to me.")
-
-  (def r (util/chat {:msgs (prompt-narrator @*state
-                                            (merge {:src :rafe}
-                                             (parse-actor-content
-                                              @*state
-                                              (-> @*state :actors :rafe :loc)
-                                              "say: Well, it all started when a wealthy merchant hired me to find a lost artifact...\n\nreason: I'm happy to share the details of my adventure, and it might be interesting to her. However, I won't go into too much detail, just in case she's not trustworthy.")))}))
 
   (println (util/content r))
 

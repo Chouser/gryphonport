@@ -213,14 +213,14 @@
    :loc :s014,
    :travel-to :s003,
    :response2 "You stroll to Main Street",
-   :response3-going "Frederik strolls to Main Street",
-   :response3-coming "Frederik strolls here from Main Street"}
+   :response3 "Frederik strolls to Main Street",
+   :arrive "Frederik strolls here from South Street"}
   {:src :cori,
    :loc :s003,
    :travel-to :s006,
    :response2 "You slip into the Odd Duck",
-   :response3-going "Cornelia Finch slips into the Odd Duck",
-   :response3-coming "Cornelia Finch slips in from Main Street"}
+   :response3 "Cori slips into the Odd Duck",
+   :arrive "Cornelia Finch slips in from Main Street"}
   {:src :cori,
    :loc :ri662,
    :say "Is this seat taken?",
@@ -475,98 +475,6 @@
    :loc :ri662,
    :say
    "It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe.",
-   :src :cori}
-  {:response3
-   "Rafe waves goodbye to Cori. \"Good night, Cori. It was great meeting you,\" he says as she leaves the Bar Room.",
-   :response2
-   "You wave goodbye to Cori. \"Good night, Cori. It was great meeting you,\" you say as she leaves the Bar Room.",
-   :loc :ri662,
-   :say "Good night, Cori. It was great meeting you.",
-   :src :rafe}
-  {:response3-coming
-   "Cori exits the Odd Duck and heads towards Main Street.",
-   :response3-going
-   "Cori disappears down Main Street, leaving the Bar Room behind.",
-   :response2 "You exit the Odd Duck and head towards Main Street.",
-   :loc :ri662,
-   :travel-to :s003,
-   :src :cori}
-  {:response3-coming
-   "Rafe gathers his things and heads towards the door, preparing to leave the Bar Room and head to Main Street.",
-   :response3-going
-   "Rafe steps out of the Bar Room and into Main Street, ready to continue his adventures.",
-   :response2
-   "You gather your things and head towards the door, preparing to leave the Bar Room and head to Main Street.",
-   :loc :ri662,
-   :travel-to :s003,
-   :src :rafe}
-  {:response3-coming
-   "From the vantage point of someone observing from the Farmstead, Cori appears at the end of Main Street, heading towards the farm.",
-   :response3-going
-   "Cori disappears down the path leading to the farm, leaving Main Street behind.",
-   :response2
-   "You make your way down Main Street towards the path leading to the Farmstead.",
-   :loc :s003,
-   :travel-to :s011,
-   :src :cori}
-  {:response3-coming
-   "Looking from South Street, you see Rafe walking towards it from Main Street.",
-   :response3-going
-   "Rafe disappears down South Street, leaving Main Street behind.",
-   :response2
-   "You make your way down Main Street towards South Street and begin walking along it.",
-   :loc :s003,
-   :travel-to :s014,
-   :src :rafe}
-  {:response3-coming
-   "From the perspective of someone in the Main Street, Cori appears in the distance as she makes her way towards the area, walking along the pathway that leads to Main Street.",
-   :response3-going
-   "Cori turns and waves goodbye to the farmers and other people of Farmstead, before heading towards the road that leads to Main Street.",
-   :response2
-   "You turn and wave goodbye to the farmers and other people of Farmstead, before beginning to walk towards the road that leads to Main Street.",
-   :loc :s011,
-   :travel-to :s003,
-   :src :cori}
-  {:response3-coming
-   "From the end of Main Street, Frederik Ludgate is seen entering the Bar Room, walking through the door and looking around the cozy, rustic interior.",
-   :response3-going
-   "Frederik Ludgate picks up his belongings and exits the Bar Room, disappearing down Main Street.",
-   :response2
-   "You gather your belongings and exit the Bar Room, heading down Main Street towards your next destination.",
-   :loc :ri662,
-   :travel-to :s003,
-   :src :fred}
-  {:response3
-   "Cori spots Frederik Ludgate walking down Main Street and greets him. \"Good evening, Frederik. What brings you to the Bar Room tonight?\" she asks.",
-   :response2
-   "You spot Frederik Ludgate walking down Main Street and greet him. \"Good evening, Frederik. What brings you to the Bar Room tonight?\" you ask.",
-   :loc :s003,
-   :say
-   "Good evening, Frederik. What brings you to the Bar Room tonight?",
-   :src :cori}
-  {:response3
-   "Frederik Ludgate looks at Cori and furrows his brow in confusion. \"Hi Cori, are you okay? This is Main Street,\" he says, gesturing around at their surroundings.",
-   :response2
-   "Frederik Ludgate looks at you and furrows his brow in confusion. \"Hi Cori, are you okay? This is Main Street,\" he says, gesturing around at your surroundings.",
-   :loc :s003,
-   :say "Hi Cori, are you okay? This is Main Street.",
-   :src :fred}
-  {:response3-coming
-   "From inside the Alchemist's Shop, someone observing sees Rafe Hunter approaching the entrance, his steps purposeful as he makes his way towards the shop.",
-   :response3-going
-   "As Rafe Hunter exits the Alchemist's Shop, someone watching him from outside sees him step out onto South Street, his eyes scanning the street as he decides on his next destination.",
-   :response2
-   "You approach the entrance to the Alchemist's Shop, your steps purposeful as you make your way towards the shop.",
-   :loc :s014,
-   :travel-to :s010,
-   :src :rafe}
-  {:response3
-   "Cori apologizes to Frederik for her mistake. \"Oh, my apologies Frederik. I must have misspoken. How are you doing tonight?\" she asks, smiling warmly.",
-   :response2
-   "You apologize to Frederik for your mistake. \"Oh, my apologies Frederik. I must have misspoken. How are you doing tonight?\" you ask, smiling warmly.",
-   :loc :s003,
-   :say
-   "Oh, my apologies Frederik. I must have misspoken. How are you doing tonight?",
    :src :cori}],
  :next-turn [:fred :rafe :cori],
  :actors
@@ -577,63 +485,10 @@
    :description
    "a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing.",
    :mem
-   [{:travel-to :s003}
-    {:text "You stroll from South Street to Main Street"}
-    {:text
-     "As you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."}
-    {:text
-     "Cori leans back in her seat, impressed. \"That's impressive! You must be quite skilled with a weapon. I can't wait to hear more about your adventures,\" she says."}
-    {:text
-     "Rafe grins at Cori. \"I'd love to hear about your adventures too,\" he says."}
-    {:text
-     "Cori smiles. \"Well, I'm a minstrel. My adventures are mostly musical in nature. I'm searching for inspiration to write a new song.\""}
-    {:text
-     "Rafe leans forward, intrigued. \"That sounds fascinating. What kind of song are you looking to write?\" he asks."}
-    {:text
-     "Cori grins at Rafe. \"I'm looking to write an epic song about a heroic adventurer. Your stories have been quite inspiring so far,\" she says."}
-    {:text
-     "Rafe smiles, feeling flattered. \"Well, I'd be honored to be the subject of one of your songs,\" he says."}
-    {:text
-     "Cori leans forward, her eyes shining with excitement. \"Great! Can you tell me more about your most daring adventure? I'm sure it will make for a perfect song.\""}
-    {:text
-     "Rafe leans back in his seat, reminiscing. \"I once had to infiltrate a bandit camp to retrieve a stolen artifact,\" he says, his voice low and intense."}
-    {:text
-     "Cori leans forward, eagerly awaiting Rafe's answer. \"That sounds like a thrilling adventure. Can you tell me more about how you managed to infiltrate the bandit camp?\" she asks."}
-    {:text
-     "Rafe describes how he disguised himself as a bandit and snuck into the camp, carefully avoiding suspicion and gathering valuable information."}
-    {:text
-     "Cori leans in, curious. \"That's amazing! It sounds like you were very brave and resourceful. Were there any close calls during your mission?\""}
-    {:text
-     "Rafe grimaces as he recalls the close call. \"Yes, I almost got caught when I was leaving the camp,\" he says."}
-    {:text
-     "Cori leans in, fascinated. \"That must have been nerve-wracking. How did you manage to escape?\" she asks."}
-    {:text
-     "Rafe describes how he had to fight his way out of the camp, using his weapons and cunning to overcome the bandits and make his escape."}
-    {:text
-     "Cori beams at Rafe. \"That's incredible. You truly are a skilled adventurer. I can't wait to write a song about your daring mission.\""}
-    {:text
-     "Rafe smiles warmly. \"I look forward to hearing the song,\" he says."}
-    {:text
-     "Cori glances at the clock and stands up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" she says with a smile before heading towards the door."}
-    {:text
-     "Rafe waves goodbye to Cori. \"Good night, Cori. It was great meeting you,\" he says as she leaves the Bar Room."}
-    {:text
-     "Cori disappears down Main Street, leaving the Bar Room behind."}
-    {:text
-     "Rafe steps out of the Bar Room and into Main Street, ready to continue his adventures."}
-    {:loc :ri662, :travel-to :s003}
-    {:text
-     "You gather your belongings and exit the Bar Room, heading down Main Street towards your next destination.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall.\n\nHere you can see Cornelia Finch, a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely.\n"}
-    {:text
-     "Cori spots Frederik Ludgate walking down Main Street and greets him. \"Good evening, Frederik. What brings you to the Bar Room tonight?\" she asks."}
-    {:loc :s003, :say "Hi Cori, are you okay? This is Main Street."}
-    {:text
-     "Frederik Ludgate looks at you and furrows his brow in confusion. \"Hi Cori, are you okay? This is Main Street,\" he says, gesturing around at your surroundings.\n\n\n\n"}
-    {:text
-     "Cori apologizes to Frederik for her mistake. \"Oh, my apologies Frederik. I must have misspoken. How are you doing tonight?\" she asks, smiling warmly."}]},
+   []},
   :rafe
   {:type :npc,
-   :loc :rk574,
+   :loc :ri662,
    :name "Rafe Hunter",
    :description
    "a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.",
@@ -711,7 +566,7 @@
      :reason
      "This is a good opportunity to shift the focus of the conversation to Cori, and also show that I'm interested in her."}
     {:text
-     "You grin at Cori. \"I'd love to hear about your adventures too,\" you say.\n\n"}
+     "You grin at Cori. \"I'd love to hear about your adventures too,\" you say."}
     {:text
      "Cori smiles. \"Well, I'm a minstrel. My adventures are mostly musical in nature. I'm searching for inspiration to write a new song.\""}
     {:loc :ri662,
@@ -720,7 +575,7 @@
      :reason
      "I want to show that I'm interested in Cori's passions and that I'm a good listener."}
     {:text
-     "You lean forward, intrigued. \"That sounds fascinating. What kind of song are you looking to write?\" you ask.\n\n"}
+     "You lean forward, intrigued. \"That sounds fascinating. What kind of song are you looking to write?\" you ask."}
     {:text
      "Cori grins at Rafe. \"I'm looking to write an epic song about a heroic adventurer. Your stories have been quite inspiring so far,\" she says."}
     {:loc :ri662,
@@ -729,7 +584,7 @@
      :reason
      "This is a great opportunity to flatter Cori and also possibly gain some recognition for my exploits."}
     {:text
-     "You smile, feeling flattered. \"Well, I'd be honored to be the subject of one of your songs,\" you say.\n\n"}
+     "You smile, feeling flattered. \"Well, I'd be honored to be the subject of one of your songs,\" you say."}
     {:text
      "Cori leans forward, her eyes shining with excitement. \"Great! Can you tell me more about your most daring adventure? I'm sure it will make for a perfect song.\""}
     {:loc :ri662,
@@ -738,7 +593,7 @@
      :reason
      "This is a good opportunity to share a daring story that will make for a good song, and also show off my skills as an adventurer."}
     {:text
-     "You lean back in your seat, reminiscing. \"I once had to infiltrate a bandit camp to retrieve a stolen artifact,\" you say, your voice low and intense.\n\n"}
+     "You lean back in your seat, reminiscing. \"I once had to infiltrate a bandit camp to retrieve a stolen artifact,\" you say, your voice low and intense."}
     {:text
      "Cori leans forward, eagerly awaiting Rafe's answer. \"That sounds like a thrilling adventure. Can you tell me more about how you managed to infiltrate the bandit camp?\" she asks."}
     {:loc :ri662,
@@ -746,7 +601,7 @@
      :reason
      "This is a key detail in the story and also shows my cunning and ability to think on my feet."}
     {:text
-     "You describe how you disguised yourself as a bandit and snuck into the camp, carefully avoiding suspicion and gathering valuable information.\n\n"}
+     "You describe how you disguised yourself as a bandit and snuck into the camp, carefully avoiding suspicion and gathering valuable information."}
     {:text
      "Cori leans in, curious. \"That's amazing! It sounds like you were very brave and resourceful. Were there any close calls during your mission?\""}
     {:loc :ri662,
@@ -754,7 +609,7 @@
      :reason
      "This adds to the excitement of the story and also shows that even though I'm skilled, I'm not infallible."}
     {:text
-     "You grimace as you recall the close call. \"Yes, I almost got caught when I was leaving the camp,\" you say.\n\n"}
+     "You grimace as you recall the close call. \"Yes, I almost got caught when I was leaving the camp,\" you say."}
     {:text
      "Cori leans in, fascinated. \"That must have been nerve-wracking. How did you manage to escape?\" she asks."}
     {:loc :ri662,
@@ -762,7 +617,7 @@
      :reason
      "This will add to the excitement of the story and highlight my combat skills."}
     {:text
-     "You describe how you had to fight your way out of the camp, using your weapons and cunning to overcome the bandits and make your escape.\n\n"}
+     "You describe how you had to fight your way out of the camp, using your weapons and cunning to overcome the bandits and make your escape."}
     {:text
      "Cori beams at Rafe. \"That's incredible. You truly are a skilled adventurer. I can't wait to write a song about your daring mission.\""}
     {:loc :ri662,
@@ -770,38 +625,12 @@
      :reason
      "This is a good opportunity to wrap up the conversation on a positive note and show that I'm appreciative of Cori's interest in my adventures."}
     {:text
-     "You smile warmly. \"I look forward to hearing the song,\" you say.\n\n"}
+     "You smile warmly. \"I look forward to hearing the song,\" you say."}
     {:text
-     "Cori glances at the clock and stands up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" she says with a smile before heading towards the door."}
-    {:loc :ri662,
-     :say "Good night, Cori. It was great meeting you.",
-     :reason
-     "This is a polite and friendly way to end the conversation and show that I enjoyed talking to her."}
-    {:text
-     "You wave goodbye to Cori. \"Good night, Cori. It was great meeting you,\" you say as she leaves the Bar Room.\n\n"}
-    {:text
-     "Cori disappears down Main Street, leaving the Bar Room behind."}
-    {:loc :ri662,
-     :travel-to :s003,
-     :reason
-     "It's a good time to leave the Bar Room and explore the rest of Gryphonport."}
-    {:text
-     "You gather your things and head towards the door, preparing to leave the Bar Room and head to Main Street.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."}
-    {:text
-     "Cori disappears down the path leading to the farm, leaving Main Street behind."}
-    {:loc :s003,
-     :travel-to :s014,
-     :reason
-     "I want to explore a different part of town and see what's happening at Wilhelm's Forge."}
-    {:text
-     "You make your way down Main Street towards South Street and begin walking along it.\n\nAs you step onto South Street in Gryphonport, you find yourself on a narrow, winding road that snakes through the heart of the town. The buildings along the street are older and more weathered than those on Main Street, giving the area a more rustic and authentic feel.\n\nDespite its narrow size, South Street is bustling with activity. Vendors line the sidewalks, hawking their wares and calling out to passersby. The air is thick with the smell of roasting meats, fresh bread, and other tantalizing aromas.\n\nFrom South Street, you can access several different parts of town. The road leads back to Main Street, where you can find a wider variety of shops and establishments. Alternatively, you can head north on Blackwood Trail, which winds through the surrounding wilderness and leads to other towns and cities.\n\nAlong South Street, you'll find the Temple of the Divine, a grand and imposing edifice that serves as the spiritual center of the town. The temple is a popular destination for pilgrims and travelers seeking guidance or solace.\n\nYou'll also notice the Alchemist's Shop, a small but fascinating establishment that sells potions, elixirs, and other magical items. The shop is run by a reclusive alchemist who is said to be one of the most skilled and powerful practitioners of magic in the region.\n\n"}
-    {:loc :s014,
-     :travel-to :s010,
-     :reason
-     "I'm curious about the magical items sold at the shop and interested in meeting the reclusive alchemist."}]},
+     "Cori glances at the clock and stands up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" she says with a smile before heading towards the door."}]},
   :cori
   {:type :npc,
-   :loc :s003,
+   :loc :ri662,
    :name "Cornelia Finch",
    :description
    "a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely.",
@@ -884,7 +713,7 @@
      :reason
      "I want to compliment Rafe on his skills and encourage him to share more about his adventures."}
     {:text
-     "You lean back in your seat, impressed. \"That's impressive! You must be quite skilled with a weapon. I can't wait to hear more about your adventures,\" you say.\n\n"}
+     "You lean back in your seat, impressed. \"That's impressive! You must be quite skilled with a weapon. I can't wait to hear more about your adventures,\" you say."}
     {:text
      "Rafe grins at Cori. \"I'd love to hear about your adventures too,\" he says."}
     {:loc :ri662,
@@ -893,7 +722,7 @@
      :reason
      "I want to let Rafe know that my adventures are of a different kind, and that I'm searching for inspiration to write a new song."}
     {:text
-     "You smile. \"Well, I'm a minstrel. My adventures are mostly musical in nature. I'm searching for inspiration to write a new song.\"\n\n"}
+     "You smile. \"Well, I'm a minstrel. My adventures are mostly musical in nature. I'm searching for inspiration to write a new song.\""}
     {:text
      "Rafe leans forward, intrigued. \"That sounds fascinating. What kind of song are you looking to write?\" he asks."}
     {:loc :ri662,
@@ -902,7 +731,7 @@
      :reason
      "I want to let Rafe know that he has been the source of my inspiration for the song, and that I'm interested in hearing more about his adventures."}
     {:text
-     "You grin at Rafe. \"I'm looking to write an epic song about a heroic adventurer. Your stories have been quite inspiring so far,\" you say.\n\n"}
+     "You grin at Rafe. \"I'm looking to write an epic song about a heroic adventurer. Your stories have been quite inspiring so far,\" you say."}
     {:text
      "Rafe smiles, feeling flattered. \"Well, I'd be honored to be the subject of one of your songs,\" he says."}
     {:loc :ri662,
@@ -911,7 +740,7 @@
      :reason
      "I want to encourage Rafe to share more about his most daring adventure and see if there are any exciting or heroic moments that could be included in the song."}
     {:text
-     "You lean forward, your eyes shining with excitement. \"Great! Can you tell me more about your most daring adventure? I'm sure it will make for a perfect song.\"\n\n"}
+     "You lean forward, your eyes shining with excitement. \"Great! Can you tell me more about your most daring adventure? I'm sure it will make for a perfect song.\""}
     {:text
      "Rafe leans back in his seat, reminiscing. \"I once had to infiltrate a bandit camp to retrieve a stolen artifact,\" he says, his voice low and intense."}
     {:loc :ri662,
@@ -920,7 +749,7 @@
      :reason
      "I want to know more about how Rafe successfully infiltrated the bandit camp and if there were any exciting or heroic moments that could be included in the song."}
     {:text
-     "You lean forward, eagerly awaiting Rafe's answer. \"That sounds like a thrilling adventure. Can you tell me more about how you managed to infiltrate the bandit camp?\" you ask.\n\n"}
+     "You lean forward, eagerly awaiting Rafe's answer. \"That sounds like a thrilling adventure. Can you tell me more about how you managed to infiltrate the bandit camp?\" you ask."}
     {:text
      "Rafe describes how he disguised himself as a bandit and snuck into the camp, carefully avoiding suspicion and gathering valuable information."}
     {:loc :ri662,
@@ -929,7 +758,7 @@
      :reason
      "I want to know if there were any particularly dangerous or exciting moments during Rafe's mission that could be included in the song."}
     {:text
-     "You lean in, curious. \"That's amazing! It sounds like you were very brave and resourceful. Were there any close calls during your mission?\"\n\n"}
+     "You lean in, curious. \"That's amazing! It sounds like you were very brave and resourceful. Were there any close calls during your mission?\""}
     {:text
      "Rafe grimaces as he recalls the close call. \"Yes, I almost got caught when I was leaving the camp,\" he says."}
     {:loc :ri662,
@@ -947,7 +776,7 @@
      :reason
      "I want to compliment Rafe on his skills and bravery, and let him know that I'm excited to write a song about his mission."}
     {:text
-     "You beam at Rafe. \"That's incredible. You truly are a skilled adventurer. I can't wait to write a song about your daring mission.\"\n\n"}
+     "You beam at Rafe. \"That's incredible. You truly are a skilled adventurer. I can't wait to write a song about your daring mission.\""}
     {:text
      "Rafe smiles warmly. \"I look forward to hearing the song,\" he says."}
     {:loc :ri662,
@@ -956,48 +785,4 @@
      :reason
      "I want to end the conversation on a positive note and say goodnight to Rafe."}
     {:text
-     "You glance at the clock and stand up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" you say with a smile before heading towards the door."}
-    {:text
-     "Rafe waves goodbye to Cori. \"Good night, Cori. It was great meeting you,\" he says as she leaves the Bar Room."}
-    {:loc :ri662,
-     :travel-to :s003,
-     :reason
-     "I want to head back home and get some rest after a long day."}
-    {:text
-     "You exit the Odd Duck and head towards Main Street.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."}
-    {:text
-     "Rafe gathers his things and heads towards the door, preparing to leave the Bar Room and head to Main Street.\n\nRafe Hunter is a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new."}
-    {:err-cmd "travel-to: Home",
-     :reason
-     "I want to head back home after a long day and get some rest."}
-    {:text "You cannot travel-to Home from here."}
-    {:loc :s003,
-     :travel-to :s011,
-     :reason
-     "I want to take a walk and enjoy the fresh air before heading back home."}
-    {:text
-     "You make your way down Main Street towards the path leading to the Farmstead.\n\nFarmstead is a quaint area located on the outskirts of Gryphonport. The area is characterized by rolling hills, lush fields of crops, and wide-open spaces. The air is fresh and clean, and the scenery is breathtaking.\n\nAs you look around, you see that the area is dotted with small farms and homesteads, each with its own unique character. Some of the farms grow crops such as wheat, corn, and vegetables, while others raise livestock like cows, pigs, and chickens.\n\nDespite its rural nature, Farmstead is an important part of the town's economy. The area provides much of the food and resources that the people of Gryphonport rely on, and the farmers who work the land are respected and admired for their hard work and dedication.\n\nFrom Farmstead, you can return to Main Street, where you can find shops and other establishments that cater to the needs of the town's residents and visitors."}
-    {:loc :s011,
-     :travel-to :s003,
-     :reason
-     "I want to head back to Main Street and explore more of the town before heading home."}
-    {:text
-     "You turn and wave goodbye to the farmers and other people of Farmstead, before beginning to walk towards the road that leads to Main Street.\n\nAs you step onto Gryphonport's Main Street, you are immediately struck by the lively atmosphere. People bustle about, haggling with vendors over wares and exchanging news and gossip with their neighbors. The buildings lining the street are a mix of homes, shops, and other establishments, creating a vibrant atmosphere.\n\nFrom Main Street, you can access several different parts of town. South Street is a smaller street that branches off. You can hear the ringing of hammers on metal at Wilhelm's Forge nearby. A sign depicting three ducks hangs outside the door of the Odd Duck, from which spills the sounds of laughter and music. One end of Main Street connects to the Farmstead, and at the other is the impressive but rustic Town Hall."}
-    {:text
-     "From the end of Main Street, Frederik Ludgate is seen entering the Bar Room, walking through the door and looking around the cozy, rustic interior.\n\nFrederik Ludgate is a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing."}
-    {:loc :s003,
-     :say
-     "Good evening, Frederik. What brings you to the Bar Room tonight?",
-     :reason
-     "I want to greet Frederik and strike up a conversation with him."}
-    {:text
-     "You spot Frederik Ludgate walking down Main Street and greet him. \"Good evening, Frederik. What brings you to the Bar Room tonight?\" you ask."}
-    {:text
-     "Frederik Ludgate looks at Cori and furrows his brow in confusion. \"Hi Cori, are you okay? This is Main Street,\" he says, gesturing around at their surroundings."}
-    {:loc :s003,
-     :say
-     "Oh, my apologies Frederik. I must have misspoken. How are you doing tonight?",
-     :reason
-     "I want to apologize for the confusion and continue the conversation with Frederik."}
-    {:text
-     "You apologize to Frederik for your mistake. \"Oh, my apologies Frederik. I must have misspoken. How are you doing tonight?\" you ask, smiling warmly.\n\n\n\n"}]}}}
+     "You glance at the clock and stand up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" you say with a smile before heading towards the door."}]}}}
