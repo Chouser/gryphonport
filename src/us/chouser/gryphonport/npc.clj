@@ -9,7 +9,11 @@
 (defn prompt-actor [state actor-id]
   (prn :prompt-actor actor-id)
   (let [actor (-> state :actors actor-id)]
-    (into [[:system (util/fstr ["You are controlling " (:name actor) " in this scene."])]]
+    (into [[:system (util/fstr ["You are controlling " (:name actor) " in this scene."])]
+           [:example-user "From here you could travel to Dance Hall. What should you do, and why?"]
+           [:example-assistant "travel-to: Dance Hall\n\nreason: Joe might be at the Dance Hall and I want to see him."]
+           [:example-user "From here you could travel to Dance Hall. What should you do, and why?"]
+           [:example-assistant "say: This will be fun!\n\nreason: I want them to know I like the idea."]]
           (->> (concat [{:text (:self-bio actor)}]
                        (:mem actor)
                        [{:text (util/fstr
@@ -154,22 +158,19 @@
          [:error string?]]
         [:map {:closed true}
          [:response2 string?]
-         [:response3 string?]]
-        [:map {:closed true}
-         [:response2 string?]
-         [:response3-coming string?]
-         [:response3-going string?]]]])
+         [:response3 string?]
+         [:arrive {:optional true} string?]]]])
 (defn parse-narrator-content [narrator-response]
-  (if-let [parts (seq (re-seq #"((?:Third|Second) person[^:]*): (.*)"
+  (if-let [parts (seq (re-seq #"((?:Third|Second) person|Arriving): (.*)"
                               narrator-response))]
     (->>
      parts
      (map (fn [[_ k v]]
-            (let [[_ r2 r3 c g p] (re-find #"(Second)|(Third).*(coming)|(going)|(person:)" k)]
-              [(keyword (str (if r2 "response2" "response3")
-                             (cond
-                               c "-coming"
-                               g "-going")))
+            (let [[_ r2 r3 a] (re-find #"^(Second)|(Third)|(Arriving)" k)]
+              [(cond
+                 r2 :response2
+                 r3 :response3
+                 a :arrive)
                (str/trim v)])))
      (into {}))
     {:error narrator-response}))
@@ -183,11 +184,12 @@
                        [:error {:optional true} string?]
                        [:response2 {:optional true} string?]
                        [:response3 {:optional true} string?]
-                       [:response3-coming {:optional true} string?]
-                       [:response3-going {:optional true} string?]]]
+                       [:arrive {:optional true} string?]]]
        :any])
 (defn apply-narrator-content
   [w {:keys [src error] :as m}]
+  (assert (= (boolean (:travel-to m))
+             (boolean (:arrive m))))
   (when (not= src (-> w :next-turn first))
     (println "WARNING: next-turn is" (-> w :next-turn first) "but using src" src))
   (when (not= (:loc m) (-> w :actors src :loc))
@@ -196,36 +198,48 @@
     (if error
       (update-in w [:actors src :mem] (fnil conj [])
                  {:text (util/fstr "Error: " (str/replace error #"Error: " ""))})
-      (let [loc-set #{(:loc m) (:travel-to m)}
-            w (-> w
+      (let [w (-> w
                   (update :next-turn (fn [ids] (conj (vec (rest ids))
                                                      (first ids))))
                   (cond-> (:travel-to m) ;; TODO compute actual move destination before narration?
-                    (desc/move-thing [:actors src :loc] (:travel-to m))))]
+                    (desc/move-thing [:actors src :loc] (:travel-to m))))
+            new-loc (-> w :actors src :loc)
+            loc-set (conj #{(:loc m)} new-loc)]
+        (prn :new-loc new-loc :loc-set loc-set)
         ;; For every actor
         (reduce (fn [w actor-id]
-                  (let [other-loc (-> w :actors actor-id :loc)]
-                    (if-not (contains? loc-set other-loc)
+                  (let [other-actor-loc (-> w :actors actor-id :loc)]
+                    (if-not (contains? loc-set other-actor-loc)
                       w
+                      ;; ...add to their memory
                       (update-in w [:actors actor-id :mem] (fnil conj [])
                                  {:text
-                                  (util/fstr
-                                   (cond
-                                     (= actor-id src)
-                                     , (let [dest (loc/node w (:travel-to m))]
-                                         [(:response2 m) "\n\n"
-                                          (:description dest)
-                                          (when (-> w :actors seq) "\n\n")
-                                          (->> w :actors
-                                               (map (fn [[aid a]]
-                                                      (when (and (not= aid actor-id)
-                                                                 (= (:travel-to m) (:loc a)))
-                                                        ["Here you can see " (:name a) ", "
-                                                         (:description a) "\n"]))))])
-                                     (= other-loc (:travel-to m)) [(:response3-coming m) "\n\n"
-                                                                   (-> w :actors src :name) " is "
-                                                                   (-> w :actors src :description)]
-                                     :else (or (:response3 m) (:response3-going m))))}))))
+                                  (if (:travel-to m)
+                                    (util/fstr
+                                     (cond
+                                       ;; self
+                                       (= actor-id src)
+                                       , (let [dest (loc/node w new-loc)]
+                                           [(:response2 m) "\n\n"
+                                            (:description dest)
+                                            (when (-> w :actors seq) "\n\n")
+                                            (->> w :actors
+                                                 (map (fn [[aid a]]
+                                                        (when (and (not= aid actor-id)
+                                                                   (= new-loc (:loc a)))
+                                                          ["Here you can see " (:name a) ", "
+                                                           (:description a)])))
+                                                 (interpose "\n"))])
+                                       ;; arriving
+                                       (= other-actor-loc new-loc)
+                                       , [(:arrive m) "\n\n"
+                                          (-> w :actors src :name) " is "
+                                          (-> w :actors src :description)]
+                                       ;; still here or leaving
+                                       :else (:response3 m)))
+                                    (if (= actor-id src) ;; self
+                                      (:response2 m)
+                                      (:response3 m)))}))))
                 w
                 (-> w :actors keys))))))
 

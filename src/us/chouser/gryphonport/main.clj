@@ -56,8 +56,7 @@
           w (npc/apply-actor-content w actor-id parsed-instruction)
           narr-instruction (-> parsed-instruction
                                (dissoc :reason)
-                               (assoc :src actor-id
-                                      :old-loc old-loc))
+                               (assoc :src actor-id))
           narration (-> {:msgs (npc/prompt-narrator w narr-instruction)}
                         util/chat
                         util/content
@@ -109,6 +108,8 @@
 
 #_
 (defn _comment []
+
+  (apply-actor-instruction @*world :fred  "travel-to: the Odd Duck")
 
   (npc/gen-narrator-user @*world {:src :cori
                                   :loc :s003
