@@ -477,108 +477,161 @@
    "It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe.",
    :src :cori}
   {:response3
-   "Frederik makes his way down Main Street and arrives at the Odd Duck, looking around the cozy tavern with interest before heading inside.",
+   "Frederik Ludgate makes his way from Main Street to the Odd Duck, his steps purposeful as he navigates the bustling crowds. He arrives at the tavern, pushing open the heavy wooden door and stepping inside, his eyes scanning the room for a familiar face.",
    :response2
-   "You make your way down Main Street and arrive at the Odd Duck, looking around the cozy tavern with interest before heading inside.",
+   "You make your way from Main Street to the Odd Duck, your steps purposeful as you navigate the bustling crowds. You arrive at the tavern, pushing open the heavy wooden door and stepping inside, your eyes scanning the room for a familiar face.",
    :arrive
-   "Frederik arrives at the Odd Duck, pushing open the door and stepping inside. He takes a moment to look around the cozy tavern, taking in the sights and sounds of the patrons enjoying their evening.",
+   "Frederik Ludgate arrives at the Odd Duck, pushing open the heavy wooden door and stepping inside. The warm, inviting atmosphere of the tavern washes over him as he takes in the sights and sounds of the bustling establishment.",
    :loc :s003,
    :travel-to :s006,
    :src :fred}
   {:response3
-   "Rafe spots Frederik as he enters the tavern and greets him warmly. \"Hello Frederik, it's good to see you,\" he says with a smile.",
+   "Rafe Hunter spots Frederik Ludgate and greets him warmly, a smile spreading across his face. \"Hello Frederik, it's good to see you!\" he says, reaching out to shake his hand.",
    :response2
-   "You spot Frederik as he enters the tavern and greet him warmly. \"Hello Frederik, it's good to see you,\" you say with a smile.",
+   "You spot Frederik Ludgate and greet him warmly, a smile spreading across your face. \"Hello Frederik, it's good to see you!\" you say, reaching out to shake his hand.",
    :loc :ri662,
-   :say "\"Hello Frederik, it's good to see you.\"",
+   :say "\"Hello Frederik, it's good to see you!\"",
    :src :rafe}
   {:response3
-   "Cori finishes her drink and makes her way to the Private Room, looking around the Bar Room one last time before disappearing through the door.",
+   "As Cornelia Finch makes her way through the crowded Bar Room, she catches sight of the Private Room and heads towards it. Weaving her way through the tables and patrons, she arrives at the door and slips inside, disappearing from view.",
    :response2
-   "You finish your drink and make your way to the Private Room, looking around the Bar Room one last time before disappearing through the door.",
+   "You make your way through the crowded Bar Room, catching sight of the Private Room and heading towards it. Weaving your way through the tables and patrons, you arrive at the door and slip inside, disappearing from view.",
    :arrive
-   "Cori arrives at the Private Room, pushing open the door and stepping inside. The warm light of flickering candles and the soft murmur of conversation greet her as she enters the cozy and intimate space.",
+   "Cornelia Finch arrives at the door of the Private Room, pushing it open and stepping inside. The cozy atmosphere and soft lighting greet her, and she sees a few familiar faces gathered around one of the tables. She smiles and makes her way over to join them.",
    :loc :ri662,
    :travel-to :yu595,
    :src :cori}
   {:response3
-   "Frederik approaches Rafe and greets him with a smile. \"Hi, Rafe! Who were you talking to?\" he asks, looking around the Bar Room curiously to see if there is anyone else he knows.",
+   "Frederik Ludgate notices that Cornelia Finch is leaving and turns to Rafe Hunter with a puzzled expression. \"Hi Rafe, why is Cornelia leaving?\" he asks.",
    :response2
-   "You approach Rafe and greet him with a smile. \"Hi, Rafe! Who were you talking to?\" you ask, looking around the Bar Room curiously to see if there is anyone else you know.",
+   "You notice that Cornelia Finch is leaving and turn to Rafe Hunter with a puzzled expression. \"Hi Rafe, why is Cornelia leaving?\" you ask.",
    :loc :ri662,
-   :say "Hi, Rafe! Who were you talking to?",
+   :say "Hi Rafe, why is Corinelia leaving?",
    :src :fred}
   {:response3
-   "Rafe answers Frederik's question and they engage in conversation, catching up on each other's lives and discussing their plans for the evening.",
+   "Rafe Hunter stands up from his seat, excusing himself from Frederik. He makes his way towards the Private Room, his steps purposeful as he pushes open the door and scans the room for Cornelia. \"Hey Cori, Frederik was wondering why you had to leave. Is everything okay?\" he asks, his voice filled with concern.",
    :response2
-   "Rafe answers your question and you engage in conversation, catching up on each other's lives and discussing your plans for the evening.",
+   "You stand up from your seat, excusing yourself from Frederik. You make your way towards the Private Room, your steps purposeful as you push open the door and scan the room for Cornelia. \"Hey Cori, Frederik was wondering why you had to leave. Is everything okay?\" you ask, your voice filled with concern.",
    :loc :ri662,
-   :say
-   "\"I was just chatting with Cori, a minstrel who was looking for inspiration for a new song. How about you, Frederik? What brings you to the Odd Duck tonight?\"",
+   :say "I'm not sure, but I could go ask her",
    :src :rafe}
   {:response3
-   "Cori stands up from her seat in the Private Room and makes her way back into the Bar Room, smiling as she re-enters the lively atmosphere.",
+   "Cornelia Finch stands up from her seat in the Private Room, bidding farewell to her companions with a warm smile. She makes her way towards the door, pushing it open and stepping out into the Bar Room. The lively atmosphere and chatter of patrons greets her as she weaves her way through the tables and towards the exit.",
    :response2
-   "You stand up from your seat in the Private Room and make your way back into the Bar Room, smiling as you re-enter the lively atmosphere.",
+   "You stand up from your seat in the Private Room, bidding farewell to your companions with a warm smile. You make your way towards the door, pushing it open and stepping out into the Bar Room. The lively atmosphere and chatter of patrons greets you as you weave your way through the tables and towards the exit.",
    :arrive
-   "Cori arrives back in the Bar Room, pushing open the door and stepping inside. She takes a deep breath, feeling invigorated by the lively atmosphere and the sounds of music and conversation.",
+   "Cornelia Finch arrives in the Bar Room, pushing open the door and stepping inside. The warm, inviting atmosphere of the tavern washes over her as she takes in the sights and sounds of the bustling establishment. She looks around for familiar faces, her eyes scanning the room for any sign of her companions.",
    :loc :yu595,
    :travel-to :ri662,
    :src :cori}
   {:response3
-   "Frederik mutters under his breath as he spots Cori entering the Bar Room. He seems annoyed by her presence and quickly finishes his drink before making his way towards the door.",
+   "Frederik Ludgate notices Cornelia Finch returning to the Bar Room and greets her with a smile. \"Oh, you've come back!\" he says, happy to see her return.",
    :response2
-   "You hear Frederik mutter under his breath as he spots Cori entering the Bar Room. He seems annoyed by her presence and quickly finishes his drink before making his way towards the door.",
+   "You notice Cornelia Finch returning to the Bar Room and greet her with a smile. \"Oh, you've come back!\" you say, happy to see her return.",
    :loc :ri662,
-   :say "Oh no, Cori's here again.",
+   :say "Oh, you've come back!",
    :src :fred}
   {:response3
-   "Rafe excuses himself from his conversation with Frederik and makes his way towards the Private Room, weaving his way through the crowd of patrons in the Bar Room before disappearing through the door.",
+   "Rafe Hunter quickly approaches Cornelia Finch, his expression filled with concern. \"Hey Cori, welcome back. Is everything okay?\" he asks, his voice soft and gentle.",
    :response2
-   "You excuse yourself from your conversation with Frederik and make your way towards the Private Room, weaving your way through the crowd of patrons in the Bar Room before disappearing through the door.",
+   "You quickly approach Cornelia Finch, your expression filled with concern. \"Hey Cori, welcome back. Is everything okay?\" you ask, your voice soft and gentle.",
+   :loc :ri662,
+   :say "\"Hey Cori, welcome back. Is everything okay?\"",
+   :src :rafe}
+  {:response3
+   "Cornelia Finch smiles warmly at Rafe Hunter and Frederik Ludgate. \"Yes, everything is fine. I just had to take care of something,\" she says, her tone reassuring. She looks around the Bar Room, taking in the lively atmosphere. \"What have you two been up to?\" she asks, curious.",
+   :response2
+   "You smile warmly at Rafe Hunter and Frederik Ludgate. \"Yes, everything is fine. I just had to take care of something,\" you say, your tone reassuring. You look around the Bar Room, taking in the lively atmosphere. \"What have you two been up to?\" you ask, curious.",
+   :loc :ri662,
+   :say
+   "Yes, everything is fine. I just had to take care of something. What have you two been up to?",
+   :src :cori}
+  {:response3
+   "Frederik Ludgate approaches Rafe and Cornelia, his expression grim. \"I overheard Suzanne saying nasty things about you. What do you think we should do?\" he asks, his voice low and serious. The three of them huddle together, discussing their options and formulating a plan to confront Suzanne and put a stop to her hurtful behavior.",
+   :response2
+   "You approach Rafe and Cornelia, your expression grim. \"I overheard Suzanne saying nasty things about you. What do you think we should do?\" you ask, your voice low and serious. The three of you huddle together, discussing your options and formulating a plan to confront Suzanne and put a stop to her hurtful behavior.",
+   :loc :ri662,
+   :say
+   "I overheard Suzanne saying nasty things about you. What do you think we should do?",
+   :src :fred}
+  {:response3
+   "Rafe Hunter finishes his drink and stands up from his seat in the Bar Room, his eyes focused on the door leading to the Private Room. He weaves his way through the tables and patrons, his steps purposeful as he pushes open the door and disappears from view.",
+   :response2
+   "You finish your drink and stand up from your seat in the Bar Room, your eyes focused on the door leading to the Private Room. You weave your way through the tables and patrons, your steps purposeful as you push open the door and disappear from view.",
    :arrive
-   "Rafe arrives at the Private Room, pushing open the door and stepping inside. The warm light of flickering candles and the soft murmur of conversation greet him as he enters the cozy and intimate space.",
+   "Rafe Hunter arrives at the door of the Private Room, pushing it open and stepping inside. The cozy atmosphere and soft lighting greet him, and he sees his companions gathered around one of the tables. He smiles and makes his way over to join them.",
    :loc :ri662,
    :travel-to :yu595,
    :src :rafe}
   {:response3
-   "Cori spots Rafe entering the Private Room and greets him warmly. \"Hi, Rafe! I enjoyed our conversation earlier. Did you have any luck finding treasure on your latest adventure?\" she asks, leaning in with interest to hear the details.",
+   "Cornelia Finch finishes her drink and stands up from her seat in the Bar Room, her eyes focused on the door leading to the Private Room. She weaves her way through the tables and patrons, her steps purposeful as she pushes open the door and disappears from view.",
    :response2
-   "You spot Rafe entering the Private Room and greet him warmly. \"Hi, Rafe! I enjoyed our conversation earlier. Did you have any luck finding treasure on your latest adventure?\" you ask, leaning in with interest to hear the details.",
+   "You finish your drink and stand up from your seat in the Bar Room, your eyes focused on the door leading to the Private Room. You weave your way through the tables and patrons, your steps purposeful as you push open the door and disappear from view.",
+   :arrive
+   "Cornelia Finch arrives at the door of the Private Room, pushing it open and stepping inside. The cozy atmosphere and soft lighting greet her, and she sees her companions gathered around one of the tables. She smiles and makes her way over to join them.",
    :loc :ri662,
-   :say
-   "Hi, Rafe! I enjoyed our conversation earlier. Did you have any luck finding treasure on your latest adventure?",
-   :src :cori}],
- :next-turn [:fred :rafe :cori],
+   :travel-to :yu595,
+   :src :cori}
+  {:response3
+   "Frederik Ludgate finishes his drink and stands up from his seat in the Bar Room. He makes his way towards the door, pushing it open and stepping out into the main tavern. Weaving his way through the tables and patrons, he heads towards the Private Room, disappearing from view as he pushes open the door and steps inside.",
+   :response2
+   "You finish your drink and stand up from your seat in the Bar Room. You make your way towards the door, pushing it open and stepping out into the main tavern. Weaving your way through the tables and patrons, you head towards the Private Room, disappearing from view as you push open the door and step inside.",
+   :arrive
+   "Frederik Ludgate arrives at the door of the Private Room, pushing it open and stepping inside. The cozy atmosphere and soft lighting greet him, and he sees his companions gathered around one of the tables. He smiles and makes his way over to join them.",
+   :loc :ri662,
+   :travel-to :yu595,
+   :src :fred}
+  {:response3
+   "Rafe Hunter leans forward, his eyes focused on his companions as he addresses the group. \"So, what's our plan regarding Suzanne?\" he asks, his tone serious and determined. The group huddles together, discussing their options and formulating a plan of action to put a stop to Suzanne's hurtful behavior.",
+   :response2
+   "You lean forward, your eyes focused on your companions as you address the group. \"So, what's our plan regarding Suzanne?\" you ask, your tone serious and determined. The group huddles together, discussing your options and formulating a plan of action to put a stop to Suzanne's hurtful behavior.",
+   :loc :yu595,
+   :say "\"So, what's our plan regarding Suzanne?\"",
+   :src :rafe}],
+ :next-turn [:cori :fred :rafe],
  :actors
  {:fred
   {:type :local-player,
-   :loc :ri662,
+   :loc :yu595,
    :name "Frederik Ludgate",
    :description
    "a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing.",
    :mem
    [{:loc :s003, :travel-to :s006}
     {:text
-     "You make your way down Main Street and arrive at the Odd Duck, looking around the cozy tavern with interest before heading inside.\n\nThe Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.\n\nThe space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you. You can see the skilled bartender mixing drinks, tossing bottles, and chatting with the patrons.\n\nThe walls of the Bar Room are adorned with hunting trophies and other rustic artifacts, such as old farm tools, antlers, and mounted fish. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nFrom the Bar Room, you can access the Kitchen, where delicious meals are prepared using fresh ingredients sourced from local farms and markets. There is also a Private Room, which can be reserved for special occasions or private gatherings.\n\nIf you're looking to explore more of Gryphonport, you can exit the Bar Room and step out onto Main Street, where you'll find a variety of shops, inns, and other establishments.\n\n\nHere you can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.\nHere you can see Cornelia Finch, a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely."}
+     "You make your way from Main Street to the Odd Duck, your steps purposeful as you navigate the bustling crowds. You arrive at the tavern, pushing open the heavy wooden door and stepping inside, your eyes scanning the room for a familiar face.\n\nThe Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.\n\nThe space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you. You can see the skilled bartender mixing drinks, tossing bottles, and chatting with the patrons.\n\nThe walls of the Bar Room are adorned with hunting trophies and other rustic artifacts, such as old farm tools, antlers, and mounted fish. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nFrom the Bar Room, you can access the Kitchen, where delicious meals are prepared using fresh ingredients sourced from local farms and markets. There is also a Private Room, which can be reserved for special occasions or private gatherings.\n\nIf you're looking to explore more of Gryphonport, you can exit the Bar Room and step out onto Main Street, where you'll find a variety of shops, inns, and other establishments.\n\n\nHere you can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.\nHere you can see Cornelia Finch, a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely."}
     {:text
-     "Rafe spots Frederik as he enters the tavern and greets him warmly. \"Hello Frederik, it's good to see you,\" he says with a smile."}
+     "Rafe Hunter spots Frederik Ludgate and greets him warmly, a smile spreading across his face. \"Hello Frederik, it's good to see you!\" he says, reaching out to shake his hand."}
     {:text
-     "Cori finishes her drink and makes her way to the Private Room, looking around the Bar Room one last time before disappearing through the door."}
-    {:loc :ri662, :say "Hi, Rafe! Who were you talking to?"}
+     "As Cornelia Finch makes her way through the crowded Bar Room, she catches sight of the Private Room and heads towards it. Weaving her way through the tables and patrons, she arrives at the door and slips inside, disappearing from view."}
+    {:loc :ri662, :say "Hi Rafe, why is Corinelia leaving?"}
     {:text
-     "You approach Rafe and greet him with a smile. \"Hi, Rafe! Who were you talking to?\" you ask, looking around the Bar Room curiously to see if there is anyone else you know."}
+     "You notice that Cornelia Finch is leaving and turn to Rafe Hunter with a puzzled expression. \"Hi Rafe, why is Cornelia leaving?\" you ask."}
     {:text
-     "Rafe answers Frederik's question and they engage in conversation, catching up on each other's lives and discussing their plans for the evening."}
+     "Rafe Hunter stands up from his seat, excusing himself from Frederik. He makes his way towards the Private Room, his steps purposeful as he pushes open the door and scans the room for Cornelia. \"Hey Cori, Frederik was wondering why you had to leave. Is everything okay?\" he asks, his voice filled with concern."}
     {:text
-     "Cori arrives back in the Bar Room, pushing open the door and stepping inside. She takes a deep breath, feeling invigorated by the lively atmosphere and the sounds of music and conversation.\n\nCornelia Finch is a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely."}
-    {:loc :ri662, :say "Oh no, Cori's here again."}
+     "Cornelia Finch arrives in the Bar Room, pushing open the door and stepping inside. The warm, inviting atmosphere of the tavern washes over her as she takes in the sights and sounds of the bustling establishment. She looks around for familiar faces, her eyes scanning the room for any sign of her companions.\n\nCornelia Finch is a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely."}
+    {:loc :ri662, :say "Oh, you've come back!"}
     {:text
-     "You hear Frederik mutter under his breath as he spots Cori entering the Bar Room. He seems annoyed by her presence and quickly finishes his drink before making his way towards the door."}
+     "You notice Cornelia Finch returning to the Bar Room and greet her with a smile. \"Oh, you've come back!\" you say, happy to see her return."}
     {:text
-     "Rafe excuses himself from his conversation with Frederik and makes his way towards the Private Room, weaving his way through the crowd of patrons in the Bar Room before disappearing through the door."}
+     "Rafe Hunter quickly approaches Cornelia Finch, his expression filled with concern. \"Hey Cori, welcome back. Is everything okay?\" he asks, his voice soft and gentle."}
     {:text
-     "Cori spots Rafe entering the Private Room and greets him warmly. \"Hi, Rafe! I enjoyed our conversation earlier. Did you have any luck finding treasure on your latest adventure?\" she asks, leaning in with interest to hear the details."}]},
+     "Cornelia Finch smiles warmly at Rafe Hunter and Frederik Ludgate. \"Yes, everything is fine. I just had to take care of something,\" she says, her tone reassuring. She looks around the Bar Room, taking in the lively atmosphere. \"What have you two been up to?\" she asks, curious."}
+    {:loc :ri662,
+     :say
+     "I overheard Suzanne saying nasty things about you. What do you think we should do?"}
+    {:text
+     "You approach Rafe and Cornelia, your expression grim. \"I overheard Suzanne saying nasty things about you. What do you think we should do?\" you ask, your voice low and serious. The three of you huddle together, discussing your options and formulating a plan to confront Suzanne and put a stop to her hurtful behavior."}
+    {:text
+     "Rafe Hunter finishes his drink and stands up from his seat in the Bar Room, his eyes focused on the door leading to the Private Room. He weaves his way through the tables and patrons, his steps purposeful as he pushes open the door and disappears from view."}
+    {:text
+     "Cornelia Finch finishes her drink and stands up from her seat in the Bar Room, her eyes focused on the door leading to the Private Room. She weaves her way through the tables and patrons, her steps purposeful as she pushes open the door and disappears from view."}
+    {:loc :ri662, :travel-to :yu595}
+    {:text
+     "You finish your drink and stand up from your seat in the Bar Room. You make your way towards the door, pushing it open and stepping out into the main tavern. Weaving your way through the tables and patrons, you head towards the Private Room, disappearing from view as you push open the door and step inside.\n\nThe Private Room of Odd Duck is a cozy and intimate space tucked away from the lively Bar Room. As you enter, you're struck by the warm light of flickering candles and the soft murmur of conversation. The room is dimly lit, creating a cozy and romantic atmosphere.\n\nThe walls of the Private Room are adorned with hunting trophies and other rustic artifacts, similar to the Bar Room. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nThis room is perfect for private gatherings or special occasions. It can be reserved for small parties or business meetings, providing a comfortable and secluded space away from the hustle and bustle of the main tavern.\n\nFrom the Private Room, you can exit back into the Bar Room, where you can enjoy the lively atmosphere and entertainment.\n\n\nHere you can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.\nHere you can see Cornelia Finch, a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely."}
+    {:text
+     "Rafe Hunter leans forward, his eyes focused on his companions as he addresses the group. \"So, what's our plan regarding Suzanne?\" he asks, his tone serious and determined. The group huddles together, discussing their options and formulating a plan of action to put a stop to Suzanne's hurtful behavior."}]},
   :rafe
   {:type :npc,
    :loc :yu595,
@@ -722,37 +775,55 @@
     {:text
      "Cori glances at the clock and stands up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" she says with a smile before heading towards the door."}
     {:text
-     "Frederik arrives at the Odd Duck, pushing open the door and stepping inside. He takes a moment to look around the cozy tavern, taking in the sights and sounds of the patrons enjoying their evening.\n\nFrederik Ludgate is a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing."}
+     "Frederik Ludgate arrives at the Odd Duck, pushing open the heavy wooden door and stepping inside. The warm, inviting atmosphere of the tavern washes over him as he takes in the sights and sounds of the bustling establishment.\n\nFrederik Ludgate is a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing."}
     {:loc :ri662,
-     :say "\"Hello Frederik, it's good to see you.\"",
-     :reason
-     "It's polite to acknowledge someone when they enter a room, and I'm happy to see Frederik."}
+     :say "\"Hello Frederik, it's good to see you!\"",
+     :reason "I want to greet him and show that I'm friendly."}
     {:text
-     "You spot Frederik as he enters the tavern and greet him warmly. \"Hello Frederik, it's good to see you,\" you say with a smile."}
+     "You spot Frederik Ludgate and greet him warmly, a smile spreading across your face. \"Hello Frederik, it's good to see you!\" you say, reaching out to shake his hand."}
     {:text
-     "Cori finishes her drink and makes her way to the Private Room, looking around the Bar Room one last time before disappearing through the door."}
+     "As Cornelia Finch makes her way through the crowded Bar Room, she catches sight of the Private Room and heads towards it. Weaving her way through the tables and patrons, she arrives at the door and slips inside, disappearing from view."}
     {:text
-     "Frederik approaches Rafe and greets him with a smile. \"Hi, Rafe! Who were you talking to?\" he asks, looking around the Bar Room curiously to see if there is anyone else he knows."}
+     "Frederik Ludgate notices that Cornelia Finch is leaving and turns to Rafe Hunter with a puzzled expression. \"Hi Rafe, why is Cornelia leaving?\" he asks."}
     {:loc :ri662,
-     :say
-     "\"I was just chatting with Cori, a minstrel who was looking for inspiration for a new song. How about you, Frederik? What brings you to the Odd Duck tonight?\"",
+     :say "I'm not sure, but I could go ask her",
      :reason
-     "I want to have a friendly conversation with Frederik and show interest in his activities."}
+     "I want to be helpful and show that I'm attentive to my friends' needs."}
     {:text
-     "Rafe answers your question and you engage in conversation, catching up on each other's lives and discussing your plans for the evening."}
+     "You stand up from your seat, excusing yourself from Frederik. You make your way towards the Private Room, your steps purposeful as you push open the door and scan the room for Cornelia. \"Hey Cori, Frederik was wondering why you had to leave. Is everything okay?\" you ask, your voice filled with concern."}
     {:text
-     "Cori arrives back in the Bar Room, pushing open the door and stepping inside. She takes a deep breath, feeling invigorated by the lively atmosphere and the sounds of music and conversation.\n\nCornelia Finch is a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely."}
+     "Cornelia Finch arrives in the Bar Room, pushing open the door and stepping inside. The warm, inviting atmosphere of the tavern washes over her as she takes in the sights and sounds of the bustling establishment. She looks around for familiar faces, her eyes scanning the room for any sign of her companions.\n\nCornelia Finch is a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely."}
     {:text
-     "Frederik mutters under his breath as he spots Cori entering the Bar Room. He seems annoyed by her presence and quickly finishes his drink before making his way towards the door."}
+     "Frederik Ludgate notices Cornelia Finch returning to the Bar Room and greets her with a smile. \"Oh, you've come back!\" he says, happy to see her return."}
+    {:loc :ri662,
+     :say "\"Hey Cori, welcome back. Is everything okay?\"",
+     :reason
+     "I want to greet Cori and show that I'm glad she's back, and also express my concern for her well-being."}
+    {:text
+     "You quickly approach Cornelia Finch, your expression filled with concern. \"Hey Cori, welcome back. Is everything okay?\" you ask, your voice soft and gentle."}
+    {:text
+     "Cornelia Finch smiles warmly at Rafe Hunter and Frederik Ludgate. \"Yes, everything is fine. I just had to take care of something,\" she says, her tone reassuring. She looks around the Bar Room, taking in the lively atmosphere. \"What have you two been up to?\" she asks, curious."}
+    {:text
+     "Frederik Ludgate approaches Rafe and Cornelia, his expression grim. \"I overheard Suzanne saying nasty things about you. What do you think we should do?\" he asks, his voice low and serious. The three of them huddle together, discussing their options and formulating a plan to confront Suzanne and put a stop to her hurtful behavior."}
     {:loc :ri662,
      :travel-to :yu595,
      :reason
-     "I'm not sure why Frederik seems annoyed by Cori, but I don't want to make things awkward by staying in the Bar Room. It's probably best to move to the Private Room where we can continue our conversation in a more private setting."}
+     "We're discussing a private matter and need to move to a more secluded location."}
     {:text
-     "You excuse yourself from your conversation with Frederik and make your way towards the Private Room, weaving your way through the crowd of patrons in the Bar Room before disappearing through the door.\n\nThe Private Room of Odd Duck is a cozy and intimate space tucked away from the lively Bar Room. As you enter, you're struck by the warm light of flickering candles and the soft murmur of conversation. The room is dimly lit, creating a cozy and romantic atmosphere.\n\nThe walls of the Private Room are adorned with hunting trophies and other rustic artifacts, similar to the Bar Room. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nThis room is perfect for private gatherings or special occasions. It can be reserved for small parties or business meetings, providing a comfortable and secluded space away from the hustle and bustle of the main tavern.\n\nFrom the Private Room, you can exit back into the Bar Room, where you can enjoy the lively atmosphere and entertainment.\n\n\n\n"}]},
+     "You finish your drink and stand up from your seat in the Bar Room, your eyes focused on the door leading to the Private Room. You weave your way through the tables and patrons, your steps purposeful as you push open the door and disappear from view.\n\nThe Private Room of Odd Duck is a cozy and intimate space tucked away from the lively Bar Room. As you enter, you're struck by the warm light of flickering candles and the soft murmur of conversation. The room is dimly lit, creating a cozy and romantic atmosphere.\n\nThe walls of the Private Room are adorned with hunting trophies and other rustic artifacts, similar to the Bar Room. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nThis room is perfect for private gatherings or special occasions. It can be reserved for small parties or business meetings, providing a comfortable and secluded space away from the hustle and bustle of the main tavern.\n\nFrom the Private Room, you can exit back into the Bar Room, where you can enjoy the lively atmosphere and entertainment.\n\n\n\n"}
+    {:text
+     "Cornelia Finch arrives at the door of the Private Room, pushing it open and stepping inside. The cozy atmosphere and soft lighting greet her, and she sees her companions gathered around one of the tables. She smiles and makes her way over to join them.\n\nCornelia Finch is a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely."}
+    {:text
+     "Frederik Ludgate arrives at the door of the Private Room, pushing it open and stepping inside. The cozy atmosphere and soft lighting greet him, and he sees his companions gathered around one of the tables. He smiles and makes his way over to join them.\n\nFrederik Ludgate is a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing."}
+    {:loc :yu595,
+     :say "\"So, what's our plan regarding Suzanne?\"",
+     :reason
+     "We need to discuss our plan and come up with a strategy to confront Suzanne."}
+    {:text
+     "You lean forward, your eyes focused on your companions as you address the group. \"So, what's our plan regarding Suzanne?\" you ask, your tone serious and determined. The group huddles together, discussing your options and formulating a plan of action to put a stop to Suzanne's hurtful behavior."}]},
   :cori
   {:type :npc,
-   :loc :ri662,
+   :loc :yu595,
    :name "Cornelia Finch",
    :description
    "a young woman with short, tousled chestnut hair that frames her oval-shaped face. She has expressive hazel eyes that convey her passion and determination. She carries herself with poise and grace. Her fingers are long and slender, and she is wearing simple yet elegant clothing that allows her to move freely.",
@@ -909,29 +980,46 @@
     {:text
      "You glance at the clock and stand up. \"It's getting late, but I'm glad we had a chance to chat. I should be going now. Good night, Rafe,\" you say with a smile before heading towards the door."}
     {:text
-     "Frederik arrives at the Odd Duck, pushing open the door and stepping inside. He takes a moment to look around the cozy tavern, taking in the sights and sounds of the patrons enjoying their evening.\n\nFrederik Ludgate is a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing."}
+     "Frederik Ludgate arrives at the Odd Duck, pushing open the heavy wooden door and stepping inside. The warm, inviting atmosphere of the tavern washes over him as he takes in the sights and sounds of the bustling establishment.\n\nFrederik Ludgate is a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing."}
     {:text
-     "Rafe spots Frederik as he enters the tavern and greets him warmly. \"Hello Frederik, it's good to see you,\" he says with a smile."}
+     "Rafe Hunter spots Frederik Ludgate and greets him warmly, a smile spreading across his face. \"Hello Frederik, it's good to see you!\" he says, reaching out to shake his hand."}
     {:loc :ri662,
      :travel-to :yu595,
      :reason
-     "I want to continue my night and maybe find some inspiration in a quieter setting."}
+     "I'm curious about what Rafe and Frederik are talking about, so I want to eavesdrop on their conversation from the Private Room."}
     {:text
-     "You finish your drink and make your way to the Private Room, looking around the Bar Room one last time before disappearing through the door.\n\nThe Private Room of Odd Duck is a cozy and intimate space tucked away from the lively Bar Room. As you enter, you're struck by the warm light of flickering candles and the soft murmur of conversation. The room is dimly lit, creating a cozy and romantic atmosphere.\n\nThe walls of the Private Room are adorned with hunting trophies and other rustic artifacts, similar to the Bar Room. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nThis room is perfect for private gatherings or special occasions. It can be reserved for small parties or business meetings, providing a comfortable and secluded space away from the hustle and bustle of the main tavern.\n\nFrom the Private Room, you can exit back into the Bar Room, where you can enjoy the lively atmosphere and entertainment.\n\n\n\n"}
+     "You make your way through the crowded Bar Room, catching sight of the Private Room and heading towards it. Weaving your way through the tables and patrons, you arrive at the door and slip inside, disappearing from view.\n\nThe Private Room of Odd Duck is a cozy and intimate space tucked away from the lively Bar Room. As you enter, you're struck by the warm light of flickering candles and the soft murmur of conversation. The room is dimly lit, creating a cozy and romantic atmosphere.\n\nThe walls of the Private Room are adorned with hunting trophies and other rustic artifacts, similar to the Bar Room. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nThis room is perfect for private gatherings or special occasions. It can be reserved for small parties or business meetings, providing a comfortable and secluded space away from the hustle and bustle of the main tavern.\n\nFrom the Private Room, you can exit back into the Bar Room, where you can enjoy the lively atmosphere and entertainment.\n\n\n\n"}
+    {:err-cmd
+     "listen: \n\nreason: I want to listen in on Rafe and Frederik's conversation before deciding what to do next."}
+    {:text "That is an unsupported command."}
     {:loc :yu595,
      :travel-to :ri662,
      :reason
-     "I want to go back to the Bar Room to see if there are any new faces or interesting characters to meet."}
+     "I cannot listen in on Rafe and Frederik's conversation, so I will leave the Private Room and return to the Bar Room."}
     {:text
-     "You stand up from your seat in the Private Room and make your way back into the Bar Room, smiling as you re-enter the lively atmosphere.\n\nThe Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.\n\nThe space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you. You can see the skilled bartender mixing drinks, tossing bottles, and chatting with the patrons.\n\nThe walls of the Bar Room are adorned with hunting trophies and other rustic artifacts, such as old farm tools, antlers, and mounted fish. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nFrom the Bar Room, you can access the Kitchen, where delicious meals are prepared using fresh ingredients sourced from local farms and markets. There is also a Private Room, which can be reserved for special occasions or private gatherings.\n\nIf you're looking to explore more of Gryphonport, you can exit the Bar Room and step out onto Main Street, where you'll find a variety of shops, inns, and other establishments.\n\nHere you can see Frederik Ludgate, a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing.\nHere you can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.\n"}
+     "You stand up from your seat in the Private Room, bidding farewell to your companions with a warm smile. You make your way towards the door, pushing it open and stepping out into the Bar Room. The lively atmosphere and chatter of patrons greets you as you weave your way through the tables and towards the exit.\n\nThe Bar Room is the heart of Gryphonport's popular tavern, Odd Duck. As you step inside, you're greeted by the warm light of flickering candles and the sounds of lively conversation and music. The room is cozy and inviting, with a rustic decor that adds to its charm.\n\nThe space is dominated by a long wooden bar, behind which stands the friendly bartender, ready to pour you a cold drink or mix up a signature cocktail. The bar is lined with a variety of bottles, some of which you recognize and others that are unfamiliar to you. You can see the skilled bartender mixing drinks, tossing bottles, and chatting with the patrons.\n\nThe walls of the Bar Room are adorned with hunting trophies and other rustic artifacts, such as old farm tools, antlers, and mounted fish. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nFrom the Bar Room, you can access the Kitchen, where delicious meals are prepared using fresh ingredients sourced from local farms and markets. There is also a Private Room, which can be reserved for special occasions or private gatherings.\n\nIf you're looking to explore more of Gryphonport, you can exit the Bar Room and step out onto Main Street, where you'll find a variety of shops, inns, and other establishments.\n\nHere you can see Frederik Ludgate, a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing.\nHere you can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.\n"}
     {:text
-     "Frederik mutters under his breath as he spots Cori entering the Bar Room. He seems annoyed by her presence and quickly finishes his drink before making his way towards the door."}
+     "Frederik Ludgate notices Cornelia Finch returning to the Bar Room and greets her with a smile. \"Oh, you've come back!\" he says, happy to see her return."}
     {:text
-     "Rafe excuses himself from his conversation with Frederik and makes his way towards the Private Room, weaving his way through the crowd of patrons in the Bar Room before disappearing through the door."}
+     "Rafe Hunter quickly approaches Cornelia Finch, his expression filled with concern. \"Hey Cori, welcome back. Is everything okay?\" he asks, his voice soft and gentle."}
     {:loc :ri662,
      :say
-     "Hi, Rafe! I enjoyed our conversation earlier. Did you have any luck finding treasure on your latest adventure?",
+     "Yes, everything is fine. I just had to take care of something. What have you two been up to?",
      :reason
-     "I want to continue the conversation with Rafe and see if he had any exciting updates about his latest adventure."}
+     "I want to reassure Rafe that everything is okay and find out what Frederik and Rafe have been discussing while I was away."}
     {:text
-     "You spot Rafe entering the Private Room and greet him warmly. \"Hi, Rafe! I enjoyed our conversation earlier. Did you have any luck finding treasure on your latest adventure?\" you ask, leaning in with interest to hear the details."}]}}}
+     "You smile warmly at Rafe Hunter and Frederik Ludgate. \"Yes, everything is fine. I just had to take care of something,\" you say, your tone reassuring. You look around the Bar Room, taking in the lively atmosphere. \"What have you two been up to?\" you ask, curious."}
+    {:text
+     "Frederik Ludgate approaches Rafe and Cornelia, his expression grim. \"I overheard Suzanne saying nasty things about you. What do you think we should do?\" he asks, his voice low and serious. The three of them huddle together, discussing their options and formulating a plan to confront Suzanne and put a stop to her hurtful behavior."}
+    {:text
+     "Rafe Hunter finishes his drink and stands up from his seat in the Bar Room, his eyes focused on the door leading to the Private Room. He weaves his way through the tables and patrons, his steps purposeful as he pushes open the door and disappears from view."}
+    {:loc :ri662,
+     :travel-to :yu595,
+     :reason
+     "Rafe seemed to have left in a hurry, and I'm curious about what he's doing in the Private Room."}
+    {:text
+     "You finish your drink and stand up from your seat in the Bar Room, your eyes focused on the door leading to the Private Room. You weave your way through the tables and patrons, your steps purposeful as you push open the door and disappear from view.\n\nThe Private Room of Odd Duck is a cozy and intimate space tucked away from the lively Bar Room. As you enter, you're struck by the warm light of flickering candles and the soft murmur of conversation. The room is dimly lit, creating a cozy and romantic atmosphere.\n\nThe walls of the Private Room are adorned with hunting trophies and other rustic artifacts, similar to the Bar Room. The wooden tables and benches are well-worn and have clearly seen years of use, giving the room a sense of character and history.\n\nThis room is perfect for private gatherings or special occasions. It can be reserved for small parties or business meetings, providing a comfortable and secluded space away from the hustle and bustle of the main tavern.\n\nFrom the Private Room, you can exit back into the Bar Room, where you can enjoy the lively atmosphere and entertainment.\n\n\nHere you can see Rafe Hunter, a young man with a spiky shock of dark hair and wide, dark eyes. He's wearing the thick leather clothes of a woodsman, but they look conspicuously clean as if they're brand-new.\n"}
+    {:text
+     "Frederik Ludgate arrives at the door of the Private Room, pushing it open and stepping inside. The cozy atmosphere and soft lighting greet him, and he sees his companions gathered around one of the tables. He smiles and makes his way over to join them.\n\nFrederik Ludgate is a tall, slender man with sharp features and piercing blue eyes. His hair is thick and dark, with just a hint of gray at the temples. He has a serious, studious expression that belies his playful sense of humor. Frederik is always impeccably dressed, favoring tailored suits and well-polished shoes. He carries himself with a quiet confidence that commands respect. Despite his scholarly demeanor, Frederik is an adventurous soul at heart, always seeking new experiences and challenges to inspire his writing."}
+    {:text
+     "Rafe Hunter leans forward, his eyes focused on his companions as he addresses the group. \"So, what's our plan regarding Suzanne?\" he asks, his tone serious and determined. The group huddles together, discussing their options and formulating a plan of action to put a stop to Suzanne's hurtful behavior."}]}}}

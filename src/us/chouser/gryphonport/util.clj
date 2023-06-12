@@ -115,17 +115,19 @@
                              body-map))
         req-md5 (get-md5-hash (str (or (:cache-key request) default-cache-key)
                                    " " req-body-str))
-        [cache-hit] (->> (file-seq (io/file request-cache-dir))
-                         (remove #(neg? (.indexOf (str %) req-md5))))]
-
-    (if-let [cache-file cache-hit]
+        [cache-file] (->> (file-seq (io/file request-cache-dir))
+                          (remove #(neg? (.indexOf (str %) req-md5))))
+        cached-response (when cache-file
+                          (->> cache-file io/reader java.io.PushbackReader.
+                               (edn/read {:default vector})
+                               :response))]
+    (if (and cache-file
+             (not (contains? #{429} (:status cached-response))))
       (do
         (when (:prn-usage? request true)
           (binding [*out* *err*]
             (prn :cache-hit)))
-        (->> cache-file io/reader java.io.PushbackReader.
-             (edn/read {:default vector})
-             :response))
+        cached-response)
       ;; cache miss:
       (let [request
             , (-> request
@@ -148,7 +150,7 @@
                      :response response})))
         (when (:prn-usage? request true)
           (binding [*out* *err*]
-            (some-> response :body-map :usage prn)))
+            (some-> response :body-map :usage (assoc :req-md5 req-md5) prn)))
         response))))
 
 (defn chatm [msgs]

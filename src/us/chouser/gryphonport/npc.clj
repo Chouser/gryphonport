@@ -30,11 +30,11 @@
                          "\nWhat should you do, and why?"]
                         [:assistant (->> mems
                                          (map (fn [mem]
-                                                [(cond
-                                                   (:err-cmd mem) (:err-cmd mem)
-                                                   (:say mem) ["say: " (:say mem)]
-                                                   (:travel-to mem) ["travel-to: " (:name (loc/node state (:travel-to mem)))])
-                                                 "\n\nreason: " (:reason mem)]))
+                                                (or (:err-cmd mem)
+                                                    [(cond
+                                                       (:say mem) ["say: " (:say mem)]
+                                                       (:travel-to mem) ["travel-to: " (:name (loc/node state (:travel-to mem)))])
+                                                     "\n\nreason: " (:reason mem)])))
                                          (interpose "\n\n")
                                          util/fstr)])))))))
 
@@ -109,15 +109,16 @@
      [[:user
        (gen-narrator-user w actor-instruction)
        "\n\n"
-       (let [nom (-> w :actors (:src actor-instruction) :name)]
+       (let [nom (get-in w [:actors (:src actor-instruction) :name])]
+         (assert (seq nom))
          (if (:travel-to actor-instruction)
            ["Describe the action in three formats: Third person "
             "(for someone watching " nom " leave), Second person (like Third "
             "person but with 'you' instead of '" nom "', "
             "and Arriving (third person for someone watching " nom " arrive)."]
-           ["Describe the action in two formats: Third "
+           ["Narrate the action of " nom ", incuding the dictation verbatim, in two formats: Third "
             "person (for someone observing), and Second person (like Third person "
-            "with 'you' instead of " nom ")."]))]])))
+            "with 'you' instead of '" nom "')."]))]])))
 
 (m/=> parse-actor-content
       [:=> [:cat :any keyword? string?]
@@ -132,21 +133,23 @@
                       [(keyword k) (str/trim v)]))
                (into {:loc loc}))
         tt (:travel-to m)]
-    (if-not tt
-      m
-      (let [adj (loc/nav-adj-node w loc)
-            to-ids (keep #(when (<= 0 (.indexOf tt (:name %)))
-                            (:id %))
-                         adj)]
-        (condp >= (count to-ids)
-          0 (throw (ex-info (str "Bad travel-to target: " tt)
-                            {:actor-mem [{:err-cmd (util/fstr "travel-to: " tt)
-                                          :reason (:reason m)}
-                                         {:text (util/fstr "You cannot travel-to " tt " from here.")}]
-                             :loc loc, :tt tt, :adj-names (map :name adj)}))
-          1 (assoc m :travel-to (first to-ids))
-          (throw (ex-info (str "Too many matching travel-to targets: " tt)
-                          {:loc loc, :tt tt, :adj-names (map :name adj)})))))))
+    (cond
+      (:say m) m
+      tt (let [adj (loc/nav-adj-node w loc)
+               to-ids (keep #(when (<= 0 (.indexOf tt (:name %)))
+                               (:id %))
+                            adj)]
+           (condp >= (count to-ids)
+             0 (throw (ex-info (str "Bad travel-to target: " tt)
+                               {:actor-mem [{:err-cmd s}
+                                            {:text (util/fstr "You cannot travel-to " tt " from here.")}]
+                                :loc loc, :tt tt, :adj-names (map :name adj)}))
+             1 (assoc m :travel-to (first to-ids))
+             (throw (ex-info (str "Too many matching travel-to targets: " tt)
+                             {:loc loc, :tt tt, :adj-names (map :name adj)}))))
+      :else (throw (ex-info (str "Bad command: " s)
+                            {:actor-mem [{:err-cmd s}
+                                         {:text "That is an unsupported command."}]})))))
 
 (defn apply-actor-content [w actor-id parsed-instruction]
   (update-in w [:actors actor-id :mem] (fnil conj []) parsed-instruction))
