@@ -1,9 +1,9 @@
 (ns us.chouser.gryphonport.util
   (:require [clj-http.client :as http]
-            [clojure.edn :as edn]
             [clojure.data.json :as json]
-            [clojure.pprint :refer [pprint]]
+            [clojure.edn :as edn]
             [clojure.java.io :as io]
+            [clojure.pprint :refer [pprint]]
             [clojure.string :as str])
   (:import (java.io PushbackReader)
            (java.time ZonedDateTime ZoneOffset)
@@ -14,6 +14,49 @@
 
 (def default-cache-key "1")
 (def request-cache-dir "log")
+
+(defn float-array-to-str [^floats v]
+  (let [b (java.nio.ByteBuffer/allocate (* 4 (count v)))]
+    (dotimes [i (count v)]
+      (.putFloat b (aget v i)))
+    (with-open [baos (java.io.ByteArrayOutputStream.)
+                gzos (java.util.zip.GZIPOutputStream. baos)]
+      (doto gzos
+        (.write (.array b))
+        (.finish))
+      (.encodeToString (java.util.Base64/getEncoder) (.toByteArray baos)))))
+
+(defn str-to-float-array [^String compressed-base64]
+  (with-open [gzip-input-stream (->> (.getBytes compressed-base64 "utf-8")
+                                     (.decode (java.util.Base64/getDecoder))
+                                     java.io.ByteArrayInputStream.
+                                     java.util.zip.GZIPInputStream.)
+              byte-array-output-stream (java.io.ByteArrayOutputStream.)]
+    (io/copy gzip-input-stream byte-array-output-stream)
+    (let [float-buffer (->> byte-array-output-stream
+                            .toByteArray
+                            java.nio.ByteBuffer/wrap
+                            .asFloatBuffer)
+          decompressed-floats (float-array (.remaining float-buffer))]
+      (.get float-buffer decompressed-floats)
+      decompressed-floats)))
+
+(set! *warn-on-reflection* false)
+
+(deftype Embedding [v]
+  Object
+  (equals [_ o]
+    (or (and (instance? Embedding o) ;; fast case
+             (= v (.v ^Embedding o)))
+        ;; support reloading case:
+        (and (= "us.chouser.gryphonport.util.Embedding" (.getName (class o)))
+             (= v (.-v o)))))
+  (toString [_] (float-array-to-str v)))
+
+(set! *warn-on-reflection* true)
+
+(defmethod print-method Embedding [o ^java.io.Writer w]
+  (.write w (str "#" `embedding \space \" o \")))
 
 (def get-secret
   (partial get (read (PushbackReader. (io/reader "secrets.edn")))))
@@ -28,7 +71,9 @@
 (defn read-file [file-path init]
   (let [r (io/file file-path)]
     (if (.exists r)
-      (->> r io/reader PushbackReader. (edn/read {:default (fn [_ v] v)}))
+      (->> r io/reader PushbackReader.
+           (edn/read {:default (fn [_ v] v)
+                      :readers {`embedding #(Embedding. (str-to-float-array %))}}))
       init)))
 
 (defn write-file [file-path data]
@@ -155,6 +200,14 @@
 
 (defn chatm [msgs]
   (chat {:msgs msgs}))
+
+(defn embed [{:keys [body-map input] :as request}]
+  (let [response
+        , (chat {:url "https://api.openai.com/v1/embeddings"
+                 :body-map (merge {:model "text-embedding-ada-002"
+                                   :input input}
+                                  body-map)})]
+    (assoc response :embedding (->> response :body-map :data first :embedding float-array Embedding.))))
 
 (defn content [resp]
   (when (not= 200 (-> resp :status))
