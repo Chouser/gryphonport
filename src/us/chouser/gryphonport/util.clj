@@ -152,8 +152,9 @@
         (.encodeToString (java.util.Base64/getEncoder)))
    "/" "_"))
 
-(defn chat [{:keys [body-map msgs] :as request}]
-  (let [req-body-str (json/write-str
+(defn chat [{:keys [body-map msgs get-openai-key] :as request}]
+  (let [get-openai-key (or get-openai-key #(get-secret :openai-key))
+        req-body-str (json/write-str
                       (merge {:model "gpt-3.5-turbo",
                               :messages (format-msgs msgs)
                               :temperature 0.7}
@@ -171,7 +172,7 @@
       (do
         (when (:prn-usage? request true)
           (binding [*out* *err*]
-            (prn :cache-hit)))
+            (prn :cache-hit req-md5)))
         cached-response)
       ;; cache miss:
       (let [request
@@ -181,7 +182,7 @@
                         {:url "https://api.openai.com/v1/chat/completions"
                          :method :post
                          :headers {"Content-Type" "application/json"
-                                   "Authorization" (str "Bearer " (get-secret :openai-key))}
+                                   "Authorization" (str "Bearer " (get-openai-key))}
                          :throw-exceptions false
                          :body req-body-str})))
             response (http/request request)
